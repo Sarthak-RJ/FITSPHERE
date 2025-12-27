@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitSphere | Custom Planner</title>
+
+<style>
+  /* --- RESET & BASICS --- */
+  * { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI",Arial,sans-serif; }
+  body { background:#f4f6f8; color:#1f2937; padding-bottom: 50px; }
+
+  /* --- HEADER & NAVBAR --- */
+  header { background:#111827; padding:0 20px; position: sticky; top: 0; z-index: 100; }
+  
+  nav {
+    max-width:1200px;
+    margin:0 auto;
+    height: 70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  
+  .logo { color:#fff; font-size:24px; font-weight:700; letter-spacing: 1px; }
+
+  /* Desktop Nav Links */
+  .nav-links { display: flex; gap: 20px; }
+  .nav-links a { color:#fff; text-decoration:none; font-size: 16px; transition: color 0.3s; }
+  .nav-links a:hover { color: #22c55e; }
+
+  /* Hamburger Menu (Hidden on Desktop) */
+  .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+  .hamburger span { width: 25px; height: 3px; background: #fff; border-radius: 5px; }
+
+  /* --- MAIN LAYOUT --- */
+  main { max-width:1200px; margin:auto; padding:30px 20px; }
+  h1 { text-align:center; margin-bottom:6px; color: #111827; }
+  .subtitle { text-align:center; color:#6b7280; margin-bottom:30px; font-size: 0.9rem; letter-spacing: 1px; }
+
+  /* --- SECTIONS --- */
+  .section {
+    background:#fff;
+    padding:25px;
+    border-radius:14px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom:30px;
+  }
+  .section h2 { margin-bottom:15px; font-size: 1.3rem; }
+
+  /* --- RESPONSIVE GRID --- */
+  .grid {
+    display:grid;
+    /* This makes inputs stack on mobile but sit side-by-side on desktop */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap:15px;
+  }
+
+  input, select, button {
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #cbd5e1;
+    font-size:14px;
+    width: 100%;
+  }
+  button { background:#22c55e; color:#fff; border:none; cursor:pointer; font-weight: 600; }
+  button:hover { opacity:0.9; }
+
+  /* --- RESPONSIVE TABLE --- */
+  /* Scroll wrapper for small screens */
+  .table-wrapper { overflow-x: auto; margin-top: 15px; }
+  
+  table { width:100%; border-collapse:collapse; min-width: 500px; }
+  th,td { padding:12px; text-align:center; font-size:14px; border-bottom: 1px solid #e5e7eb; }
+  th { background:#f8fafc; color:#111827; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+
+  /* --- SUMMARY --- */
+  .summary { display:flex; gap:15px; flex-wrap:wrap; }
+  .summary div {
+    flex: 1;
+    background:#f1f5f9;
+    padding:20px;
+    border-radius:12px;
+    min-width:150px;
+    text-align:center;
+  }
+  .summary h3 { font-size: 0.9rem; color: #6b7280; margin-bottom: 5px; }
+  .summary p { font-size: 1.4rem; font-weight: bold; color: #111827; }
+
+  /* --- FOOTER --- */
+  footer { background:#111827; padding:20px; text-align:center; margin-top: 20px; }
+  footer a { color:#9ca3af; margin:0 12px; text-decoration:none; }
+  footer a:hover { color: #fff; }
+
+  /* --- MOBILE MEDIA QUERY --- */
+  @media(max-width: 768px){
+    /* Navbar Mobile Styles */
+    .hamburger { display: flex; }
+    
+    .nav-links {
+      display: none; /* Hidden by default */
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background: #111827;
+      flex-direction: column;
+      padding: 20px 0;
+      gap: 0;
+    }
+    .nav-links.active { display: flex; } /* JavaScript toggles this */
+    
+    .nav-links a {
+      padding: 15px;
+      width: 100%;
+      text-align: center;
+      border-top: 1px solid #1f2937;
+    }
+
+    /* Layout Adjustments */
+    .grid { grid-template-columns: 1fr; } /* Stack inputs vertically */
+    .section { padding: 15px; }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+  <div class="logo">FitSphere</div>
+  
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="planner.html">Planner</a>
+    <a href="food.html">Food</a>
+    <a href="exercise.html">Exercises</a>
+  </div>
+</nav>
+</header>
+
+<main>
+<h1>Custom Daily Planner</h1>
+<p class="subtitle">CREATE YOUR OWN PLAN</p>
+
+<div class="section">
+<h2>🍽 Diet Planner</h2>
+<div class="grid">
+  <select id="mealType">
+    <option>Breakfast</option>
+    <option>Lunch</option>
+    <option>Dinner</option>
+    <option>Snack</option>
+  </select>
+
+  <select id="foodSelect" onchange="fillCalories()">
+    <option value="">Select Food</option>
+  </select>
+
+  <input type="number" id="foodCal" placeholder="Calories" readonly>
+  <input type="time" id="mealTime">
+  <button onclick="addMeal()">Add Meal</button>
+</div>
+
+<div class="table-wrapper">
+  <table>
+  <thead>
+  <tr>
+    <th>Meal</th>
+    <th>Food</th>
+    <th>Calories</th>
+    <th>Time</th>
+  </tr>
+  </thead>
+  <tbody id="mealTable"></tbody>
+  </table>
+</div>
+</div>
+
+<div class="section">
+<h2>🏋️ Exercise Planner</h2>
+<div class="grid">
+  <input type="text" id="exName" placeholder="Exercise name">
+  <input type="number" id="exReps" placeholder="Reps">
+  <input type="number" id="exCal" placeholder="Calories Burn">
+  <input type="time" id="exTime">
+  <button onclick="addExercise()">Add Exercise</button>
+</div>
+
+<div class="table-wrapper">
+  <table>
+  <thead>
+  <tr>
+    <th>Exercise</th>
+    <th>Reps</th>
+    <th>Calories Burn</th>
+    <th>Start Time</th>
+  </tr>
+  </thead>
+  <tbody id="exerciseTable"></tbody>
+  </table>
+</div>
+</div>
+
+<div class="section">
+<h2>📊 Daily Summary</h2>
+<div class="summary">
+  <div>
+    <h3>Calories Gained</h3>
+    <p id="calIn">0 kcal</p>
+  </div>
+  <div>
+    <h3>Calories Burned</h3>
+    <p id="calOut">0 kcal</p>
+  </div>
+  <div>
+    <h3>Net Calories</h3>
+    <p id="netCal">0 kcal</p>
+  </div>
+</div>
+</div>
+
+</main>
+
+<footer>
+<a href="disclaimer.html">Disclaimer</a>
+<a href="privacy.html">Privacy</a>
+<a href="contact.html">Contact</a>
+</footer>
+
+<script src="food-data.js"></script>
+
+<script>
+/* --- NEW FUNCTION: Toggle Mobile Menu --- */
+function toggleMenu() {
+  const navLinks = document.getElementById("navLinks");
+  navLinks.classList.toggle("active");
+}
+
+/* --- ORIGINAL LOGIC BELOW --- */
+let totalIn = 0;
+let totalOut = 0;
+
+/* Populate food dropdown */
+const foodSelect = document.getElementById("foodSelect");
+foodData.forEach(f=>{
+  foodSelect.innerHTML += `<option value="${f.cal}">${f.name}</option>`;
+});
+
+/* Auto-fill calories */
+function fillCalories(){
+  foodCal.value = foodSelect.value;
+}
+
+/* Add meal */
+function addMeal(){
+  if(!foodSelect.value || !mealTime.value) return alert("Select food & time");
+
+  const meal = mealType.value;
+  const food = foodSelect.options[foodSelect.selectedIndex].text;
+  const cal = Number(foodCal.value);
+  const time = mealTime.value;
+
+  mealTable.innerHTML += `
+    <tr>
+      <td>${meal}</td>
+      <td>${food}</td>
+      <td>${cal}</td>
+      <td>${time}</td>
+    </tr>
+  `;
+  totalIn += cal;
+  updateSummary();
+}
+
+/* Add exercise */
+function addExercise(){
+  if(!exName.value || !exReps.value || !exCal.value || !exTime.value)
+    return alert("Fill all exercise fields");
+
+  exerciseTable.innerHTML += `
+    <tr>
+      <td>${exName.value}</td>
+      <td>${exReps.value}</td>
+      <td>${exCal.value}</td>
+      <td>${exTime.value}</td>
+    </tr>
+  `;
+  totalOut += Number(exCal.value);
+  updateSummary();
+}
+
+/* Update summary */
+function updateSummary(){
+  calIn.innerText = totalIn + " kcal";
+  calOut.innerText = totalOut + " kcal";
+  netCal.innerText = (totalIn - totalOut) + " kcal";
+}
+</script>
+
+</body>
+</html>

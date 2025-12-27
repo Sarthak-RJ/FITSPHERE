@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriTrack | Planner</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background: #f8fafc;
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+}
+
+a { text-decoration: none; }
+ul { list-style: none; }
+
+header {
+    background: #ffffff;
+    padding: 0 24px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+nav {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-links a {
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #1e293b;
+}
+
+.menu-btn {
+    display: none;
+    font-size: 24px;
+    color: #1e293b;
+    cursor: pointer;
+}
+
+main {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    flex: 1;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #1e293b;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+form {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid #f1f5f9;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    display: block;
+    margin-bottom: 8px;
+}
+
+input, select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #fafbfc;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #10b981;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+button {
+    padding: 14px 24px;
+    background: #10b981;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.shuffle-btn {
+    background: #f59e0b !important;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+    margin-left: 8px;
+}
+
+.shuffle-btn:hover {
+    background: #d97706 !important;
+}
+
+.refresh-btn {
+    background: #3b82f6 !important;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+    margin-left: 8px;
+}
+
+.refresh-btn:hover {
+    background: #2563eb !important;
+}
+
+.result {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid #f1f5f9;
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+.card h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    color: #1e293b;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.option {
+    font-size: 15px;
+    margin: 8px 0;
+    color: #475569;
+    font-weight: 500;
+}
+
+.exercise-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 10px;
+    margin: 8px 0;
+    border: 1px solid #e2e8f0;
+}
+
+.exercise-name {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 15px;
+}
+
+.exercise-burn {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.perfect-balance {
+    background: #f0fdf4;
+    border: 2px solid #dcfce7;
+    padding: 32px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.balance-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.stat-box {
+    background: #ffffff;
+    padding: 20px 16px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #f1f5f9;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.stat-perfect { color: #059669; }
+.stat-good { color: #ca8a04; }
+.stat-fair { color: #dc2626; }
+
+.suggestions {
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #1e40af;
+}
+
+.suggestion-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.tip-balance { background: #3b82f6; }
+
+/* UPLANNER PROMO - Professional & Minimal */
+.uplanner-promo {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 40px 32px;
+    text-align: center;
+    margin-top: 48px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.uplanner-promo h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 12px;
+}
+
+.uplanner-text {
+    font-size: 16px;
+    color: #64748b;
+    margin-bottom: 28px;
+    font-weight: 500;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.uplanner-btn {
+    display: inline-block;
+    background: #3b82f6;
+    color: #ffffff !important;
+    padding: 16px 32px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+    transition: all 0.2s ease;
+    border: 1px solid #dbeafe;
+}
+
+.uplanner-btn:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+footer {
+    background: #f8fafc;
+    padding: 40px 24px;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    margin-top: auto;
+}
+
+footer nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+footer a {
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: #1e293b;
+}
+
+footer p {
+    color: #94a3b8;
+    font-size: 13px;
+}
+/* ===== UNREALISTIC GOAL WARNING ===== */
+.goal-warning{
+    grid-column: 1 / -1;
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    padding:24px;
+    border-radius:14px;
+}
+.goal-warning h3{
+    color:#c2410c;
+    margin-bottom:10px;
+}
+.goal-warning ul{
+    margin-top:10px;
+    padding-left:18px;
+}
+.goal-warning li{
+    font-size:14px;
+    margin:6px 0;
+    color:#7c2d12;
+}
+
+@media (max-width: 768px) {
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: center;
+        padding: 32px 0;
+        gap: 20px;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+    }
+
+    h1 { font-size: 26px; }
+    
+    .card h3 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .card h3 button {
+        width: 100%;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+<header>
+    <nav>
+        <div class="logo">NutriTrack</div>
+        <div class="menu-btn" id="menuBtn">☰</div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="planner.html">Planner</a>
+            <a href="uplanner.html">UPlanner</a>
+            <a href="food.html">Food Items</a>
+            <a href="exercise.html">Exercises</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <h1>Diet & Exercise Planner</h1>
+
+    <form onsubmit="generatePlan(event)">
+        <div class="grid">
+            <div>
+                <label>Age</label>
+                <input type="number" id="age" required placeholder="e.g. 25">
+            </div>
+            <div>
+                <label>Gender</label>
+                <select id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div>
+                <label>Height (cm)</label>
+                <input type="number" id="height" required placeholder="e.g. 175">
+            </div>
+            <div>
+                <label>Weight (kg)</label>
+                <input type="number" id="weight" required placeholder="e.g. 70">
+            </div>
+            <div>
+                <label>Activity Level</label>
+                <select id="activity">
+                    <option value="1.2">Sedentary (Office Job)</option>
+                    <option value="1.375">Light (1-3 days/week)</option>
+                    <option value="1.55">Moderate (3-5 days/week)</option>
+                    <option value="1.725">Active (6-7 days/week)</option>
+                </select>
+            </div>
+            <div>
+                <label>Goal</label>
+                <select id="goal">
+                    <option value="lose">Lose Weight</option>
+                    <option value="maintain">Maintain Weight</option>
+                    <option value="gain">Gain Muscle</option>
+                </select>
+            </div>
+            <div>
+                <label>Target Change (kg)</label>
+                <input type="number" id="target" required placeholder="e.g. 5">
+            </div>
+            <div>
+                <label>Duration (weeks)</label>
+                <input type="number" id="weeks" required placeholder="e.g. 8">
+            </div>
+        </div>
+        <button class="primary-btn" type="submit">Generate Balanced Plan</button>
+    </form>
+
+    <div class="result" id="result" style="display: none;"></div>
+    
+    <div class="uplanner-promo" id="uplannerPromo" style="display: none;">
+        <h3>Don't like this plan? No worries</h3>
+        <p class="uplanner-text">You can create your own personalized plan with complete control over foods, exercises, and calories.</p>
+        <a href="uplanner.html" class="uplanner-btn">Create My Own Plan</a>
+    </div>
+</main>
+
+<footer>
+    <nav>
+        <a href="disclaimer.html">Disclaimer</a>
+        <a href="about.html">About Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Contact Us</a>
+    </nav>
+    <p>&copy; 2024 NutriTrack. All rights reserved.</p>
+</footer>
+
+<script>
+const foodDataByCategory = {
+    breakfast: [
+        {name: "Idli", cal: 209}, {name: "Plain Dosa", cal: 94}, {name: "Masala Dosa", cal: 77},
+        {name: "Rava Dosa", cal: 237}, {name: "Uttapam", cal: 296}, {name: "Upma", cal: 255},
+        {name: "Poha", cal: 311}, {name: "Sabudana Khichdi", cal: 243}, {name: "Aloo Paratha", cal: 195}
+    ],
+    lunch: [
+        {name: "Cooked Rice", cal: 279}, {name: "Jeera Rice", cal: 292}, {name: "Vegetable Pulao", cal: 293},
+        {name: "Veg Biryani", cal: 194}, {name: "Chicken Biryani", cal: 163}, {name: "Plain Roti", cal: 250}
+    ],
+    snack: [
+        {name: "Apple", cal: 162}, {name: "Banana", cal: 112}, {name: "Orange", cal: 49}, {name: "Mango", cal: 192}
+    ],
+    dinner: [
+        {name: "Milk", cal: 280}, {name: "Curd", cal: 129}, {name: "Paneer", cal: 170}, {name: "Chicken Curry", cal: 318}
+    ]
+};
+
+const exerciseDatabase = [
+    {name: "Brisk Walking", burn: 320, duration: "45min", type: "cardio"},
+    {name: "Jogging", burn: 380, duration: "30min", type: "cardio"},
+    {name: "Running", burn: 450, duration: "25min", type: "cardio"},
+    {name: "Jump Rope", burn: 420, duration: "20min", type: "cardio"},
+    {name: "Cycling", burn: 350, duration: "40min", type: "cardio"},
+    {name: "HIIT Circuit", burn: 450, duration: "25min", type: "hiit"},
+    {name: "Full Body Weights", burn: 320, duration: "45min", type: "strength"},
+    {name: "Vinyasa Flow", burn: 280, duration: "50min", type: "yoga"}
+];
+
+let breakfast = [], lunch = [], snack = [], dinner = [];
+let exercises = [];
+let dailyTargetCalories = 0;
+// ===== UNREALISTIC GOAL CHECK =====
+function checkGoalRealism(goal, targetKg, weeks){
+    const perWeek = targetKg / weeks;
+    let warning = null;
+
+    if(goal === "lose" && perWeek > 1){
+        warning = {
+            title: "⚠️ Unrealistic Weight Loss Goal",
+            msg: `You are trying to lose about ${perWeek.toFixed(2)} kg per week.`,
+            tips: [
+                "Safe fat loss is around 0.5–1 kg per week",
+                "Increase duration or reduce target weight",
+                "Focus on consistency, not speed"
+            ]
+        };
+    }
+
+    if(goal === "gain" && perWeek > 0.75){
+        warning = {
+            title: "⚠️ Unrealistic Muscle Gain Goal",
+            msg: `You are trying to gain about ${perWeek.toFixed(2)} kg per week.`,
+            tips: [
+                "Natural muscle gain is ~0.25–0.75 kg per week",
+                "Increase duration for better results",
+                "Prioritize strength training + protein"
+            ]
+        };
+    }
+
+    return warning;
+}
+
+
+const navLinks = document.getElementById("navLinks");
+const menuBtn = document.getElementById("menuBtn");
+
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+
+function getCalorieMatchedReplacement(category, targetCal) {
+    const categoryFoods = foodDataByCategory[category];
+    const matches = categoryFoods.filter(food => Math.abs(food.cal - targetCal) <= 30);
+    return matches.length > 0 ? matches[Math.floor(Math.random() * matches.length)] : categoryFoods[0];
+}
+
+function pickFoods(targetCalories, maxItems, category) {
+    const categoryFoods = [...foodDataByCategory[category]];
+    const shuffledFoods = categoryFoods.sort(() => Math.random() - 0.5);
+    let selected = [];
+    let remaining = targetCalories;
+    
+    for (let i = 0; i < maxItems && shuffledFoods.length > 0; i++) {
+        let bestFood = shuffledFoods.find(food => food.cal <= remaining * 1.2);
+        if (bestFood) {
+            selected.push(bestFood);
+            remaining -= bestFood.cal;
+            shuffledFoods.splice(shuffledFoods.indexOf(bestFood), 1);
+        }
+    }
+    return selected;
+}
+
+function pickBalancedExercises(targetCalories) {
+    const neededBurnRange = targetCalories * 0.3;
+    let totalBurn = 0;
+    let selected = [];
+    const candidates = exerciseDatabase.sort(() => Math.random() - 0.5);
+    
+    for (let exercise of candidates) {
+        if (selected.length < 5 && Math.abs((totalBurn + exercise.burn) - neededBurnRange) < 120) {
+            selected.push(exercise);
+            totalBurn += exercise.burn;
+        }
+    }
+    return selected;
+}
+
+function calculateDietCalories() { return [...breakfast, ...lunch, ...snack, ...dinner].reduce((sum, f) => sum + f.cal, 0); }
+function calculateBurnCalories() { return exercises.reduce((sum, e) => sum + e.burn, 0); }
+function calculateNetCalories() { return calculateDietCalories() - calculateBurnCalories(); }
+
+function getBalanceStatus() {
+    const net = calculateNetCalories();
+    const accuracy = Math.abs(net - dailyTargetCalories) / dailyTargetCalories;
+    if (accuracy < 0.02) return { status: "PERFECT", color: "stat-perfect", icon: "🎯" };
+    if (accuracy < 0.05) return { status: "EXCELLENT", color: "stat-perfect", icon: "✅" };
+    return { status: "GOOD", color: "stat-good", icon: "⚡" };
+}
+
+function shuffleDiet() {
+    breakfast = breakfast.map(food => getCalorieMatchedReplacement('breakfast', food.cal));
+    lunch = lunch.map(food => getCalorieMatchedReplacement('lunch', food.cal));
+    snack = snack.map(food => getCalorieMatchedReplacement('snack', food.cal));
+    dinner = dinner.map(food => getCalorieMatchedReplacement('dinner', food.cal));
+    exercises = pickBalancedExercises(calculateDietCalories());
+    renderPlans();
+}
+
+function renderPlans() {
+    const intake = calculateDietCalories();
+    const burned = calculateBurnCalories();
+    const net = calculateNetCalories();
+    const balance = getBalanceStatus();
+    
+    document.getElementById("dietBox").innerHTML = `
+        <div><b>Breakfast (${breakfast.reduce((s,f)=>s+f.cal,0).toFixed(0)} kcal):</b>
+        ${breakfast.map(f => `<div class="option">• ${f.name} (${f.cal}kcal)</div>`).join('')}
+        </div>
+        <div><b>Lunch (${lunch.reduce((s,f)=>s+f.cal,0).toFixed(0)} kcal):</b>
+        ${lunch.map(f => `<div class="option">• ${f.name} (${f.cal}kcal)</div>`).join('')}
+        </div>
+        <div><b>Snacks (${snack.reduce((s,f)=>s+f.cal,0).toFixed(0)} kcal):</b>
+        ${snack.map(f => `<div class="option">• ${f.name} (${f.cal}kcal)</div>`).join('')}
+        </div>
+        <div><b>Dinner (${dinner.reduce((s,f)=>s+f.cal,0).toFixed(0)} kcal):</b>
+        ${dinner.map(f => `<div class="option">• ${f.name} (${f.cal}kcal)</div>`).join('')}
+        </div>
+    `;
+    
+    document.getElementById("exerciseBox").innerHTML = exercises.map(ex => `
+        <div class="exercise-item">
+            <div>
+                <div class="exercise-name">${ex.name}</div>
+                <small style="color:#64748b;">${ex.duration} • ${ex.type}</small>
+            </div>
+            <div class="exercise-burn">${ex.burn}kcal</div>
+        </div>
+    `).join("") + `<div style="margin-top:20px; padding:16px; background:#f1f5f9; border-radius:10px; text-align:center;">
+        <b>Total Burn: ${burned.toFixed(0)} kcal</b>
+    </div>`;
+    
+    document.getElementById("balanceBox").innerHTML = `
+        <div class="perfect-balance">
+            <h3 style="margin-bottom:20px;">${balance.icon} ${balance.status} Balance</h3>
+            <div class="balance-stats">
+                <div class="stat-box">
+                    <span class="stat-number ${balance.color}">${dailyTargetCalories.toFixed(0)}</span>
+                    <small>Target</small>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">${intake.toFixed(0)}</span>
+                    <small>Food</small>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" style="color:#dc2626;">${burned.toFixed(0)}</span>
+                    <small>Burn</small>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number ${balance.color}">${net.toFixed(0)}</span>
+                    <small>Net</small>
+                </div>
+            </div>
+            <div style="font-size:14px; color:#065f46; margin-top:16px; font-weight:500;">
+                ${intake.toFixed(0)}kcal food - ${burned.toFixed(0)}kcal burn = ${net.toFixed(0)}kcal net
+            </div>
+        </div>
+    `;
+}
+
+function generatePlan(e) {
+    e.preventDefault();
+    const age = +document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    const height = +document.getElementById("height").value;
+    const weight = +document.getElementById("weight").value;
+    const activity = +document.getElementById("activity").value;
+    const goal = document.getElementById("goal").value;
+    const target = +document.getElementById("target").value;
+    const weeks = +document.getElementById("weeks").value;
+    const goalWarning = checkGoalRealism(goal, target, weeks);
+
+
+    let bmr = gender === "male" ? 
+        88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age) :
+        447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+
+    let tdee = bmr * activity;
+    let dailyAdjustment = (target * 7700) / (weeks * 7);
+    dailyTargetCalories = goal === "lose" ? tdee - dailyAdjustment : 
+                         goal === "gain" ? tdee + dailyAdjustment : tdee;
+    if (dailyTargetCalories < 1200) dailyTargetCalories = 1200;
+
+    const foodBuffer = dailyTargetCalories * 0.35;
+    breakfast = pickFoods(dailyTargetCalories * 0.25 + foodBuffer * 0.25, 3, 'breakfast');
+    lunch = pickFoods(dailyTargetCalories * 0.35 + foodBuffer * 0.35, 3, 'lunch');
+    snack = pickFoods(dailyTargetCalories * 0.15 + foodBuffer * 0.15, 2, 'snack');
+    dinner = pickFoods(dailyTargetCalories * 0.25 + foodBuffer * 0.25, 3, 'dinner');
+    
+    exercises = pickBalancedExercises(calculateDietCalories());
+
+    document.getElementById("result").innerHTML = `
+    ${goalWarning ? `
+<div class="goal-warning">
+    <h3>${goalWarning.title}</h3>
+    <p>${goalWarning.msg}</p>
+    <ul>
+        ${goalWarning.tips.map(t => `<li>• ${t}</li>`).join("")}
+    </ul>
+</div>
+` : ""}
+
+        <div class="card">
+            <h3>Calorie Balance</h3>
+            <div id="balanceBox"></div>
+        </div>
+        <div class="card">
+            <h3>Diet Plan 
+                <button class="refresh-btn" onclick="refreshDiet()">New Plan</button>
+                <button class="shuffle-btn" onclick="shuffleDiet()">Shuffle Foods</button>
+            </h3>
+            <div id="dietBox"></div>
+        </div>
+        <div class="card">
+            <h3>Exercise Plan 
+                <button class="refresh-btn" onclick="refreshExercises()">New Workout</button>
+            </h3>
+            <div id="exerciseBox"></div>
+        </div>
+    `;
+    document.getElementById("result").style.display = "grid";
+    document.getElementById("uplannerPromo").style.display = "block";
+    renderPlans();
+}
+
+function refreshDiet() {
+    const foodBuffer = dailyTargetCalories * 0.35;
+    breakfast = pickFoods(dailyTargetCalories * 0.25 + foodBuffer * 0.25, 3, 'breakfast');
+    lunch = pickFoods(dailyTargetCalories * 0.35 + foodBuffer * 0.35, 3, 'lunch');
+    snack = pickFoods(dailyTargetCalories * 0.15 + foodBuffer * 0.15, 2, 'snack');
+    dinner = pickFoods(dailyTargetCalories * 0.25 + foodBuffer * 0.25, 3, 'dinner');
+    exercises = pickBalancedExercises(calculateDietCalories());
+    renderPlans();
+}
+
+function refreshExercises() {
+    exercises = pickBalancedExercises(calculateDietCalories());
+    renderPlans();
+}
+</script>
+</body>
+</html>

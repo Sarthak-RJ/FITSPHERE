@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | FitSphere</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f8;
+    color:#1f2937;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* ===== HEADER ===== */
+header{
+    background:#0f172a;
+    height:70px;
+    display:flex;
+    align-items:center;
+    padding:0 20px;
+}
+
+nav{
+    max-width:1200px;
+    width:100%;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    color:#fff;
+    font-size:24px;
+    font-weight:700;
+}
+
+nav a{
+    color:#cbd5e1;
+    text-decoration:none;
+}
+
+nav a:hover{
+    color:#fff;
+}
+
+/* ===== MAIN ===== */
+main{
+    max-width:700px;
+    margin:auto;
+    padding:40px 20px;
+    flex:1;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+    color:#0f172a;
+}
+
+p{
+    text-align:center;
+    margin-bottom:30px;
+    color:#475569;
+}
+
+/* ===== FORM ===== */
+form{
+    background:#fff;
+    padding:30px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+label{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:6px;
+    display:block;
+    color:#334155;
+}
+
+input, textarea{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #cbd5e1;
+    background:#f8fafc;
+    margin-bottom:18px;
+    font-size:15px;
+}
+
+input:focus, textarea:focus{
+    outline:none;
+    border-color:#22c55e;
+    background:#fff;
+}
+
+textarea{
+    resize:vertical;
+    min-height:120px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    background:#22c55e;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#16a34a;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    background:#0f172a;
+    padding:25px;
+    text-align:center;
+    color:#94a3b8;
+    font-size:14px;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+    form{
+        padding:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <div class="logo">FitSphere</div>
+        <a href="index.html">Home</a>
+    </nav>
+</header>
+
+<main>
+    <h1>Contact Us</h1>
+    <p>Have suggestions, found a mistake, or want to share feedback? We’d love to hear from you.</p>
+
+    <form onsubmit="sendMail(event)">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required placeholder="Your name">
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required placeholder="your@email.com">
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="Optional">
+
+        <label for="message">Message / Suggestion</label>
+        <textarea id="message" required placeholder="Write your suggestion, feedback or issue here..."></textarea>
+
+        <button type="submit">Send Message</button>
+    </form>
+</main>
+
+<footer>
+    &copy; 2024 FitSphere. All rights reserved.
+</footer>
+
+<script>
+function sendMail(e){
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const message = document.getElementById("message").value;
+
+    const subject = encodeURIComponent("FitSphere Contact Form Submission");
+    const body = encodeURIComponent(
+        "Name: " + name + "\n" +
+        "Email: " + email + "\n" +
+        "Phone: " + phone + "\n\n" +
+        "Message:\n" + message
+    );
+
+    window.location.href = 
+        "mailto:yourmail@gmail.com?subject=" + subject + "&body=" + body;
+}
+</script>
+
+</body>
+</html>

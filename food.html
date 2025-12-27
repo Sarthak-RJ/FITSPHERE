@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriTrack | Food Database</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, Arial, sans-serif;
+}
+body{
+  background:#f4f6f8;
+  color:#1f2937;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ===== HEADER ===== */
+header{
+  background:#0f172a;
+  color:#fff;
+  padding:15px 40px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{
+  font-size:22px;
+  font-weight:700;
+}
+
+/* NAV LINKS */
+.links{
+  display:flex;
+}
+.links a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:18px;
+  font-weight:500;
+}
+.links a:hover{opacity:0.85}
+
+/* HAMBURGER */
+.menu-btn{
+  display:none;
+  font-size:26px;
+  cursor:pointer;
+}
+
+/* ===== MAIN ===== */
+main{
+  padding:40px 20px;
+  max-width:1200px;
+  margin:auto;
+  width:100%;
+}
+h1{text-align:center;margin-bottom:10px}
+.subtitle{text-align:center;color:#6b7280;margin-bottom:25px}
+
+/* SEARCH */
+.search-box{
+  max-width:400px;
+  margin:0 auto 20px;
+}
+.search-box input{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #cbd5e1;
+  font-size:15px;
+}
+
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+th, td{
+  padding:12px;
+  text-align:center;
+  font-size:14px;
+}
+th{background:#0f172a;color:#fff}
+tr:nth-child(even){background:#f8fafc}
+
+/* PAGINATION */
+.pagination{
+  display:flex;
+  justify-content:center;
+  margin-top:25px;
+}
+.pagination button{
+  padding:8px 16px;
+  margin:0 6px;
+  border:none;
+  border-radius:6px;
+  background:#0f172a;
+  color:#fff;
+  cursor:pointer;
+  font-size:14px;
+}
+.pagination button:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  margin-top:auto;
+  background:#0f172a;
+  padding:15px 20px;
+}
+footer nav{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+footer nav a{
+  color:#e5e7eb;
+  text-decoration:none;
+  margin:6px 12px;
+  font-size:14px;
+}
+footer nav a:hover{text-decoration:underline}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+  header{padding:15px 20px}
+
+  .links{
+    position:absolute;
+    top:65px;
+    left:0;
+    width:100%;
+    background:#0f172a;
+    flex-direction:column;
+    display:none;
+  }
+  .links.active{display:flex}
+
+  .links a{
+    margin:15px 0;
+    text-align:center;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+<nav>
+  <div class="logo">NutriTrack</div>
+
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <div class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="planner.html">Planner</a>
+    <a href="food.html">Food Items</a>
+    <a href="exercise.html">Exercises</a>
+  </div>
+</nav>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main>
+<h1>Food & Nutrition Database</h1>
+<p class="subtitle">
+Explore 300+ fruits, cooked foods, meals, and prepared dishes with nutritional values.
+</p>
+
+<div class="search-box">
+  <input type="text" id="search" placeholder="Search food item..." onkeyup="searchFood()">
+</div>
+
+<div class="table-wrap">
+<table id="foodTable">
+  <thead>
+    <tr>
+      <th>Food Item</th>
+      <th>Calories (kcal)</th>
+      <th>Protein (g)</th>
+      <th>Carbs (g)</th>
+      <th>Fat (g)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+</div>
+
+<div class="pagination">
+  <button onclick="prevPage()">Previous</button>
+  <button onclick="nextPage()">Next</button>
+</div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+<nav>
+  <a href="disclaimer.html">Disclaimer</a>
+  <a href="about.html">About Us</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="contact.html">Contact Us</a>
+</nav>
+</footer>
+
+<!-- ===== DATA FILE ===== -->
+<script src="food-data.js"></script>
+
+<!-- ===== PAGE LOGIC ===== -->
+<script>
+function toggleMenu(){
+  document.getElementById("navLinks").classList.toggle("active");
+}
+
+let currentPage = 0;
+const itemsPerPage = 15;
+let filteredData = [...foodData];
+
+function renderTable(){
+  const tbody = document.querySelector("#foodTable tbody");
+  tbody.innerHTML = "";
+
+  const start = currentPage * itemsPerPage;
+  const end = start + itemsPerPage;
+
+  filteredData.slice(start, end).forEach(item => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.cal}</td>
+        <td>${item.protein}</td>
+        <td>${item.carbs}</td>
+        <td>${item.fat}</td>
+      </tr>`;
+  });
+}
+
+function nextPage(){
+  if((currentPage + 1) * itemsPerPage < filteredData.length){
+    currentPage++;
+    renderTable();
+  }
+}
+function prevPage(){
+  if(currentPage > 0){
+    currentPage--;
+    renderTable();
+  }
+}
+function searchFood(){
+  const query = document.getElementById("search").value.toLowerCase();
+  filteredData = foodData.filter(item =>
+    item.name.toLowerCase().includes(query)
+  );
+  currentPage = 0;
+  renderTable();
+}
+
+renderTable();
+</script>
+
+</body>
+</html>
