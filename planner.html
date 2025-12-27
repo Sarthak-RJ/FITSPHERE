@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>NutriTrack | Planner</title>
 
 <style>
@@ -13,6 +13,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -55,6 +56,7 @@ nav {
     color: #1e293b;
 }
 
+/* Desktop Navigation */
 .nav-links {
     display: flex;
     gap: 32px;
@@ -76,6 +78,7 @@ nav {
     font-size: 24px;
     color: #1e293b;
     cursor: pointer;
+    padding: 5px; /* Better touch target */
 }
 
 main {
@@ -105,7 +108,8 @@ form {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /* Responsive Grid: Stacks on mobile, columns on desktop */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
     gap: 24px;
     margin-bottom: 32px;
 }
@@ -124,9 +128,10 @@ input, select {
     border-radius: 10px;
     border: 1px solid #e2e8f0;
     background: #fafbfc;
-    font-size: 16px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
     font-weight: 500;
     transition: all 0.2s ease;
+    -webkit-appearance: none; /* Mobile UI fix */
 }
 
 input:focus, select:focus {
@@ -163,7 +168,7 @@ button:hover {
 
 .shuffle-btn {
     background: #f59e0b !important;
-    padding: 10px 16px !important;
+    padding: 8px 14px !important;
     font-size: 13px !important;
     margin-left: 8px;
 }
@@ -174,7 +179,7 @@ button:hover {
 
 .refresh-btn {
     background: #3b82f6 !important;
-    padding: 10px 16px !important;
+    padding: 8px 14px !important;
     font-size: 13px !important;
     margin-left: 8px;
 }
@@ -186,7 +191,8 @@ button:hover {
 .result {
     margin-top: 48px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    /* Adjusted minmax to prevent horizontal scroll on small phones */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 24px;
 }
 
@@ -233,6 +239,8 @@ button:hover {
     border-radius: 10px;
     margin: 8px 0;
     border: 1px solid #e2e8f0;
+    flex-wrap: wrap; /* Allows wrap on very small screens */
+    gap: 10px;
 }
 
 .exercise-name {
@@ -248,6 +256,7 @@ button:hover {
     border-radius: 20px;
     font-size: 13px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .perfect-balance {
@@ -260,21 +269,24 @@ button:hover {
 
 .balance-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* Force 2 columns on small mobile */
     gap: 16px;
     margin: 24px 0;
+}
+@media (min-width: 500px) {
+    .balance-stats { grid-template-columns: repeat(4, 1fr); }
 }
 
 .stat-box {
     background: #ffffff;
-    padding: 20px 16px;
+    padding: 15px 10px;
     border-radius: 12px;
     text-align: center;
     border: 1px solid #f1f5f9;
 }
 
 .stat-number {
-    font-size: 28px;
+    font-size: 24px; /* Slightly smaller for mobile safety */
     font-weight: 700;
     display: block;
     margin-bottom: 4px;
@@ -284,38 +296,7 @@ button:hover {
 .stat-good { color: #ca8a04; }
 .stat-fair { color: #dc2626; }
 
-.suggestions {
-    background: #eff6ff;
-    border: 1px solid #dbeafe;
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.suggestion-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 10px 0;
-    font-size: 14px;
-    color: #1e40af;
-}
-
-.suggestion-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    color: #ffffff;
-    font-size: 13px;
-}
-
-.tip-balance { background: #3b82f6; }
-
-/* UPLANNER PROMO - Professional & Minimal */
+/* UPLANNER PROMO */
 .uplanner-promo {
     background: #ffffff;
     border: 2px solid #e2e8f0;
@@ -355,6 +336,7 @@ button:hover {
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
     transition: all 0.2s ease;
     border: 1px solid #dbeafe;
+    width: auto;
 }
 
 .uplanner-btn:hover {
@@ -394,7 +376,8 @@ footer p {
     color: #94a3b8;
     font-size: 13px;
 }
-/* ===== UNREALISTIC GOAL WARNING ===== */
+
+/* GOAL WARNING */
 .goal-warning{
     grid-column: 1 / -1;
     background:#fff7ed;
@@ -405,6 +388,7 @@ footer p {
 .goal-warning h3{
     color:#c2410c;
     margin-bottom:10px;
+    font-size: 18px;
 }
 .goal-warning ul{
     margin-top:10px;
@@ -416,9 +400,17 @@ footer p {
     color:#7c2d12;
 }
 
+/* =========================================
+   MOBILE RESPONSIVENESS (Media Queries)
+   ========================================= */
+
 @media (max-width: 768px) {
+    header {
+        padding: 0 16px;
+    }
+
     .menu-btn {
-        display: block;
+        display: block; /* Show hamburger */
     }
 
     .nav-links {
@@ -429,30 +421,79 @@ footer p {
         background: #ffffff;
         flex-direction: column;
         align-items: center;
-        padding: 32px 0;
-        gap: 20px;
-        transform: translateY(-100%);
-        transition: transform 0.3s ease;
-        box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+        padding: 40px 0;
+        gap: 24px;
+        transform: translateY(-150%); /* Hide upwards */
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        z-index: 999;
+        border-bottom: 1px solid #e2e8f0;
     }
 
     .nav-links.active {
-        transform: translateY(0);
+        transform: translateY(0); /* Slide down */
     }
 
-    h1 { font-size: 26px; }
+    .nav-links a {
+        font-size: 18px; /* Larger text for mobile menu */
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    main {
+        padding: 32px 16px;
+    }
+
+    h1 { 
+        font-size: 26px; 
+        margin-bottom: 30px;
+    }
     
+    form {
+        padding: 24px 20px;
+    }
+
+    .card {
+        padding: 24px 20px;
+    }
+
     .card h3 {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+        gap: 16px;
     }
 
+    /* Make card buttons full width on mobile for easier tapping */
     .card h3 button {
+        width: 100%;
+        margin-left: 0;
+        padding: 12px !important;
+    }
+
+    .perfect-balance {
+        padding: 24px 16px;
+    }
+
+    .uplanner-promo {
+        padding: 32px 20px;
+    }
+    
+    .uplanner-btn {
         width: 100%;
     }
 }
 
+/* Extra Small Devices (Small phones) */
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: 1fr; /* Force single column */
+    }
+    
+    .result {
+        grid-template-columns: 1fr;
+    }
+}
 
 </style>
 </head>
@@ -545,6 +586,10 @@ footer p {
 </footer>
 
 <script>
+// ============================================
+// LOGIC REMAINS EXACTLY THE SAME
+// ============================================
+
 const foodDataByCategory = {
     breakfast: [
         {name: "Idli", cal: 209}, {name: "Plain Dosa", cal: 94}, {name: "Masala Dosa", cal: 77},
@@ -577,6 +622,7 @@ const exerciseDatabase = [
 let breakfast = [], lunch = [], snack = [], dinner = [];
 let exercises = [];
 let dailyTargetCalories = 0;
+
 // ===== UNREALISTIC GOAL CHECK =====
 function checkGoalRealism(goal, targetKg, weeks){
     const perWeek = targetKg / weeks;
@@ -757,7 +803,7 @@ function generatePlan(e) {
     let tdee = bmr * activity;
     let dailyAdjustment = (target * 7700) / (weeks * 7);
     dailyTargetCalories = goal === "lose" ? tdee - dailyAdjustment : 
-                         goal === "gain" ? tdee + dailyAdjustment : tdee;
+                          goal === "gain" ? tdee + dailyAdjustment : tdee;
     if (dailyTargetCalories < 1200) dailyTargetCalories = 1200;
 
     const foodBuffer = dailyTargetCalories * 0.35;
