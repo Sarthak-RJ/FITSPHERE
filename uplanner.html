@@ -243,6 +243,18 @@ function toggleMenu() {
   const navLinks = document.getElementById("navLinks");
   navLinks.classList.toggle("active");
 }
+function sendNotificationToApp(title, body, time) {
+  if (window.FitSphereNotify) {
+    window.FitSphereNotify.postMessage(
+      JSON.stringify({
+        title: title,
+        body: body,
+        time: time
+      })
+    );
+  }
+}
+
 
 /* --- ORIGINAL LOGIC BELOW --- */
 let totalIn = 0;
@@ -278,6 +290,12 @@ function addMeal(){
   `;
   totalIn += cal;
   updateSummary();
+  sendNotificationToApp(
+  "Meal Reminder",
+  `${meal}: ${food}`,
+  time
+);
+
 }
 
 /* Add exercise */
@@ -295,6 +313,12 @@ function addExercise(){
   `;
   totalOut += Number(exCal.value);
   updateSummary();
+  sendNotificationToApp(
+  "Exercise Reminder",
+  `${exName.value} - ${exReps.value} reps`,
+  exTime.value
+);
+
 }
 
 /* Update summary */
@@ -306,4 +330,5 @@ function updateSummary(){
 </script>
 
 </body>
+
 </html>
