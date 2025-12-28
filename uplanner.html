@@ -168,6 +168,16 @@
   <input type="time" id="mealTime">
   <button onclick="addMeal()">Add Meal</button>
 </div>
+<button onclick="sendAlarm()">Set Alarm</button>
+
+<script>
+function sendAlarm() {
+  const time = document.getElementById("time").value; // 08:30
+  const meal = document.getElementById("meal").value; // Breakfast
+
+  AlarmChannel.postMessage(time + "|" + meal);
+}
+</script>
 
 <div class="table-wrapper">
   <table>
@@ -337,4 +347,5 @@ function updateSummary(){
 </body>
 
 </html>
+
 
