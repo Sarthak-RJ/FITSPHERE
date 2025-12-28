@@ -238,21 +238,22 @@
 <script src="food-data.js"></script>
 
 <script>
-/* --- NEW FUNCTION: Toggle Mobile Menu --- */
-function toggleMenu() {
-  const navLinks = document.getElementById("navLinks");
-  navLinks.classList.toggle("active");
-}
-function sendNotificationToApp(title, body, time) {
-  if (window.FitSphereNotify) {
-    window.FitSphereNotify.postMessage(
+
+  function sendToFlutter(type, name, time) {
+  if (window.FitSphere) {
+    FitSphere.postMessage(
       JSON.stringify({
-        title: title,
-        body: body,
+        type: type,
+        name: name,
         time: time
       })
     );
   }
+}
+/* --- NEW FUNCTION: Toggle Mobile Menu --- */
+function toggleMenu() {
+  const navLinks = document.getElementById("navLinks");
+  navLinks.classList.toggle("active");
 }
 
 
@@ -279,6 +280,8 @@ function addMeal(){
   const food = foodSelect.options[foodSelect.selectedIndex].text;
   const cal = Number(foodCal.value);
   const time = mealTime.value;
+  sendToFlutter("meal", meal, time);
+
 
   mealTable.innerHTML += `
     <tr>
@@ -318,6 +321,8 @@ function addExercise(){
   `${exName.value} - ${exReps.value} reps`,
   exTime.value
 );
+  sendToFlutter("exercise", exName.value, exTime.value);
+
 
 }
 
@@ -332,3 +337,4 @@ function updateSummary(){
 </body>
 
 </html>
+
