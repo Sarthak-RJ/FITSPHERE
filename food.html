@@ -1,288 +1,1574 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FITSPHERE | Food Database</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Database | FitSphere</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --teal: #14b8a6;
+            
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --bg-input: #f1f5f9;
+            
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            
+            --transition: all 0.3s ease;
+        }
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Segoe UI, Arial, sans-serif;
-}
-body{
-  background:#f4f6f8;
-  color:#1f2937;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
+        [data-theme="dark"] {
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --secondary: #34d399;
+            --secondary-dark: #10b981;
+            --accent: #fbbf24;
+            --danger: #f87171;
+            --purple: #a78bfa;
+            --pink: #f472b6;
+            --teal: #2dd4bf;
+            
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --bg-header: #1e293b;
+            --bg-input: #334155;
+            
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --border: #475569;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.25);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.35);
+        }
 
-/* ===== HEADER ===== */
-header{
-  background:#0f172a;
-  color:#fff;
-  padding:15px 40px;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.logo{
-  font-size:22px;
-  font-weight:700;
-}
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* NAV LINKS */
-.links{
-  display:flex;
-}
-.links a{
-  color:#fff;
-  text-decoration:none;
-  margin-left:18px;
-  font-weight:500;
-}
-.links a:hover{opacity:0.85}
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
 
-/* HAMBURGER */
-.menu-btn{
-  display:none;
-  font-size:26px;
-  cursor:pointer;
-}
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-/* ===== MAIN ===== */
-main{
-  padding:40px 20px;
-  max-width:1200px;
-  margin:auto;
-  width:100%;
-}
-h1{text-align:center;margin-bottom:10px}
-.subtitle{text-align:center;color:#6b7280;margin-bottom:25px}
+        /* ===== HEADER ===== */
+        header {
+            background: var(--bg-header);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
 
-/* SEARCH */
-.search-box{
-  max-width:400px;
-  margin:0 auto 20px;
-}
-.search-box input{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:1px solid #cbd5e1;
-  font-size:15px;
-}
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
 
-/* TABLE */
-.table-wrap{overflow-x:auto}
-table{
-  width:100%;
-  border-collapse:collapse;
-  background:#fff;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 8px 25px rgba(0,0,0,0.08);
-}
-th, td{
-  padding:12px;
-  text-align:center;
-  font-size:14px;
-}
-th{background:#0f172a;color:#fff}
-tr:nth-child(even){background:#f8fafc}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary);
+            text-decoration: none;
+        }
 
-/* PAGINATION */
-.pagination{
-  display:flex;
-  justify-content:center;
-  margin-top:25px;
-}
-.pagination button{
-  padding:8px 16px;
-  margin:0 6px;
-  border:none;
-  border-radius:6px;
-  background:#0f172a;
-  color:#fff;
-  cursor:pointer;
-  font-size:14px;
-}
-.pagination button:disabled{
-  opacity:0.5;
-  cursor:not-allowed;
-}
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
 
-/* ===== FOOTER ===== */
-footer{
-  margin-top:auto;
-  background:#0f172a;
-  padding:15px 20px;
-}
-footer nav{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-footer nav a{
-  color:#e5e7eb;
-  text-decoration:none;
-  margin:6px 12px;
-  font-size:14px;
-}
-footer nav a:hover{text-decoration:underline}
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
 
-/* ===== MOBILE ===== */
-@media(max-width:768px){
-  header{padding:15px 20px}
+        .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+        }
 
-  .links{
-    position:absolute;
-    top:65px;
-    left:0;
-    width:100%;
-    background:#0f172a;
-    flex-direction:column;
-    display:none;
-  }
-  .links.active{display:flex}
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
 
-  .links a{
-    margin:15px 0;
-    text-align:center;
-  }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-  .menu-btn{
-    display:block;
-  }
-}
-</style>
+        .theme-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--bg-input);
+            border-radius: 13px;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .theme-switch::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            transform: translate(2px, 2px);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .theme-switch::before {
+            transform: translate(24px, 2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== SEARCH & FILTERS ===== */
+        .search-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .filter-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .category-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .category-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            min-width: 120px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .clear-filters {
+            margin-left: auto;
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .clear-filters:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* ===== FOOD TABLE ===== */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 18px 20px;
+            text-align: left;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+
+        th:first-child {
+            border-top-left-radius: var(--radius-lg);
+        }
+
+        th:last-child {
+            border-top-right-radius: var(--radius-lg);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-input);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        td {
+            padding: 16px 20px;
+            color: var(--text-primary);
+            font-size: 15px;
+            vertical-align: middle;
+        }
+
+        .food-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .food-icon {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .calories-cell {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .macro-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .macro-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 5px;
+            gap: 4px;
+        }
+
+        .badge-protein { background: rgba(16, 185, 129, 0.1); color: var(--secondary); }
+        .badge-carbs { background: rgba(59, 130, 246, 0.1); color: var(--primary); }
+        .badge-fat { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
+
+        .category-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .tag-veg { background: rgba(16, 185, 129, 0.15); color: var(--secondary); }
+        .tag-nonveg { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+        .tag-south { background: rgba(139, 92, 246, 0.15); color: var(--purple); }
+        .tag-north { background: rgba(59, 130, 246, 0.15); color: var(--primary); }
+        .tag-snack { background: rgba(245, 158, 11, 0.15); color: var(--accent); }
+        .tag-breakfast { background: rgba(236, 72, 153, 0.15); color: var(--pink); }
+        .tag-dessert { background: rgba(20, 184, 166, 0.15); color: var(--teal); }
+        .tag-fruit { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .page-info {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0 10px;
+        }
+
+        /* ===== STATS ===== */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 15px;
+            color: white;
+        }
+
+        .icon-foods { background: linear-gradient(135deg, var(--primary), var(--purple)); }
+        .icon-avg-cal { background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); }
+        .icon-categories { background: linear-gradient(135deg, var(--accent), #d97706); }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-card);
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-secondary);
+            font-size: 14px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--bg-header);
+                flex-direction: column;
+                padding: 20px;
+                gap: 0;
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 15px;
+                border-radius: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            th, td {
+                padding: 12px 15px;
+            }
+
+            .filter-categories {
+                overflow-x: auto;
+            }
+
+            .category-row {
+                min-width: 500px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    FitSphere
+                </a>
 
-<!-- ===== HEADER ===== -->
-<header>
-<nav>
-  <div class="logo">FITSPHERE</div>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a href="planner.html" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i> Planner
+                    </a>
+                    <a href="uplanner.html" class="nav-link">
+                        <i class="fas fa-user-cog"></i> UPlanner
+                    </a>
+                    <a href="food.html" class="nav-link active">
+                        <i class="fas fa-utensils"></i> Food Items
+                    </a>
+                    <a href="exercise.html" class="nav-link">
+                        <i class="fas fa-dumbbell"></i> Exercises
+                    </a>
+                </div>
 
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+                <div class="header-actions">
+                    
+                    <div class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <div class="links" id="navLinks">
-    <a href="index.html">Home</a>
-    <a href="planner.html">Planner</a>
-    <a href="food.html">Food Items</a>
-    <a href="exercise.html">Exercises</a>
-  </div>
-</nav>
-</header>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Food & Nutrition Database</h1>
+                <p class="page-subtitle">Explore 300+ fruits, cooked foods, meals, and prepared dishes with complete nutritional values</p>
+            </div>
 
-<!-- ===== MAIN CONTENT ===== -->
-<main>
-<h1>Food & Nutrition Database</h1>
-<p class="subtitle">
-Explore 300+ fruits, cooked foods, meals, and prepared dishes with nutritional values.
-</p>
+            <!-- Search & Filters -->
+            <div class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search for food items (e.g., 'apple', 'biryani', 'paneer', 'dosa')...">
+                    </div>
+                    <button class="btn" id="searchBtn" style="background: var(--primary); color: white; padding: 0 30px; border-radius: var(--radius-md); border: none; cursor: pointer;">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                
+                <div class="filter-categories">
+                    <div class="category-row">
+                        <span class="category-label">Cuisine Type:</span>
+                        <div class="filter-buttons" id="cuisineFilters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="south indian">South Indian</button>
+                            <button class="filter-btn" data-filter="north indian">North Indian</button>
+                            <button class="filter-btn" data-filter="chinese">Chinese</button>
+                            <button class="filter-btn" data-filter="continental">Continental</button>
+                        </div>
+                    </div>
+                    
+                    <div class="category-row">
+                        <span class="category-label">Diet Type:</span>
+                        <div class="filter-buttons" id="dietFilters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="veg">Vegetarian</button>
+                            <button class="filter-btn" data-filter="nonveg">Non-Vegetarian</button>
+                        </div>
+                    </div>
+                    
+                    <div class="category-row">
+                        <span class="category-label">Meat Type:</span>
+                        <div class="filter-buttons" id="meatFilters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="chicken">Chicken</button>
+                            <button class="filter-btn" data-filter="fish">Fish</button>
+                            <button class="filter-btn" data-filter="mutton">Mutton</button>
+                            <button class="filter-btn" data-filter="egg">Egg</button>
+                        </div>
+                    </div>
+                    
+                    <div class="category-row">
+                        <span class="category-label">Food Category:</span>
+                        <div class="filter-buttons" id="categoryFilters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="fruit">Fruits</button>
+                            <button class="filter-btn" data-filter="breakfast">Breakfast</button>
+                            <button class="filter-btn" data-filter="main course">Main Course</button>
+                            <button class="filter-btn" data-filter="snack">Snacks</button>
+                            <button class="filter-btn" data-filter="dessert">Desserts</button>
+                            <button class="filter-btn" data-filter="beverage">Beverages</button>
+                        </div>
+                        <button class="filter-btn clear-filters" id="clearFilters">
+                            <i class="fas fa-times"></i> Clear Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-<div class="search-box">
-  <input type="text" id="search" placeholder="Search food item..." onkeyup="searchFood()">
-</div>
+            <!-- Food Table -->
+            <div class="table-container">
+                <table id="foodTable">
+                    <thead>
+                        <tr>
+                            <th>Food Item</th>
+                            <th>Calories (kcal)</th>
+                            <th>Protein (g)</th>
+                            <th>Carbs (g)</th>
+                            <th>Fat (g)</th>
+                            <th>Cuisine</th>
+                            <th>Diet Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="foodTableBody">
+                        <!-- Will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
 
-<div class="table-wrap">
-<table id="foodTable">
-  <thead>
-    <tr>
-      <th>Food Item</th>
-      <th>Calories (kcal)</th>
-      <th>Protein (g)</th>
-      <th>Carbs (g)</th>
-      <th>Fat (g)</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
-</div>
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination-btn" id="prevBtn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="page-info" id="pageInfo">Page 1 of 1</span>
+                <button class="pagination-btn" id="nextBtn" disabled>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
 
-<div class="pagination">
-  <button onclick="prevPage()">Previous</button>
-  <button onclick="nextPage()">Next</button>
-</div>
-</main>
+            <!-- Stats -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon icon-foods">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <span class="stat-number" id="totalFoods">0</span>
+                    <span class="stat-label">Total Food Items</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon icon-avg-cal">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <span class="stat-number" id="avgCalories">0</span>
+                    <span class="stat-label">Avg Calories/Item</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon icon-categories">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <span class="stat-number" id="totalCategories">0</span>
+                    <span class="stat-label">Food Categories</span>
+                </div>
+            </div>
+        </div>
+    </main>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-<nav>
-  <a href="disclaimer.html">Disclaimer</a>
-  <a href="about.html">About Us</a>
-  <a href="privacy.html">Privacy Policy</a>
-  <a href="contact.html">Contact Us</a>
-</nav>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>FitSphere</h3>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">Comprehensive food database for smart nutrition planning.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="planner.html">Planner</a></li>
+                        <li><a href="food.html">Food Database</a></li>
+                        <li><a href="exercise.html">Exercises</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="term.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 FitSphere; Created by: Soham Jadhav (GL), Sarthak Jadhav (AGL), Swaroop Jagtap, Pratik Jagtap, Taksh Jadhav</p>
+            </div>
+        </div>
+    </footer>
 
-<!-- ===== DATA FILE ===== -->
-<script src="food-data.js"></script>
+    <script>
+        // Food Data - All 300+ items from your file
+        const foodData = [
+            { "name": "Apple", "cal": 162, "protein": 8.5, "carbs": 38.9, "fat": 0.4 },
+            { "name": "Banana", "cal": 112, "protein": 34.4, "carbs": 47.9, "fat": 6.5 },
+            { "name": "Orange", "cal": 49, "protein": 6.8, "carbs": 53.8, "fat": 1.7 },
+            { "name": "Mango", "cal": 192, "protein": 13.1, "carbs": 6.8, "fat": 4.2 },
+            { "name": "Papaya", "cal": 111, "protein": 30.1, "carbs": 9.7, "fat": 21.3 },
+            { "name": "Guava", "cal": 323, "protein": 19.7, "carbs": 48.2, "fat": 24.9 },
+            { "name": "Grapes", "cal": 152, "protein": 8.2, "carbs": 8.6, "fat": 2.4 },
+            { "name": "Pineapple", "cal": 279, "protein": 14.2, "carbs": 23.5, "fat": 5.9 },
+            { "name": "Watermelon", "cal": 73, "protein": 13.6, "carbs": 5.4, "fat": 18.2 },
+            { "name": "Muskmelon", "cal": 176, "protein": 28.4, "carbs": 33.4, "fat": 20.6 },
+            { "name": "Pear", "cal": 52, "protein": 2.4, "carbs": 51.0, "fat": 21.0 },
+            { "name": "Peach", "cal": 303, "protein": 8.9, "carbs": 37.9, "fat": 12.8 },
+            { "name": "Plum", "cal": 301, "protein": 31.3, "carbs": 31.8, "fat": 16.0 },
+            { "name": "Kiwi", "cal": 231, "protein": 8.1, "carbs": 30.7, "fat": 14.9 },
+            { "name": "Strawberry", "cal": 222, "protein": 5.5, "carbs": 35.0, "fat": 21.7 },
+            { "name": "Blueberry", "cal": 296, "protein": 28.0, "carbs": 47.3, "fat": 1.9 },
+            { "name": "Raspberry", "cal": 307, "protein": 27.1, "carbs": 9.2, "fat": 23.0 },
+            { "name": "Blackberry", "cal": 195, "protein": 27.5, "carbs": 48.5, "fat": 20.1 },
+            { "name": "Pomegranate", "cal": 169, "protein": 33.1, "carbs": 37.1, "fat": 9.6 },
+            { "name": "Fig", "cal": 160, "protein": 23.0, "carbs": 50.6, "fat": 6.9 },
+            { "name": "Dates", "cal": 145, "protein": 12.8, "carbs": 18.5, "fat": 5.4 },
+            { "name": "Cherries", "cal": 350, "protein": 23.4, "carbs": 31.0, "fat": 24.7 },
+            { "name": "Apricot", "cal": 119, "protein": 6.9, "carbs": 14.3, "fat": 10.9 },
+            { "name": "Avocado", "cal": 204, "protein": 14.8, "carbs": 44.6, "fat": 20.1 },
+            { "name": "Custard Apple", "cal": 86, "protein": 25.9, "carbs": 48.4, "fat": 24.5 },
+            { "name": "Lychee", "cal": 342, "protein": 24.6, "carbs": 49.5, "fat": 12.1 },
+            { "name": "Jackfruit", "cal": 291, "protein": 7.0, "carbs": 47.0, "fat": 0.8 },
+            { "name": "Dragon Fruit", "cal": 197, "protein": 4.4, "carbs": 13.9, "fat": 19.0 },
+            { "name": "Coconut Meat", "cal": 209, "protein": 34.7, "carbs": 26.5, "fat": 2.2 },
+            { "name": "Sapota", "cal": 246, "protein": 20.8, "carbs": 54.7, "fat": 23.9 },
+            { "name": "Star Fruit", "cal": 90, "protein": 16.5, "carbs": 26.0, "fat": 6.9 },
+            { "name": "Passion Fruit", "cal": 162, "protein": 34.3, "carbs": 28.8, "fat": 1.5 },
+            { "name": "Mulberry", "cal": 45, "protein": 1.4, "carbs": 31.6, "fat": 7.6 },
+            { "name": "Cranberry", "cal": 330, "protein": 16.7, "carbs": 18.0, "fat": 0.2 },
+            { "name": "Gooseberry", "cal": 242, "protein": 28.1, "carbs": 34.1, "fat": 1.0 },
+            { "name": "Tangerine", "cal": 274, "protein": 27.2, "carbs": 22.7, "fat": 3.2 },
+            { "name": "Mandarin", "cal": 213, "protein": 2.3, "carbs": 8.3, "fat": 15.7 },
+            { "name": "Clementine", "cal": 210, "protein": 13.2, "carbs": 41.4, "fat": 3.5 },
+            { "name": "Blood Orange", "cal": 225, "protein": 3.6, "carbs": 33.3, "fat": 20.8 },
+            { "name": "Pomelo", "cal": 294, "protein": 34.6, "carbs": 40.2, "fat": 23.4 },
+            { "name": "Soursop", "cal": 274, "protein": 20.6, "carbs": 57.3, "fat": 16.4 },
+            { "name": "Durian", "cal": 279, "protein": 24.5, "carbs": 54.8, "fat": 20.9 },
+            { "name": "Longan", "cal": 176, "protein": 2.1, "carbs": 24.0, "fat": 1.8 },
+            { "name": "Rambutan", "cal": 213, "protein": 12.2, "carbs": 47.7, "fat": 13.9 },
+            { "name": "Persimmon", "cal": 106, "protein": 31.7, "carbs": 19.4, "fat": 21.0 },
+            { "name": "Quince", "cal": 344, "protein": 21.6, "carbs": 53.8, "fat": 3.8 },
+            { "name": "Ugli Fruit", "cal": 105, "protein": 11.8, "carbs": 35.5, "fat": 9.9 },
+            { "name": "Boysenberry", "cal": 126, "protein": 31.7, "carbs": 39.4, "fat": 20.6 },
+            { "name": "Elderberry", "cal": 170, "protein": 24.9, "carbs": 39.8, "fat": 19.8 },
+            { "name": "Idli", "cal": 209, "protein": 15.5, "carbs": 12.0, "fat": 16.3 },
+            { "name": "Plain Dosa", "cal": 94, "protein": 29.5, "carbs": 10.8, "fat": 6.7 },
+            { "name": "Masala Dosa", "cal": 77, "protein": 21.3, "carbs": 56.4, "fat": 10.2 },
+            { "name": "Rava Dosa", "cal": 237, "protein": 28.4, "carbs": 39.5, "fat": 20.3 },
+            { "name": "Uttapam", "cal": 296, "protein": 2.2, "carbs": 50.4, "fat": 25.0 },
+            { "name": "Upma", "cal": 255, "protein": 23.5, "carbs": 25.7, "fat": 16.0 },
+            { "name": "Poha", "cal": 311, "protein": 28.4, "carbs": 57.7, "fat": 16.9 },
+            { "name": "Sabudana Khichdi", "cal": 243, "protein": 4.4, "carbs": 11.1, "fat": 7.2 },
+            { "name": "Aloo Paratha", "cal": 195, "protein": 25.7, "carbs": 52.4, "fat": 14.9 },
+            { "name": "Paneer Paratha", "cal": 92, "protein": 14.0, "carbs": 30.1, "fat": 17.1 },
+            { "name": "Gobi Paratha", "cal": 215, "protein": 0.7, "carbs": 17.9, "fat": 24.1 },
+            { "name": "Methi Paratha", "cal": 266, "protein": 35.0, "carbs": 26.2, "fat": 21.6 },
+            { "name": "Poori", "cal": 104, "protein": 22.9, "carbs": 16.5, "fat": 18.5 },
+            { "name": "Bhatura", "cal": 40, "protein": 4.7, "carbs": 5.6, "fat": 18.2 },
+            { "name": "Chole Bhature", "cal": 221, "protein": 24.1, "carbs": 9.0, "fat": 18.2 },
+            { "name": "Pav Bhaji", "cal": 345, "protein": 16.1, "carbs": 26.8, "fat": 13.5 },
+            { "name": "Vada", "cal": 120, "protein": 8.3, "carbs": 56.4, "fat": 16.7 },
+            { "name": "Medu Vada", "cal": 234, "protein": 18.5, "carbs": 46.2, "fat": 3.1 },
+            { "name": "Appam", "cal": 239, "protein": 12.7, "carbs": 47.2, "fat": 2.3 },
+            { "name": "Puttu", "cal": 40, "protein": 23.7, "carbs": 8.9, "fat": 23.3 },
+            { "name": "Sheera", "cal": 135, "protein": 6.2, "carbs": 19.5, "fat": 6.4 },
+            { "name": "Halwa", "cal": 55, "protein": 12.9, "carbs": 38.7, "fat": 6.9 },
+            { "name": "Besan Chilla", "cal": 123, "protein": 2.7, "carbs": 22.2, "fat": 16.4 },
+            { "name": "Moong Dal Chilla", "cal": 147, "protein": 12.9, "carbs": 27.1, "fat": 5.6 },
+            { "name": "Oats Porridge", "cal": 44, "protein": 10.9, "carbs": 44.4, "fat": 22.6 },
+            { "name": "Vegetable Sandwich", "cal": 51, "protein": 19.2, "carbs": 48.0, "fat": 5.7 },
+            { "name": "Cheese Sandwich", "cal": 273, "protein": 11.3, "carbs": 22.4, "fat": 4.5 },
+            { "name": "Bread Omelette", "cal": 184, "protein": 20.2, "carbs": 36.6, "fat": 5.8 },
+            { "name": "French Toast", "cal": 60, "protein": 18.5, "carbs": 32.7, "fat": 19.4 },
+            { "name": "Cornflakes with Milk", "cal": 217, "protein": 21.2, "carbs": 31.5, "fat": 6.6 },
+            { "name": "Muesli with Milk", "cal": 159, "protein": 17.2, "carbs": 26.9, "fat": 4.1 },
+            { "name": "Smoothie Bowl", "cal": 118, "protein": 9.9, "carbs": 22.6, "fat": 18.4 },
+            { "name": "Vegetable Omelette", "cal": 172, "protein": 5.8, "carbs": 26.7, "fat": 7.1 },
+            { "name": "Egg Bhurji", "cal": 72, "protein": 33.4, "carbs": 7.4, "fat": 3.0 },
+            { "name": "Scrambled Eggs", "cal": 61, "protein": 14.2, "carbs": 55.0, "fat": 19.3 },
+            { "name": "Boiled Eggs", "cal": 117, "protein": 23.2, "carbs": 32.8, "fat": 16.8 },
+            { "name": "Masala Omelette", "cal": 342, "protein": 34.9, "carbs": 57.9, "fat": 3.2 },
+            { "name": "Vegetable Upma", "cal": 113, "protein": 24.4, "carbs": 28.2, "fat": 3.4 },
+            { "name": "Tomato Uttapam", "cal": 295, "protein": 11.2, "carbs": 18.4, "fat": 14.1 },
+            { "name": "Onion Uttapam", "cal": 338, "protein": 7.8, "carbs": 39.8, "fat": 22.3 },
+            { "name": "Plain Paratha", "cal": 252, "protein": 17.0, "carbs": 21.4, "fat": 11.3 },
+            { "name": "Butter Toast", "cal": 343, "protein": 1.7, "carbs": 32.5, "fat": 8.8 },
+            { "name": "Jam Toast", "cal": 201, "protein": 6.8, "carbs": 48.7, "fat": 14.8 },
+            { "name": "Banana Pancake", "cal": 243, "protein": 12.6, "carbs": 12.6, "fat": 7.9 },
+            { "name": "Plain Pancake", "cal": 85, "protein": 4.6, "carbs": 20.5, "fat": 1.2 },
+            { "name": "Masala Toast", "cal": 265, "protein": 28.0, "carbs": 24.9, "fat": 23.2 },
+            { "name": "Cheese Toast", "cal": 323, "protein": 15.4, "carbs": 38.1, "fat": 23.0 },
+            { "name": "Cooked Rice", "cal": 279, "protein": 9.8, "carbs": 7.6, "fat": 23.9 },
+            { "name": "Jeera Rice", "cal": 292, "protein": 7.3, "carbs": 34.2, "fat": 13.4 },
+            { "name": "Vegetable Pulao", "cal": 293, "protein": 8.8, "carbs": 32.8, "fat": 10.5 },
+            { "name": "Veg Biryani", "cal": 194, "protein": 30.7, "carbs": 56.1, "fat": 11.5 },
+            { "name": "Chicken Biryani", "cal": 163, "protein": 25.4, "carbs": 41.1, "fat": 13.6 },
+            { "name": "Mutton Biryani", "cal": 132, "protein": 7.7, "carbs": 7.8, "fat": 17.0 },
+            { "name": "Plain Roti", "cal": 250, "protein": 21.4, "carbs": 23.9, "fat": 8.4 },
+            { "name": "Chapati", "cal": 140, "protein": 17.3, "carbs": 25.0, "fat": 7.9 },
+            { "name": "Butter Roti", "cal": 108, "protein": 25.9, "carbs": 26.1, "fat": 12.4 },
+            { "name": "Naan", "cal": 184, "protein": 35.0, "carbs": 21.4, "fat": 12.0 },
+            { "name": "Butter Naan", "cal": 170, "protein": 17.6, "carbs": 5.9, "fat": 6.5 },
+            { "name": "Plain Dal", "cal": 237, "protein": 27.1, "carbs": 6.5, "fat": 24.3 },
+            { "name": "Dal Tadka", "cal": 334, "protein": 6.2, "carbs": 19.7, "fat": 20.1 },
+            { "name": "Dal Makhani", "cal": 274, "protein": 25.2, "carbs": 18.7, "fat": 5.0 },
+            { "name": "Rajma Curry", "cal": 176, "protein": 19.5, "carbs": 50.3, "fat": 19.6 },
+            { "name": "Chole Curry", "cal": 153, "protein": 18.5, "carbs": 15.7, "fat": 6.1 },
+            { "name": "Kadhi", "cal": 118, "protein": 9.8, "carbs": 30.5, "fat": 23.3 },
+            { "name": "Vegetable Curry", "cal": 170, "protein": 3.8, "carbs": 47.9, "fat": 12.4 },
+            { "name": "Paneer Butter Masala", "cal": 169, "protein": 24.7, "carbs": 50.9, "fat": 22.7 },
+            { "name": "Shahi Paneer", "cal": 214, "protein": 7.8, "carbs": 9.1, "fat": 10.7 },
+            { "name": "Palak Paneer", "cal": 328, "protein": 30.2, "carbs": 18.4, "fat": 14.1 },
+            { "name": "Matar Paneer", "cal": 57, "protein": 11.9, "carbs": 59.0, "fat": 11.8 },
+            { "name": "Aloo Gobi", "cal": 323, "protein": 6.4, "carbs": 35.9, "fat": 8.7 },
+            { "name": "Mix Veg", "cal": 302, "protein": 29.9, "carbs": 23.3, "fat": 12.1 },
+            { "name": "Bhindi Masala", "cal": 284, "protein": 13.6, "carbs": 51.3, "fat": 21.0 },
+            { "name": "Baingan Bharta", "cal": 139, "protein": 22.6, "carbs": 30.5, "fat": 4.8 },
+            { "name": "Vegetable Korma", "cal": 146, "protein": 23.0, "carbs": 7.2, "fat": 22.7 },
+            { "name": "Sambar", "cal": 93, "protein": 31.7, "carbs": 46.3, "fat": 3.7 },
+            { "name": "Rasam", "cal": 113, "protein": 30.2, "carbs": 32.5, "fat": 18.9 },
+            { "name": "Curd Rice", "cal": 63, "protein": 11.9, "carbs": 32.4, "fat": 16.5 },
+            { "name": "Lemon Rice", "cal": 187, "protein": 28.9, "carbs": 25.3, "fat": 20.5 },
+            { "name": "Tamarind Rice", "cal": 250, "protein": 13.4, "carbs": 25.5, "fat": 21.8 },
+            { "name": "Coconut Rice", "cal": 104, "protein": 1.7, "carbs": 46.3, "fat": 11.3 },
+            { "name": "Khichdi", "cal": 277, "protein": 1.8, "carbs": 31.3, "fat": 3.1 },
+            { "name": "Vegetable Khichdi", "cal": 158, "protein": 18.4, "carbs": 33.6, "fat": 22.2 },
+            { "name": "Plain Khichdi", "cal": 112, "protein": 16.4, "carbs": 6.4, "fat": 11.7 },
+            { "name": "Stuffed Capsicum", "cal": 309, "protein": 4.6, "carbs": 43.6, "fat": 11.6 },
+            { "name": "Stuffed Tomato", "cal": 219, "protein": 20.7, "carbs": 54.4, "fat": 20.6 },
+            { "name": "Vegetable Stew", "cal": 42, "protein": 22.6, "carbs": 49.9, "fat": 2.6 },
+            { "name": "Vegetable Kofta", "cal": 217, "protein": 8.8, "carbs": 48.3, "fat": 4.5 },
+            { "name": "Paneer Kofta", "cal": 201, "protein": 16.3, "carbs": 10.9, "fat": 19.8 },
+            { "name": "Veg Fried Rice", "cal": 249, "protein": 19.3, "carbs": 56.2, "fat": 19.6 },
+            { "name": "Egg Fried Rice", "cal": 334, "protein": 34.0, "carbs": 17.2, "fat": 17.2 },
+            { "name": "Chicken Fried Rice", "cal": 130, "protein": 8.9, "carbs": 7.4, "fat": 2.0 },
+            { "name": "Veg Hakka Noodles", "cal": 228, "protein": 8.8, "carbs": 13.5, "fat": 12.8 },
+            { "name": "Chicken Noodles", "cal": 310, "protein": 30.1, "carbs": 21.6, "fat": 22.5 },
+            { "name": "Veg Manchurian", "cal": 111, "protein": 2.6, "carbs": 15.3, "fat": 22.4 },
+            { "name": "Gobi Manchurian", "cal": 185, "protein": 16.4, "carbs": 8.3, "fat": 13.7 },
+            { "name": "Veg Pulao", "cal": 116, "protein": 1.8, "carbs": 10.8, "fat": 15.0 },
+            { "name": "Mushroom Masala", "cal": 244, "protein": 21.0, "carbs": 55.0, "fat": 8.0 },
+            { "name": "Mushroom Curry", "cal": 135, "protein": 31.6, "carbs": 5.0, "fat": 24.3 },
+            { "name": "Paneer Bhurji", "cal": 134, "protein": 5.8, "carbs": 9.9, "fat": 24.6 },
+            { "name": "Egg Curry", "cal": 208, "protein": 6.0, "carbs": 20.9, "fat": 7.6 },
+            { "name": "Chicken Curry", "cal": 318, "protein": 15.1, "carbs": 53.1, "fat": 16.2 },
+            { "name": "Butter Chicken", "cal": 82, "protein": 20.8, "carbs": 18.5, "fat": 22.7 },
+            { "name": "Chicken Tikka Masala", "cal": 152, "protein": 17.0, "carbs": 26.9, "fat": 17.2 },
+            { "name": "Fish Curry", "cal": 284, "protein": 5.8, "carbs": 20.5, "fat": 12.6 },
+            { "name": "Fish Fry", "cal": 63, "protein": 32.7, "carbs": 41.1, "fat": 7.3 },
+            { "name": "Samosa", "cal": 321, "protein": 20.7, "carbs": 6.1, "fat": 14.8 },
+            { "name": "Veg Cutlet", "cal": 150, "protein": 15.7, "carbs": 23.8, "fat": 11.5 },
+            { "name": "Paneer Cutlet", "cal": 245, "protein": 30.1, "carbs": 12.5, "fat": 14.3 },
+            { "name": "Chicken Cutlet", "cal": 118, "protein": 18.5, "carbs": 37.8, "fat": 4.3 },
+            { "name": "Pakora", "cal": 157, "protein": 32.3, "carbs": 36.4, "fat": 4.0 },
+            { "name": "Onion Pakora", "cal": 340, "protein": 17.0, "carbs": 59.8, "fat": 8.0 },
+            { "name": "Bread Pakora", "cal": 100, "protein": 8.6, "carbs": 44.7, "fat": 11.8 },
+            { "name": "Spring Roll", "cal": 309, "protein": 8.8, "carbs": 59.0, "fat": 9.6 },
+            { "name": "Veg Momos", "cal": 213, "protein": 8.1, "carbs": 53.1, "fat": 18.5 },
+            { "name": "Chicken Momos", "cal": 224, "protein": 14.1, "carbs": 40.7, "fat": 21.4 },
+            { "name": "Paneer Momos", "cal": 199, "protein": 19.7, "carbs": 19.2, "fat": 16.5 },
+            { "name": "Veg Burger", "cal": 88, "protein": 14.7, "carbs": 15.7, "fat": 0.9 },
+            { "name": "Chicken Burger", "cal": 139, "protein": 20.0, "carbs": 10.3, "fat": 14.9 },
+            { "name": "Veg Pizza", "cal": 134, "protein": 8.5, "carbs": 53.6, "fat": 6.3 },
+            { "name": "Cheese Pizza", "cal": 289, "protein": 16.9, "carbs": 41.1, "fat": 9.0 },
+            { "name": "Paneer Pizza", "cal": 242, "protein": 20.4, "carbs": 30.5, "fat": 18.2 },
+            { "name": "French Fries", "cal": 133, "protein": 4.5, "carbs": 39.9, "fat": 5.1 },
+            { "name": "Sweet Corn Chaat", "cal": 277, "protein": 17.4, "carbs": 18.5, "fat": 19.4 },
+            { "name": "Bhel Puri", "cal": 234, "protein": 11.7, "carbs": 6.1, "fat": 8.2 },
+            { "name": "Sev Puri", "cal": 108, "protein": 24.4, "carbs": 53.6, "fat": 11.2 },
+            { "name": "Pani Puri", "cal": 314, "protein": 27.9, "carbs": 17.6, "fat": 3.8 },
+            { "name": "Dahi Puri", "cal": 74, "protein": 23.2, "carbs": 24.3, "fat": 8.9 },
+            { "name": "Aloo Chaat", "cal": 199, "protein": 3.0, "carbs": 23.6, "fat": 23.6 },
+            { "name": "Fruit Chaat", "cal": 226, "protein": 16.1, "carbs": 58.4, "fat": 7.3 },
+            { "name": "Peanut Chaat", "cal": 171, "protein": 6.1, "carbs": 40.3, "fat": 8.9 },
+            { "name": "Roasted Chana", "cal": 237, "protein": 13.8, "carbs": 14.6, "fat": 14.4 },
+            { "name": "Popcorn", "cal": 224, "protein": 20.0, "carbs": 59.8, "fat": 18.5 },
+            { "name": "Nachos with Salsa", "cal": 316, "protein": 20.1, "carbs": 12.5, "fat": 17.2 },
+            { "name": "Nachos with Cheese", "cal": 319, "protein": 7.3, "carbs": 51.1, "fat": 4.1 },
+            { "name": "Milk", "cal": 280, "protein": 22.3, "carbs": 17.2, "fat": 5.5 },
+            { "name": "Toned Milk", "cal": 169, "protein": 33.9, "carbs": 51.3, "fat": 20.6 },
+            { "name": "Skim Milk", "cal": 244, "protein": 16.6, "carbs": 27.3, "fat": 5.7 },
+            { "name": "Curd", "cal": 129, "protein": 3.0, "carbs": 11.8, "fat": 18.6 },
+            { "name": "Greek Yogurt", "cal": 100, "protein": 31.6, "carbs": 13.5, "fat": 16.7 },
+            { "name": "Buttermilk", "cal": 200, "protein": 22.4, "carbs": 22.3, "fat": 19.9 },
+            { "name": "Lassi", "cal": 40, "protein": 27.4, "carbs": 8.3, "fat": 7.7 },
+            { "name": "Sweet Lassi", "cal": 304, "protein": 2.3, "carbs": 54.6, "fat": 16.0 },
+            { "name": "Paneer", "cal": 170, "protein": 25.4, "carbs": 20.5, "fat": 8.4 },
+            { "name": "Cheese", "cal": 60, "protein": 17.4, "carbs": 34.3, "fat": 5.0 },
+            { "name": "Butter", "cal": 151, "protein": 6.3, "carbs": 37.0, "fat": 12.1 },
+            { "name": "Ghee", "cal": 125, "protein": 11.3, "carbs": 25.8, "fat": 10.9 },
+            { "name": "Ice Cream Vanilla", "cal": 217, "protein": 32.4, "carbs": 37.0, "fat": 12.7 },
+            { "name": "Ice Cream Chocolate", "cal": 138, "protein": 29.8, "carbs": 6.4, "fat": 25.0 },
+            { "name": "Kulfi", "cal": 141, "protein": 25.8, "carbs": 44.2, "fat": 9.0 },
+            { "name": "Milkshake Vanilla", "cal": 281, "protein": 0.9, "carbs": 45.4, "fat": 14.4 },
+            { "name": "Milkshake Chocolate", "cal": 269, "protein": 26.5, "carbs": 54.2, "fat": 5.4 },
+            { "name": "Fruit Yogurt", "cal": 249, "protein": 17.2, "carbs": 17.2, "fat": 1.5 },
+            { "name": "Flavored Yogurt", "cal": 315, "protein": 19.6, "carbs": 40.8, "fat": 12.6 },
+            { "name": "Cheese Slice", "cal": 93, "protein": 23.9, "carbs": 18.7, "fat": 5.6 },
+            { "name": "Veg Manchurian (North Indian Style)", "cal": 319, "protein": 32.7, "carbs": 41.1, "fat": 2.1 },
+            { "name": "Butter Chicken (Homestyle)", "cal": 136, "protein": 4.9, "carbs": 36.5, "fat": 15.7 },
+            { "name": "Dragon Fruit (Restaurant Style)", "cal": 99, "protein": 31.4, "carbs": 10.8, "fat": 8.4 },
+            { "name": "Bhatura (Plain)", "cal": 81, "protein": 22.2, "carbs": 40.4, "fat": 11.6 },
+            { "name": "Banana Pancake (Low Oil)", "cal": 301, "protein": 5.5, "carbs": 8.8, "fat": 19.9 },
+            { "name": "Kadhi (High Protein)", "cal": 296, "protein": 30.4, "carbs": 35.6, "fat": 1.3 },
+            { "name": "Stuffed Capsicum (North Indian Style)", "cal": 118, "protein": 21.7, "carbs": 53.7, "fat": 21.6 },
+            { "name": "Boiled Eggs (Low Oil)", "cal": 263, "protein": 20.5, "carbs": 24.7, "fat": 24.0 },
+            { "name": "Chapati (Spicy)", "cal": 218, "protein": 18.2, "carbs": 36.6, "fat": 21.1 },
+            { "name": "Milkshake Chocolate (Spicy)", "cal": 173, "protein": 17.9, "carbs": 42.2, "fat": 15.2 },
+            { "name": "Raspberry (South Indian Style)", "cal": 88, "protein": 17.0, "carbs": 30.9, "fat": 10.5 },
+            { "name": "Boysenberry (Homestyle)", "cal": 122, "protein": 21.3, "carbs": 28.9, "fat": 12.6 },
+            { "name": "Blackberry (Homestyle)", "cal": 158, "protein": 32.9, "carbs": 5.1, "fat": 12.3 },
+            { "name": "Butter Naan (Restaurant Style)", "cal": 110, "protein": 25.1, "carbs": 10.0, "fat": 4.6 },
+            { "name": "Quince (Homestyle)", "cal": 58, "protein": 21.9, "carbs": 13.2, "fat": 6.5 },
+            { "name": "Veg Pulao (Spicy)", "cal": 257, "protein": 2.5, "carbs": 42.2, "fat": 2.1 },
+            { "name": "Mushroom Masala (Spicy)", "cal": 173, "protein": 13.6, "carbs": 22.4, "fat": 2.1 },
+            { "name": "Plum (Homestyle)", "cal": 293, "protein": 34.1, "carbs": 37.6, "fat": 22.7 },
+            { "name": "Rava Dosa (Homestyle)", "cal": 199, "protein": 2.6, "carbs": 33.3, "fat": 9.3 },
+            { "name": "Pani Puri (South Indian Style)", "cal": 229, "protein": 0.7, "carbs": 56.3, "fat": 12.1 },
+            { "name": "Sambar (Spicy)", "cal": 237, "protein": 12.8, "carbs": 54.6, "fat": 10.2 },
+            { "name": "Chole Curry (Homestyle)", "cal": 101, "protein": 14.1, "carbs": 21.7, "fat": 14.3 },
+            { "name": "Strawberry (Restaurant Style)", "cal": 47, "protein": 15.1, "carbs": 57.8, "fat": 16.0 },
+            { "name": "Aloo Chaat (Spicy)", "cal": 269, "protein": 33.4, "carbs": 58.1, "fat": 10.3 },
+            { "name": "Plain Dal (Plain)", "cal": 321, "protein": 1.0, "carbs": 34.1, "fat": 21.1 },
+            { "name": "Butter Roti (High Protein)", "cal": 118, "protein": 28.5, "carbs": 51.8, "fat": 22.3 },
+            { "name": "Gobi Manchurian (Low Oil)", "cal": 165, "protein": 6.3, "carbs": 36.3, "fat": 5.8 },
+            { "name": "Cheese Toast (Homestyle)", "cal": 236, "protein": 24.1, "carbs": 5.8, "fat": 3.5 },
+            { "name": "Ice Cream Vanilla (Restaurant Style)", "cal": 105, "protein": 21.5, "carbs": 25.1, "fat": 24.2 },
+            { "name": "Sev Puri (Plain)", "cal": 60, "protein": 24.5, "carbs": 54.7, "fat": 0.7 },
+            { "name": "Mushroom Masala (Homestyle)", "cal": 250, "protein": 27.9, "carbs": 56.2, "fat": 5.8 },
+            { "name": "French Toast (Spicy)", "cal": 143, "protein": 8.4, "carbs": 18.5, "fat": 4.3 },
+            { "name": "Plum (Homestyle)", "cal": 248, "protein": 9.9, "carbs": 55.2, "fat": 6.5 },
+            { "name": "Bread Pakora (South Indian Style)", "cal": 287, "protein": 30.0, "carbs": 18.7, "fat": 20.2 },
+            { "name": "Aloo Gobi (High Protein)", "cal": 99, "protein": 2.4, "carbs": 14.7, "fat": 12.8 },
+            { "name": "Vegetable Korma (Homestyle)", "cal": 187, "protein": 15.3, "carbs": 38.4, "fat": 7.6 },
+            { "name": "Uttapam (Low Oil)", "cal": 341, "protein": 30.6, "carbs": 43.8, "fat": 20.8 },
+            { "name": "Stuffed Capsicum (Spicy)", "cal": 251, "protein": 22.1, "carbs": 23.0, "fat": 23.9 },
+            { "name": "Lassi (South Indian Style)", "cal": 117, "protein": 5.9, "carbs": 50.6, "fat": 9.8 },
+            { "name": "Grapes (High Protein)", "cal": 163, "protein": 2.7, "carbs": 50.2, "fat": 0.7 },
+            { "name": "Pear (Spicy)", "cal": 204, "protein": 24.7, "carbs": 15.1, "fat": 1.6 },
+            { "name": "Quince (Homestyle)", "cal": 233, "protein": 18.1, "carbs": 25.3, "fat": 4.6 },
+            { "name": "Custard Apple (High Protein)", "cal": 147, "protein": 22.5, "carbs": 26.9, "fat": 4.0 },
+            { "name": "Rajma Curry (Homestyle)", "cal": 330, "protein": 2.0, "carbs": 5.0, "fat": 8.0 },
+            { "name": "Dates (Spicy)", "cal": 263, "protein": 23.5, "carbs": 37.1, "fat": 11.6 },
+            { "name": "Mango (Homestyle)", "cal": 304, "protein": 27.1, "carbs": 47.6, "fat": 6.8 },
+            { "name": "Chapati (Plain)", "cal": 314, "protein": 12.8, "carbs": 31.3, "fat": 8.2 },
+            { "name": "Quince (High Protein)", "cal": 205, "protein": 26.5, "carbs": 11.7, "fat": 17.6 },
+            { "name": "Peach (Homestyle)", "cal": 199, "protein": 5.2, "carbs": 10.1, "fat": 0.8 },
+            { "name": "Sambar (Spicy)", "cal": 339, "protein": 30.6, "carbs": 14.7, "fat": 3.4 },
+            { "name": "Veg Burger (Spicy)", "cal": 159, "protein": 9.6, "carbs": 18.9, "fat": 17.4 },
+            { "name": "Sweet Corn Chaat (North Indian Style)", "cal": 59, "protein": 33.6, "carbs": 32.7, "fat": 5.0 },
+            { "name": "Paneer Kofta (Restaurant Style)", "cal": 155, "protein": 31.3, "carbs": 11.3, "fat": 21.6 },
+            { "name": "Egg Bhurji (High Protein)", "cal": 240, "protein": 4.5, "carbs": 35.6, "fat": 3.4 },
+            { "name": "Guava (Homestyle)", "cal": 89, "protein": 28.0, "carbs": 45.4, "fat": 4.3 },
+            { "name": "Dahi Puri (North Indian Style)", "cal": 199, "protein": 19.9, "carbs": 9.8, "fat": 20.9 },
+            { "name": "Aloo Gobi (Low Oil)", "cal": 133, "protein": 22.0, "carbs": 43.6, "fat": 4.5 },
+            { "name": "French Fries (North Indian Style)", "cal": 278, "protein": 0.9, "carbs": 50.8, "fat": 16.2 },
+            { "name": "Veg Fried Rice (South Indian Style)", "cal": 181, "protein": 1.4, "carbs": 48.3, "fat": 24.6 },
+            { "name": "Papaya (South Indian Style)", "cal": 43, "protein": 32.1, "carbs": 13.5, "fat": 16.0 },
+            { "name": "Gooseberry (Plain)", "cal": 63, "protein": 6.3, "carbs": 55.6, "fat": 5.2 },
+            { "name": "Pomegranate (Spicy)", "cal": 204, "protein": 2.4, "carbs": 52.3, "fat": 3.3 },
+            { "name": "Flavored Yogurt (North Indian Style)", "cal": 73, "protein": 14.6, "carbs": 59.0, "fat": 12.5 },
+            { "name": "Kiwi (South Indian Style)", "cal": 43, "protein": 7.3, "carbs": 20.7, "fat": 0.9 },
+            { "name": "Longan (Plain)", "cal": 205, "protein": 32.5, "carbs": 53.8, "fat": 16.3 },
+            { "name": "Custard Apple (Homestyle)", "cal": 63, "protein": 4.3, "carbs": 42.1, "fat": 8.6 },
+            { "name": "Chapati (Restaurant Style)", "cal": 319, "protein": 27.9, "carbs": 34.3, "fat": 14.4 },
+            { "name": "Besan Chilla (Low Oil)", "cal": 136, "protein": 2.8, "carbs": 29.7, "fat": 24.2 },
+            { "name": "Egg Fried Rice (Spicy)", "cal": 285, "protein": 8.1, "carbs": 31.5, "fat": 24.1 },
+            { "name": "Vegetable Curry (Restaurant Style)", "cal": 84, "protein": 26.6, "carbs": 18.1, "fat": 15.6 },
+            { "name": "Bread Omelette (Low Oil)", "cal": 286, "protein": 29.9, "carbs": 7.9, "fat": 4.2 },
+            { "name": "Plain Pancake (Plain)", "cal": 320, "protein": 5.0, "carbs": 7.0, "fat": 10.4 },
+            { "name": "Plain Roti (Plain)", "cal": 50, "protein": 21.5, "carbs": 35.2, "fat": 9.1 },
+            { "name": "French Fries (Low Oil)", "cal": 177, "protein": 7.5, "carbs": 37.9, "fat": 7.4 },
+            { "name": "Jeera Rice (Spicy)", "cal": 182, "protein": 17.8, "carbs": 59.9, "fat": 13.2 },
+            { "name": "Bread Pakora (Restaurant Style)", "cal": 66, "protein": 1.2, "carbs": 44.0, "fat": 5.3 },
+            { "name": "Milkshake Vanilla (Spicy)", "cal": 344, "protein": 5.3, "carbs": 39.2, "fat": 13.3 },
+            { "name": "Mushroom Curry (Low Oil)", "cal": 192, "protein": 18.1, "carbs": 8.8, "fat": 11.0 },
+            { "name": "Spring Roll (High Protein)", "cal": 292, "protein": 16.9, "carbs": 28.2, "fat": 10.8 },
+            { "name": "Ice Cream Vanilla (North Indian Style)", "cal": 83, "protein": 8.0, "carbs": 11.1, "fat": 2.5 },
+            { "name": "Greek Yogurt (High Protein)", "cal": 288, "protein": 9.2, "carbs": 14.0, "fat": 15.8 },
+            { "name": "Mushroom Curry (Plain)", "cal": 248, "protein": 0.9, "carbs": 17.2, "fat": 21.9 },
+            { "name": "Veg Biryani (North Indian Style)", "cal": 331, "protein": 3.8, "carbs": 51.4, "fat": 5.4 },
+            { "name": "Jackfruit (Homestyle)", "cal": 201, "protein": 14.8, "carbs": 17.8, "fat": 4.9 },
+            { "name": "Star Fruit (Restaurant Style)", "cal": 160, "protein": 34.6, "carbs": 42.3, "fat": 17.7 },
+            { "name": "Chicken Curry (North Indian Style)", "cal": 61, "protein": 1.7, "carbs": 26.9, "fat": 8.3 },
+            { "name": "Veg Burger (Plain)", "cal": 203, "protein": 34.8, "carbs": 36.9, "fat": 16.2 },
+            { "name": "Fruit Yogurt (Restaurant Style)", "cal": 67, "protein": 18.8, "carbs": 31.0, "fat": 21.1 },
+            { "name": "Mutton Biryani (South Indian Style)", "cal": 295, "protein": 14.3, "carbs": 54.9, "fat": 5.0 },
+            { "name": "Bread Pakora (Low Oil)", "cal": 182, "protein": 18.0, "carbs": 41.9, "fat": 23.1 },
+            { "name": "Milk (Low Oil)", "cal": 298, "protein": 7.4, "carbs": 23.3, "fat": 18.7 },
+            { "name": "Jam Toast (High Protein)", "cal": 310, "protein": 6.6, "carbs": 9.3, "fat": 13.8 },
+            { "name": "Tangerine (South Indian Style)", "cal": 88, "protein": 20.7, "carbs": 10.1, "fat": 13.5 },
+            { "name": "Peanut Chaat (Restaurant Style)", "cal": 254, "protein": 25.7, "carbs": 11.1, "fat": 22.1 },
+            { "name": "Chicken Curry (Low Oil)", "cal": 62, "protein": 19.7, "carbs": 13.4, "fat": 24.7 },
+            { "name": "Butter Toast (North Indian Style)", "cal": 114, "protein": 8.3, "carbs": 12.7, "fat": 7.0 },
+            { "name": "Cheese Toast (Low Oil)", "cal": 301, "protein": 24.9, "carbs": 52.8, "fat": 11.3 },
+            { "name": "Gobi Manchurian (High Protein)", "cal": 72, "protein": 31.6, "carbs": 47.4, "fat": 24.8 },
+            { "name": "Chicken Tikka Masala (Low Oil)", "cal": 53, "protein": 7.1, "carbs": 37.5, "fat": 13.3 },
+            { "name": "Oats Porridge (South Indian Style)", "cal": 209, "protein": 23.7, "carbs": 8.0, "fat": 5.2 },
+            { "name": "Mutton Biryani (Plain)", "cal": 94, "protein": 11.9, "carbs": 24.4, "fat": 24.7 },
+            { "name": "Peanut Chaat (Spicy)", "cal": 201, "protein": 32.7, "carbs": 25.5, "fat": 2.7 },
+            { "name": "Fruit Yogurt (Plain)", "cal": 194, "protein": 28.3, "carbs": 31.9, "fat": 1.3 },
+            { "name": "Plain Roti (Low Oil)", "cal": 349, "protein": 3.2, "carbs": 36.4, "fat": 20.7 },
+            { "name": "Pomegranate (Spicy)", "cal": 128, "protein": 25.7, "carbs": 52.5, "fat": 12.9 },
+            { "name": "Fig (North Indian Style)", "cal": 254, "protein": 22.1, "carbs": 58.5, "fat": 2.7 },
+            { "name": "Chicken Biryani (Spicy)", "cal": 240, "protein": 12.5, "carbs": 10.9, "fat": 24.3 },
+            { "name": "Idli (Homestyle)", "cal": 274, "protein": 13.1, "carbs": 52.4, "fat": 18.4 },
+            { "name": "Mutton Biryani (High Protein)", "cal": 66, "protein": 22.8, "carbs": 18.0, "fat": 23.0 },
+            { "name": "Moong Dal Chilla (Low Oil)", "cal": 48, "protein": 12.6, "carbs": 54.0, "fat": 19.5 },
+            { "name": "Guava (North Indian Style)", "cal": 197, "protein": 31.5, "carbs": 37.0, "fat": 11.8 },
+            { "name": "Vegetable Korma (Restaurant Style)", "cal": 99, "protein": 34.0, "carbs": 58.9, "fat": 14.5 },
+            { "name": "Chicken Noodles (Homestyle)", "cal": 119, "protein": 13.3, "carbs": 32.1, "fat": 22.2 },
+            { "name": "Stuffed Capsicum (Homestyle)", "cal": 182, "protein": 30.0, "carbs": 7.2, "fat": 0.9 },
+            { "name": "Milkshake Vanilla (North Indian Style)", "cal": 224, "protein": 19.8, "carbs": 15.4, "fat": 21.8 },
+            { "name": "Chole Curry (South Indian Style)", "cal": 98, "protein": 17.0, "carbs": 59.9, "fat": 10.8 },
+            { "name": "Bhindi Masala (Homestyle)", "cal": 188, "protein": 20.2, "carbs": 28.4, "fat": 12.9 }
+        ];
 
-<!-- ===== PAGE LOGIC ===== -->
-<script>
-function toggleMenu(){
-  document.getElementById("navLinks").classList.toggle("active");
-}
+        // Enhanced food data with categories
+        const enhancedFoodData = foodData.map(item => {
+            const name = item.name.toLowerCase();
+            let cuisine = "other";
+            let diet = "veg";
+            let category = "other";
+            let meatType = null;
+            
+            // Determine cuisine
+            if (name.includes("dosa") || name.includes("idli") || name.includes("uttapam") || 
+                name.includes("sambar") || name.includes("rasam") || name.includes("puttu") ||
+                name.includes("vada") || name.includes("appam")) {
+                cuisine = "south indian";
+            } else if (name.includes("paratha") || name.includes("naan") || name.includes("roti") || 
+                       name.includes("chole") || name.includes("paneer") || name.includes("biryani") ||
+                       name.includes("korma") || name.includes("bharta") || name.includes("pulao") ||
+                       name.includes("tadka") || name.includes("makhani")) {
+                cuisine = "north indian";
+            } else if (name.includes("manchurian") || name.includes("noodles") || name.includes("fried rice") || 
+                       name.includes("spring roll") || name.includes("momos")) {
+                cuisine = "chinese";
+            } else if (name.includes("burger") || name.includes("pizza") || name.includes("sandwich") || 
+                       name.includes("toast") || name.includes("pancake") || name.includes("omelette") ||
+                       name.includes("fries") || name.includes("nachos")) {
+                cuisine = "continental";
+            } else if (name.includes("fruit") || name === "apple" || name === "banana" || name === "orange" ||
+                       name === "mango" || name === "grapes" || name === "berry" || name === "melon") {
+                cuisine = "global";
+            }
+            
+            // Determine diet type
+            if (name.includes("chicken") || name.includes("mutton") || name.includes("egg") || 
+                name.includes("fish") || name.includes("butter chicken") || name.includes("tikka")) {
+                diet = "nonveg";
+            }
+            
+            // Determine meat type
+            if (name.includes("chicken")) meatType = "chicken";
+            else if (name.includes("mutton")) meatType = "mutton";
+            else if (name.includes("egg")) meatType = "egg";
+            else if (name.includes("fish")) meatType = "fish";
+            
+            // Determine category
+            if (name.includes("fruit") || name === "apple" || name === "banana" || name === "orange" ||
+                name === "mango" || name === "papaya" || name === "guava" || name === "grapes" ||
+                name === "pineapple" || name === "watermelon" || name === "melon" || name.includes("berry")) {
+                category = "fruit";
+            } else if (name.includes("breakfast") || name.includes("dosa") || name.includes("idli") || 
+                       name.includes("poha") || name.includes("upma") || name.includes("paratha") ||
+                       name.includes("uttapam") || name.includes("pancake") || name.includes("toast") ||
+                       name.includes("omelette") || name.includes("porridge") || name.includes("chilla")) {
+                category = "breakfast";
+            } else if (name.includes("biryani") || name.includes("curry") || name.includes("pulao") || 
+                       name.includes("rice") || name.includes("roti") || name.includes("naan") ||
+                       name.includes("dal") || name.includes("sabzi") || name.includes("masala") ||
+                       name.includes("korma") || name.includes("bharta") || name.includes("stew")) {
+                category = "main course";
+            } else if (name.includes("chaat") || name.includes("samosa") || name.includes("pakora") || 
+                       name.includes("cutlet") || name.includes("fries") || name.includes("nachos") ||
+                       name.includes("popcorn") || name.includes("burger") || name.includes("pizza") ||
+                       name.includes("momos") || name.includes("roll")) {
+                category = "snack";
+            } else if (name.includes("ice cream") || name.includes("kulfi") || name.includes("milkshake") || 
+                       name.includes("yogurt") || name.includes("halwa") || name.includes("sheera") ||
+                       name.includes("dessert") || name.includes("sweet")) {
+                category = "dessert";
+            } else if (name.includes("milk") || name.includes("lassi") || name.includes("buttermilk") || 
+                       name.includes("juice") || name.includes("smoothie")) {
+                category = "beverage";
+            }
+            
+            return {
+                ...item,
+                cuisine,
+                diet,
+                category,
+                meatType
+            };
+        });
 
-let currentPage = 0;
-const itemsPerPage = 15;
-let filteredData = [...foodData];
+        // App State
+        let currentFilter = {
+            cuisine: 'all',
+            diet: 'all',
+            meat: 'all',
+            category: 'all'
+        };
+        let currentPage = 1;
+        const itemsPerPage = 20;
+        let filteredData = [...enhancedFoodData];
 
-function renderTable(){
-  const tbody = document.querySelector("#foodTable tbody");
-  tbody.innerHTML = "";
+        // DOM Elements
+        const foodTableBody = document.getElementById('foodTableBody');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const clearFiltersBtn = document.getElementById('clearFilters');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageInfo = document.getElementById('pageInfo');
+        const totalFoodsEl = document.getElementById('totalFoods');
+        const avgCaloriesEl = document.getElementById('avgCalories');
+        const totalCategoriesEl = document.getElementById('totalCategories');
 
-  const start = currentPage * itemsPerPage;
-  const end = start + itemsPerPage;
+        // Initialize
+        function init() {
+            updateStats();
+            renderTable();
+            setupEventListeners();
+        }
 
-  filteredData.slice(start, end).forEach(item => {
-    tbody.innerHTML += `
-      <tr>
-        <td>${item.name}</td>
-        <td>${item.cal}</td>
-        <td>${item.protein}</td>
-        <td>${item.carbs}</td>
-        <td>${item.fat}</td>
-      </tr>`;
-  });
-}
+        // Update Stats
+        function updateStats() {
+            totalFoodsEl.textContent = enhancedFoodData.length;
+            
+            const totalCalories = enhancedFoodData.reduce((sum, item) => sum + item.cal, 0);
+            const avgCalories = Math.round(totalCalories / enhancedFoodData.length);
+            avgCaloriesEl.textContent = avgCalories;
+            
+            const categories = new Set(enhancedFoodData.map(item => item.category));
+            totalCategoriesEl.textContent = categories.size;
+        }
 
-function nextPage(){
-  if((currentPage + 1) * itemsPerPage < filteredData.length){
-    currentPage++;
-    renderTable();
-  }
-}
-function prevPage(){
-  if(currentPage > 0){
-    currentPage--;
-    renderTable();
-  }
-}
-function searchFood(){
-  const query = document.getElementById("search").value.toLowerCase();
-  filteredData = foodData.filter(item =>
-    item.name.toLowerCase().includes(query)
-  );
-  currentPage = 0;
-  renderTable();
-}
+        // Render Table
+        function renderTable() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+            
+            foodTableBody.innerHTML = '';
+            
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // Determine icon
+                let icon = 'fa-utensils';
+                if (item.category === 'fruit') icon = 'fa-apple-alt';
+                else if (item.category === 'breakfast') icon = 'fa-coffee';
+                else if (item.category === 'main course') icon = 'fa-utensils';
+                else if (item.category === 'snack') icon = 'fa-cookie-bite';
+                else if (item.category === 'dessert') icon = 'fa-ice-cream';
+                else if (item.category === 'beverage') icon = 'fa-glass-whiskey';
+                
+                // Determine cuisine tag class
+                let cuisineTagClass = '';
+                if (item.cuisine === 'south indian') cuisineTagClass = 'tag-south';
+                else if (item.cuisine === 'north indian') cuisineTagClass = 'tag-north';
+                
+                // Determine diet tag class
+                const dietTagClass = item.diet === 'veg' ? 'tag-veg' : 'tag-nonveg';
+                
+                row.innerHTML = `
+                    <td>
+                        <div class="food-name">
+                            <i class="fas ${icon} food-icon"></i>
+                            ${item.name}
+                        </div>
+                    </td>
+                    <td class="calories-cell">${item.cal}</td>
+                    <td>
+                        <div class="macro-cell">
+                            <span class="macro-badge badge-protein">
+                                <i class="fas fa-drumstick-bite"></i> ${item.protein}g
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="macro-cell">
+                            <span class="macro-badge badge-carbs">
+                                <i class="fas fa-bread-slice"></i> ${item.carbs}g
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="macro-cell">
+                            <span class="macro-badge badge-fat">
+                                <i class="fas fa-oil-can"></i> ${item.fat}g
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="category-tag ${cuisineTagClass}">${item.cuisine}</span>
+                    </td>
+                    <td>
+                        <span class="category-tag ${dietTagClass}">${item.diet}</span>
+                    </td>
+                `;
+                
+                foodTableBody.appendChild(row);
+            });
+            
+            updatePagination();
+        }
 
-renderTable();
-</script>
+        // Update Pagination
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+            
+            if (totalPages === 0) {
+                pageInfo.textContent = "No results found";
+            }
+        }
 
+        // Filter Data
+        function filterData() {
+            filteredData = enhancedFoodData.filter(item => {
+                // Search filter
+                const searchTerm = searchInput.value.toLowerCase();
+                if (searchTerm && !item.name.toLowerCase().includes(searchTerm)) {
+                    return false;
+                }
+                
+                // Cuisine filter
+                if (currentFilter.cuisine !== 'all' && item.cuisine !== currentFilter.cuisine) {
+                    return false;
+                }
+                
+                // Diet filter
+                if (currentFilter.diet !== 'all' && item.diet !== currentFilter.diet) {
+                    return false;
+                }
+                
+                // Meat filter
+                if (currentFilter.meat !== 'all') {
+                    if (currentFilter.meat === 'chicken' && !item.name.toLowerCase().includes('chicken')) return false;
+                    if (currentFilter.meat === 'fish' && !item.name.toLowerCase().includes('fish')) return false;
+                    if (currentFilter.meat === 'mutton' && !item.name.toLowerCase().includes('mutton')) return false;
+                    if (currentFilter.meat === 'egg' && !item.name.toLowerCase().includes('egg')) return false;
+                }
+                
+                // Category filter
+                if (currentFilter.category !== 'all' && item.category !== currentFilter.category) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            currentPage = 1;
+            renderTable();
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Theme Management
+            const themeSwitch = document.getElementById('themeSwitch');
+            const html = document.documentElement;
+            const savedTheme = localStorage.getItem('fitsphere-theme') || 
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            html.setAttribute('data-theme', savedTheme);
+
+            themeSwitch.addEventListener('click', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('fitsphere-theme', newTheme);
+            });
+
+            // Mobile Menu
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                menuToggle.innerHTML = navLinks.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+
+            // Search
+            searchInput.addEventListener('input', () => {
+                filterData();
+            });
+
+            searchBtn.addEventListener('click', () => {
+                filterData();
+            });
+
+            // Clear Filters
+            clearFiltersBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                currentFilter = {
+                    cuisine: 'all',
+                    diet: 'all',
+                    meat: 'all',
+                    category: 'all'
+                };
+                
+                // Reset all filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.textContent.toLowerCase() === 'all' || 
+                        btn.dataset.filter === 'all') {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                filterData();
+            });
+
+            // Filter Buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filterType = this.closest('.filter-buttons').id;
+                    const filterValue = this.dataset.filter;
+                    
+                    // Remove active class from all buttons in this group
+                    this.closest('.filter-buttons').querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update filter state
+                    switch(filterType) {
+                        case 'cuisineFilters':
+                            currentFilter.cuisine = filterValue;
+                            break;
+                        case 'dietFilters':
+                            currentFilter.diet = filterValue;
+                            break;
+                        case 'meatFilters':
+                            currentFilter.meat = filterValue;
+                            break;
+                        case 'categoryFilters':
+                            currentFilter.category = filterValue;
+                            break;
+                    }
+                    
+                    filterData();
+                });
+            });
+
+            // Pagination
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+
+            // Table row click
+            foodTableBody.addEventListener('click', (e) => {
+                const row = e.target.closest('tr');
+                if (row) {
+                    const foodName = row.querySelector('.food-name').textContent.trim();
+                    console.log(`Selected: ${foodName}`);
+                    
+                    // Highlight selected row
+                    document.querySelectorAll('#foodTable tbody tr').forEach(r => {
+                        r.style.background = '';
+                    });
+                    row.style.background = 'rgba(59, 130, 246, 0.1)';
+                }
+            });
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
-
-
