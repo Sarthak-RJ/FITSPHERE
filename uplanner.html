@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Planner | FitSphere</title>
+    <title>FitSphere | Smart Fitness & Nutrition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -83,6 +83,11 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
         /* ===== HEADER ===== */
@@ -188,170 +193,61 @@
             cursor: pointer;
         }
 
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            padding: 40px 0;
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
         }
 
-        .page-header {
-            text-align: center;
-            margin-bottom: 40px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.1;
+            border-radius: 50%;
+            top: -300px;
+            right: -300px;
         }
 
-        .page-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .page-subtitle {
-            color: var(--text-secondary);
-            font-size: 18px;
+        .hero-content {
             max-width: 600px;
-            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        /* ===== PLANNER SECTIONS ===== */
-        .planner-section {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border);
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .section-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: white;
-        }
-
-        .icon-calculator { background: linear-gradient(135deg, var(--accent), #d97706); }
-        .icon-diet { background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); }
-        .icon-exercise { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
-        .icon-summary { background: linear-gradient(135deg, var(--purple), #7c3aed); }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        /* ===== FORM GRID ===== */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
             margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-primary);
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
         }
 
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 14px 16px;
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            font-size: 16px;
-            color: var(--text-primary);
-            transition: var(--transition);
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
         }
 
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--bg-input);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border);
-            transform: translateY(-2px);
-        }
-
-        /* ===== CALORIE CALCULATOR RESULTS ===== */
-        .calculator-results {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-            padding: 25px;
-            background: var(--bg-input);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-        }
-
-        .result-card {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: var(--radius-md);
+        .stat {
             text-align: center;
-            border: 1px solid var(--border);
-            transition: var(--transition);
         }
 
-        .result-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .result-value {
+        .stat-number {
             font-size: 32px;
             font-weight: 700;
             color: var(--primary);
@@ -359,220 +255,216 @@
             margin-bottom: 5px;
         }
 
-        .result-label {
+        .stat-label {
             font-size: 14px;
             color: var(--text-muted);
-            font-weight: 500;
         }
 
-        .result-unit {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-left: 2px;
+        /* ===== FEATURES ===== */
+        .section {
+            padding: 80px 0;
         }
 
-        /* ===== TABLES ===== */
-        .table-container {
-            background: var(--bg-input);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            border: 1px solid var(--border);
-            margin-top: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: var(--bg-card);
-        }
-
-        th {
-            padding: 16px 20px;
-            text-align: left;
+        .section-title {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
             color: var(--text-primary);
-            font-weight: 600;
-            font-size: 14px;
-            border-bottom: 1px solid var(--border);
         }
 
-        tbody tr {
-            border-bottom: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        tbody tr:hover {
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        td {
-            padding: 16px 20px;
-            color: var(--text-primary);
-            font-size: 15px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+        .section-subtitle {
+            text-align: center;
             color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 50px;
         }
 
-        .btn-icon:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .btn-icon.danger:hover {
-            background: var(--danger);
-            border-color: var(--danger);
-        }
-
-        /* ===== SUMMARY CARDS ===== */
-        .summary-grid {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
-        .summary-card {
+        .feature-card {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
-            padding: 30px;
-            text-align: center;
-            border: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .summary-card:hover {
-            transform: translateY(-5px);
+            padding: 40px 30px;
             box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .summary-icon {
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .feature-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-icon {
             width: 70px;
             height: 70px;
-            border-radius: var(--radius-lg);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 28px;
-            margin: 0 auto 20px;
+            margin: 0 auto 25px;
             color: white;
+            transition: var(--transition);
         }
 
-        .icon-cal-in { background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); }
-        .icon-cal-out { background: linear-gradient(135deg, var(--danger), #dc2626); }
-        .icon-net { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
-
-        .summary-value {
-            font-size: 42px;
-            font-weight: 700;
-            color: var(--text-primary);
-            display: block;
-            margin-bottom: 5px;
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
         }
 
-        .summary-label {
-            font-size: 16px;
-            color: var(--text-muted);
-        }
+        .icon-1 { background: linear-gradient(135deg, var(--primary), #6366f1); }
+        .icon-2 { background: linear-gradient(135deg, var(--secondary), #10b981); }
+        .icon-3 { background: linear-gradient(135deg, var(--accent), #f59e0b); }
+        .icon-4 { background: linear-gradient(135deg, var(--purple), #8b5cf6); }
 
-        .summary-status {
-            display: inline-block;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 14px;
+        .feature-card h3 {
+            font-size: 20px;
             font-weight: 600;
-            margin-top: 15px;
+            margin-bottom: 15px;
+            color: var(--text-primary);
         }
 
-        .status-good { background: rgba(16, 185, 129, 0.1); color: var(--secondary); }
-        .status-neutral { background: rgba(59, 130, 246, 0.1); color: var(--primary); }
-        .status-warning { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
-        .status-deficit { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
 
-        /* ===== SAVE PLAN SECTION ===== */
-        .save-section {
+        .feature-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--bg-input);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 14px;
+            transition: var(--transition);
+            color: var(--text-primary);
+            position: relative;
+            z-index: 3;
+        }
+
+        .feature-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* ===== CTA ===== */
+        .cta-section {
             background: linear-gradient(135deg, var(--primary), var(--purple));
-            border-radius: var(--radius-lg);
-            padding: 40px;
+            padding: 80px 0;
             text-align: center;
             color: white;
-            margin-top: 40px;
+            border-radius: var(--radius-lg);
+            margin: 40px 0;
         }
 
-        .save-section h3 {
-            font-size: 24px;
+        .cta-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .save-section p {
+        .cta-section p {
+            font-size: 18px;
             opacity: 0.9;
-            margin-bottom: 25px;
-            max-width: 500px;
+            margin-bottom: 30px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .btn-light {
-            background: white;
-            color: var(--primary);
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: var(--radius-md);
             font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            position: relative;
+            z-index: 2;
         }
 
-        .btn-light:hover {
-            background: rgba(255, 255, 255, 0.9);
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         /* ===== FOOTER ===== */
         footer {
             background: var(--bg-card);
-            padding: 40px 0 20px;
+            padding: 60px 0 30px;
             border-top: 1px solid var(--border);
-            margin-top: 60px;
+            margin-top: 80px;
         }
 
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
         .footer-col h3 {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: var(--text-primary);
         }
 
         .footer-col ul li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .footer-col ul li a {
             color: var(--text-secondary);
-            font-size: 14px;
             transition: var(--transition);
         }
 
@@ -582,10 +474,10 @@
 
         .footer-bottom {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 30px;
             border-top: 1px solid var(--border);
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 14px;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -623,39 +515,41 @@
                 border-bottom: 1px solid var(--border);
             }
 
-            .planner-section {
-                padding: 30px 20px;
+            .hero h1 {
+                font-size: 36px;
             }
 
-            .page-title {
+            .hero-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
                 font-size: 28px;
             }
 
-            .form-grid {
+            .features-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .table-container {
-                overflow-x: auto;
-            }
-
-            table {
-                min-width: 600px;
-            }
-
-            .calculator-results {
-                grid-template-columns: repeat(2, 1fr);
-                padding: 15px;
-            }
-
-            .result-value {
-                font-size: 24px;
             }
         }
 
         @media (max-width: 480px) {
-            .calculator-results {
-                grid-template-columns: 1fr;
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .feature-btn {
+                padding: 8px 16px;
+                font-size: 13px;
             }
         }
     </style>
@@ -673,13 +567,13 @@
                 </a>
 
                 <div class="nav-links" id="navLinks">
-                    <a href="index.html" class="nav-link">
+                    <a href="index.html" class="nav-link active">
                         <i class="fas fa-home"></i> Home
                     </a>
                     <a href="planner.html" class="nav-link">
                         <i class="fas fa-calendar-alt"></i> Planner
                     </a>
-                    <a href="uplanner.html" class="nav-link active">
+                    <a href="uplanner.html" class="nav-link">
                         <i class="fas fa-user-cog"></i> UPlanner
                     </a>
                     <a href="food.html" class="nav-link">
@@ -691,7 +585,7 @@
                 </div>
 
                 <div class="header-actions">
-                    
+                    <div class="theme-switch" id="themeSwitch"></div>
                     <div class="menu-toggle" id="menuToggle">
                         <i class="fas fa-bars"></i>
                     </div>
@@ -700,349 +594,111 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">Custom Daily Planner</h1>
-                <p class="page-subtitle">Create your own personalized meal and exercise plan with exact foods, portions, and timing</p>
-            </div>
-
-            <!-- Custom Calorie Counter -->
-            <div class="planner-section">
-                <div class="section-header">
-                    <div class="section-icon icon-calculator">
-                        <i class="fas fa-calculator"></i>
+            <div class="hero-content">
+                <h1>Smart Nutrition & Fitness Planning</h1>
+                <p>Personalized 14-day diet plans, exercise routines, and progress tracking powered by intelligent algorithms and nutritional science.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">300+</span>
+                        <span class="stat-label">Food Items</span>
                     </div>
-                    <h2 class="section-title">🧮 Custom Calorie Calculator</h2>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="height">Height (cm)</label>
-                        <input type="number" id="height" placeholder="e.g., 175" min="100" max="250" value="175">
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Exercises</span>
                     </div>
-
-                    <div class="form-group">
-                        <label for="weight">Weight (kg)</label>
-                        <input type="number" id="weight" placeholder="e.g., 70" min="30" max="200" value="70">
+                    <div class="stat">
+                        <span class="stat-number">14-Day</span>
+                        <span class="stat-label">Plans</span>
                     </div>
-
-                    <div class="form-group">
-                        <label for="age">Age (years)</label>
-                        <input type="number" id="age" placeholder="e.g., 25" min="15" max="80" value="25">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select id="gender">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="activity">Activity Level</label>
-                        <select id="activity">
-                            <option value="1.2">Sedentary (little or no exercise)</option>
-                            <option value="1.375">Lightly active (light exercise 1-3 days/week)</option>
-                            <option value="1.55" selected>Moderately active (moderate exercise 3-5 days/week)</option>
-                            <option value="1.725">Very active (hard exercise 6-7 days/week)</option>
-                            <option value="1.9">Extra active (very hard exercise & physical job)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="weightGoal">Weight Goal</label>
-                        <select id="weightGoal">
-                            <option value="maintain">Maintain Weight</option>
-                            <option value="lose" selected>Lose Weight</option>
-                            <option value="gain">Gain Weight</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="targetWeight">Target Weight (kg)</label>
-                        <input type="number" id="targetWeight" placeholder="e.g., 65" min="30" max="200" value="65">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="duration">Duration (weeks)</label>
-                        <input type="number" id="duration" placeholder="e.g., 12" min="1" max="52" value="12">
-                    </div>
-
-                    <div class="form-group" style="display: flex; align-items: flex-end;">
-                        <button class="btn btn-primary" onclick="calculateCalories()" style="width: 100%;">
-                            <i class="fas fa-calculator"></i> Calculate Calories
-                        </button>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Personalized</span>
                     </div>
                 </div>
-
-                <!-- Calculator Results -->
-                <div class="calculator-results" id="calculatorResults" style="display: none;">
-                    <div class="result-card">
-                        <span class="result-value" id="bmrResult">0</span>
-                        <span class="result-label">BMR</span>
-                        <span class="result-unit">cal/day</span>
-                    </div>
-                    <div class="result-card">
-                        <span class="result-value" id="tdeeResult">0</span>
-                        <span class="result-label">TDEE</span>
-                        <span class="result-unit">cal/day</span>
-                    </div>
-                    <div class="result-card">
-                        <span class="result-value" id="deficitResult">0</span>
-                        <span class="result-label">Daily Deficit</span>
-                        <span class="result-unit">cal/day</span>
-                    </div>
-                    <div class="result-card">
-                        <span class="result-value" id="targetCaloriesResult">0</span>
-                        <span class="result-label">Target Calories</span>
-                        <span class="result-unit">cal/day</span>
-                    </div>
-                    <div class="result-card">
-                        <span class="result-value" id="weeklyLossResult">0</span>
-                        <span class="result-label">Weekly Loss</span>
-                        <span class="result-unit">kg/week</span>
-                    </div>
-                    <div class="result-card">
-                        <span class="result-value" id="exerciseCaloriesResult">0</span>
-                        <span class="result-label">Exercise Needed</span>
-                        <span class="result-unit">cal/day</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Diet Planner -->
-            <div class="planner-section">
-                <div class="section-header">
-                    <div class="section-icon icon-diet">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <h2 class="section-title">🍽 Diet Planner</h2>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="mealType">Meal Type</label>
-                        <select id="mealType">
-                            <option>Breakfast</option>
-                            <option>Lunch</option>
-                            <option>Dinner</option>
-                            <option>Snack</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="foodSelect">Food Item</label>
-                        <select id="foodSelect">
-                            <option value="">Select Food</option>
-                            <!-- Options will be populated from foodData -->
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="foodCal">Calories</label>
-                        <input type="number" id="foodCal" placeholder="Calories" readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="portionSize">Portion (grams)</label>
-                        <input type="number" id="portionSize" placeholder="e.g., 100" value="100" min="1">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mealTime">Time</label>
-                        <input type="time" id="mealTime" value="08:00">
-                    </div>
-
-                    <div class="form-group" style="display: flex; align-items: flex-end;">
-                        <button class="btn btn-primary" onclick="addMeal()" style="width: 100%;">
-                            <i class="fas fa-plus"></i> Add Meal
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Meals Table -->
-                <div class="table-container">
-                    <table id="mealTable">
-                        <thead>
-                            <tr>
-                                <th>Meal</th>
-                                <th>Food</th>
-                                <th>Calories</th>
-                                <th>Portion</th>
-                                <th>Time</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="mealTableBody">
-                            <!-- Rows will be added dynamically -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Exercise Planner -->
-            <div class="planner-section">
-                <div class="section-header">
-                    <div class="section-icon icon-exercise">
-                        <i class="fas fa-running"></i>
-                    </div>
-                    <h2 class="section-title">🏋️ Exercise Planner</h2>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="exCategory">Exercise Category</label>
-                        <select id="exCategory">
-                            <option value="">Select Category</option>
-                            <!-- Categories will be populated from exerciseData -->
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exSelect">Exercise</label>
-                        <select id="exSelect">
-                            <option value="">Select Exercise</option>
-                            <!-- Exercises will be populated based on category -->
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exMET">MET Value</label>
-                        <input type="number" id="exMET" placeholder="MET" step="0.1" readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exDuration">Duration (min)</label>
-                        <input type="number" id="exDuration" placeholder="e.g., 30" value="30" min="1">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exWeight">Your Weight (kg)</label>
-                        <input type="number" id="exWeight" placeholder="e.g., 70" value="70" min="30" max="200">
-                    </div>
-
-                    <div class="form-group" style="display: flex; align-items: flex-end;">
-                        <button class="btn btn-primary" onclick="addExercise()" style="width: 100%;">
-                            <i class="fas fa-plus"></i> Add Exercise
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Exercises Table -->
-                <div class="table-container">
-                    <table id="exerciseTable">
-                        <thead>
-                            <tr>
-                                <th>Exercise</th>
-                                <th>Category</th>
-                                <th>MET</th>
-                                <th>Duration</th>
-                                <th>Calories Burn</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="exerciseTableBody">
-                            <!-- Rows will be added dynamically -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Daily Summary -->
-            <div class="planner-section">
-                <div class="section-header">
-                    <div class="section-icon icon-summary">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h2 class="section-title">📊 Daily Summary</h2>
-                </div>
-
-                <div class="summary-grid">
-                    <div class="summary-card">
-                        <div class="summary-icon icon-cal-in">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        <span class="summary-value" id="calIn">0</span>
-                        <span class="summary-label">Calories Gained</span>
-                        <div class="summary-status status-neutral">
-                            <i class="fas fa-info-circle"></i> No Data
-                        </div>
-                    </div>
-
-                    <div class="summary-card">
-                        <div class="summary-icon icon-cal-out">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <span class="summary-value" id="calOut">0</span>
-                        <span class="summary-label">Calories Burned</span>
-                        <div class="summary-status status-neutral">
-                            <i class="fas fa-info-circle"></i> No Data
-                        </div>
-                    </div>
-
-                    <div class="summary-card">
-                        <div class="summary-icon icon-net">
-                            <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <span class="summary-value" id="netCal">0</span>
-                        <span class="summary-label">Net Calories</span>
-                        <div class="summary-status status-neutral">
-                            <i class="fas fa-info-circle"></i> No Data
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Progress vs Target -->
-                <div id="progressSection" style="display: none; margin-top: 30px;">
-                    <h3 style="margin-bottom: 20px; color: var(--text-primary);">🎯 Progress vs Target</h3>
-                    <div class="summary-grid">
-                        <div class="summary-card">
-                            <div class="summary-icon" style="background: linear-gradient(135deg, var(--accent), #d97706);">
-                                <i class="fas fa-bullseye"></i>
-                            </div>
-                            <span class="summary-value" id="targetCalDisplay">0</span>
-                            <span class="summary-label">Target Calories</span>
-                            <div class="summary-status status-neutral">
-                                <i class="fas fa-info-circle"></i> Daily Goal
-                            </div>
-                        </div>
-                        <div class="summary-card">
-                            <div class="summary-icon" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark));">
-                                <i class="fas fa-utensils"></i>
-                            </div>
-                            <span class="summary-value" id="actualCalDisplay">0</span>
-                            <span class="summary-label">Actual Intake</span>
-                            <div id="intakeStatus" class="summary-status status-neutral">
-                                <i class="fas fa-info-circle"></i> No Data
-                            </div>
-                        </div>
-                        <div class="summary-card">
-                            <div class="summary-icon" style="background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <span class="summary-value" id="differenceDisplay">0</span>
-                            <span class="summary-label">Difference</span>
-                            <div id="differenceStatus" class="summary-status status-neutral">
-                                <i class="fas fa-info-circle"></i> No Data
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Save Plan -->
-            <div class="save-section">
-                <h3>Save Your Custom Plan</h3>
-                <p>Save your personalized meal and exercise plan to access it anytime. You can also set reminders and track your progress.</p>
-                <button class="btn btn-light" onclick="savePlan()">
-                    <i class="fas fa-save"></i> Save Plan
-                </button>
             </div>
         </div>
-    </main>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Everything You Need for Success</h2>
+            <p class="section-subtitle">From personalized meal plans to exercise tracking, we've got you covered</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <a href="planner.html" class="feature-link"></a>
+                    <div class="feature-content">
+                        <div class="feature-icon icon-1">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <h3>Diversified Diet Plans</h3>
+                        <p>14-day plans with South Indian, North Indian, Continental, and regular cuisine variety. Never get bored with your meals.</p>
+                        <a href="planner.html" class="feature-btn">
+                            Explore Plans <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <a href="exercise.html" class="feature-link"></a>
+                    <div class="feature-content">
+                        <div class="feature-icon icon-2">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <h3>Exercise Library</h3>
+                        <p>50+ exercises with step-by-step guidance, calorie burn estimation, and goal-based filtering for optimal results.</p>
+                        <a href="exercise.html" class="feature-btn">
+                            View Exercises <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <a href="progress.html" class="feature-link"></a>
+                    <div class="feature-content">
+                        <div class="feature-icon icon-3">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Progress Tracking</h3>
+                        <p>Monitor your weight, measurements, and fitness progress with visual graphs and milestone celebrations.</p>
+                        <a href="progress.html" class="feature-btn">
+                            Track Progress <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <a href="uplanner.html" class="feature-link"></a>
+                    <div class="feature-content">
+                        <div class="feature-icon icon-4">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3>Custom Planning</h3>
+                        <p>Create your own personalized meal and exercise plans with our easy-to-use custom planner interface.</p>
+                        <a href="uplanner.html" class="feature-btn">
+                            Create Plan <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <div class="container">
+        <section class="cta-section">
+            <h2>Ready to Transform Your Health?</h2>
+            <p>Join thousands of users who have achieved their fitness goals with FitSphere's intelligent planning system.</p>
+            <a href="planner.html" class="btn btn-primary">
+                <i class="fas fa-rocket"></i> Start Your Journey
+            </a>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1050,484 +706,46 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3>FitSphere</h3>
-                    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">Create fully customized nutrition and fitness plans.</p>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Your intelligent fitness companion for sustainable health transformation.</p>
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Quick Links</h3>
+                    <h3>Platform</h3>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="planner.html">Planner</a></li>
                         <li><a href="uplanner.html">UPlanner</a></li>
-                        <li><a href="exercise.html">Exercises</a></li>
+                        <li><a href="food.html">Food Database</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Legal</h3>
+                    <h3>Resources</h3>
                     <ul>
                         <li><a href="disclaimer.html">Disclaimer</a></li>
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="term.html">Terms & Conditions</a></li>
+                        <li><a href="about.html">About Us</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Contact</h3>
+                    <h3>Support</h3>
                     <ul>
                         <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">FAQs</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="help.html">Help Center</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2026 FitSphere; Created by: Soham Jadhav (GL), Sarthak Jadhav (AGL), Swaroop Jagtap, Pratik Jagtap, Taksh Jadhav</p>
+                <p>&copy; 2026 FitSphere;Created by: Soham Jadhav (GL), Sarthak Jadhav (AGL), Swaroop Jagtap, Pratik Jagtap, Taksh Jadhav</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // ==============================================
-        // COMPLETE FOOD DATA - ALL 200+ ITEMS RESTORED
-        // ==============================================
-        const foodData = [
-            { "name": "Apple", "cal": 162, "protein": 8.5, "carbs": 38.9, "fat": 0.4 },
-            { "name": "Banana", "cal": 112, "protein": 34.4, "carbs": 47.9, "fat": 6.5 },
-            { "name": "Orange", "cal": 49, "protein": 6.8, "carbs": 53.8, "fat": 1.7 },
-            { "name": "Mango", "cal": 192, "protein": 13.1, "carbs": 6.8, "fat": 4.2 },
-            { "name": "Papaya", "cal": 111, "protein": 30.1, "carbs": 9.7, "fat": 21.3 },
-            { "name": "Guava", "cal": 323, "protein": 19.7, "carbs": 48.2, "fat": 24.9 },
-            { "name": "Grapes", "cal": 152, "protein": 8.2, "carbs": 8.6, "fat": 2.4 },
-            { "name": "Pineapple", "cal": 279, "protein": 14.2, "carbs": 23.5, "fat": 5.9 },
-            { "name": "Watermelon", "cal": 73, "protein": 13.6, "carbs": 5.4, "fat": 18.2 },
-            { "name": "Muskmelon", "cal": 176, "protein": 28.4, "carbs": 33.4, "fat": 20.6 },
-            { "name": "Pear", "cal": 52, "protein": 2.4, "carbs": 51.0, "fat": 21.0 },
-            { "name": "Peach", "cal": 303, "protein": 8.9, "carbs": 37.9, "fat": 12.8 },
-            { "name": "Plum", "cal": 301, "protein": 31.3, "carbs": 31.8, "fat": 16.0 },
-            { "name": "Kiwi", "cal": 231, "protein": 8.1, "carbs": 30.7, "fat": 14.9 },
-            { "name": "Strawberry", "cal": 222, "protein": 5.5, "carbs": 35.0, "fat": 21.7 },
-            { "name": "Blueberry", "cal": 296, "protein": 28.0, "carbs": 47.3, "fat": 1.9 },
-            { "name": "Raspberry", "cal": 307, "protein": 27.1, "carbs": 9.2, "fat": 23.0 },
-            { "name": "Blackberry", "cal": 195, "protein": 27.5, "carbs": 48.5, "fat": 20.1 },
-            { "name": "Pomegranate", "cal": 169, "protein": 33.1, "carbs": 37.1, "fat": 9.6 },
-            { "name": "Fig", "cal": 160, "protein": 23.0, "carbs": 50.6, "fat": 6.9 },
-            { "name": "Dates", "cal": 145, "protein": 12.8, "carbs": 18.5, "fat": 5.4 },
-            { "name": "Cherries", "cal": 350, "protein": 23.4, "carbs": 31.0, "fat": 24.7 },
-            { "name": "Apricot", "cal": 119, "protein": 6.9, "carbs": 14.3, "fat": 10.9 },
-            { "name": "Avocado", "cal": 204, "protein": 14.8, "carbs": 44.6, "fat": 20.1 },
-            { "name": "Custard Apple", "cal": 86, "protein": 25.9, "carbs": 48.4, "fat": 24.5 },
-            { "name": "Lychee", "cal": 342, "protein": 24.6, "carbs": 49.5, "fat": 12.1 },
-            { "name": "Jackfruit", "cal": 291, "protein": 7.0, "carbs": 47.0, "fat": 0.8 },
-            { "name": "Dragon Fruit", "cal": 197, "protein": 4.4, "carbs": 13.9, "fat": 19.0 },
-            { "name": "Coconut Meat", "cal": 209, "protein": 34.7, "carbs": 26.5, "fat": 2.2 },
-            { "name": "Sapota", "cal": 246, "protein": 20.8, "carbs": 54.7, "fat": 23.9 },
-            { "name": "Star Fruit", "cal": 90, "protein": 16.5, "carbs": 26.0, "fat": 6.9 },
-            { "name": "Passion Fruit", "cal": 162, "protein": 34.3, "carbs": 28.8, "fat": 1.5 },
-            { "name": "Mulberry", "cal": 45, "protein": 1.4, "carbs": 31.6, "fat": 7.6 },
-            { "name": "Cranberry", "cal": 330, "protein": 16.7, "carbs": 18.0, "fat": 0.2 },
-            { "name": "Gooseberry", "cal": 242, "protein": 28.1, "carbs": 34.1, "fat": 1.0 },
-            { "name": "Tangerine", "cal": 274, "protein": 27.2, "carbs": 22.7, "fat": 3.2 },
-            { "name": "Mandarin", "cal": 213, "protein": 2.3, "carbs": 8.3, "fat": 15.7 },
-            { "name": "Clementine", "cal": 210, "protein": 13.2, "carbs": 41.4, "fat": 3.5 },
-            { "name": "Blood Orange", "cal": 225, "protein": 3.6, "carbs": 33.3, "fat": 20.8 },
-            { "name": "Pomelo", "cal": 294, "protein": 34.6, "carbs": 40.2, "fat": 23.4 },
-            { "name": "Soursop", "cal": 274, "protein": 20.6, "carbs": 57.3, "fat": 16.4 },
-            { "name": "Durian", "cal": 279, "protein": 24.5, "carbs": 54.8, "fat": 20.9 },
-            { "name": "Longan", "cal": 176, "protein": 2.1, "carbs": 24.0, "fat": 1.8 },
-            { "name": "Rambutan", "cal": 213, "protein": 12.2, "carbs": 47.7, "fat": 13.9 },
-            { "name": "Persimmon", "cal": 106, "protein": 31.7, "carbs": 19.4, "fat": 21.0 },
-            { "name": "Quince", "cal": 344, "protein": 21.6, "carbs": 53.8, "fat": 3.8 },
-            { "name": "Ugli Fruit", "cal": 105, "protein": 11.8, "carbs": 35.5, "fat": 9.9 },
-            { "name": "Boysenberry", "cal": 126, "protein": 31.7, "carbs": 39.4, "fat": 20.6 },
-            { "name": "Elderberry", "cal": 170, "protein": 24.9, "carbs": 39.8, "fat": 19.8 },
-            { "name": "Idli", "cal": 209, "protein": 15.5, "carbs": 12.0, "fat": 16.3 },
-            { "name": "Plain Dosa", "cal": 94, "protein": 29.5, "carbs": 10.8, "fat": 6.7 },
-            { "name": "Masala Dosa", "cal": 77, "protein": 21.3, "carbs": 56.4, "fat": 10.2 },
-            { "name": "Rava Dosa", "cal": 237, "protein": 28.4, "carbs": 39.5, "fat": 20.3 },
-            { "name": "Uttapam", "cal": 296, "protein": 2.2, "carbs": 50.4, "fat": 25.0 },
-            { "name": "Upma", "cal": 255, "protein": 23.5, "carbs": 25.7, "fat": 16.0 },
-            { "name": "Poha", "cal": 311, "protein": 28.4, "carbs": 57.7, "fat": 16.9 },
-            { "name": "Sabudana Khichdi", "cal": 243, "protein": 4.4, "carbs": 11.1, "fat": 7.2 },
-            { "name": "Aloo Paratha", "cal": 195, "protein": 25.7, "carbs": 52.4, "fat": 14.9 },
-            { "name": "Paneer Paratha", "cal": 92, "protein": 14.0, "carbs": 30.1, "fat": 17.1 },
-            { "name": "Gobi Paratha", "cal": 215, "protein": 0.7, "carbs": 17.9, "fat": 24.1 },
-            { "name": "Methi Paratha", "cal": 266, "protein": 35.0, "carbs": 26.2, "fat": 21.6 },
-            { "name": "Poori", "cal": 104, "protein": 22.9, "carbs": 16.5, "fat": 18.5 },
-            { "name": "Bhatura", "cal": 40, "protein": 4.7, "carbs": 5.6, "fat": 18.2 },
-            { "name": "Chole Bhature", "cal": 221, "protein": 24.1, "carbs": 9.0, "fat": 18.2 },
-            { "name": "Pav Bhaji", "cal": 345, "protein": 16.1, "carbs": 26.8, "fat": 13.5 },
-            { "name": "Vada", "cal": 120, "protein": 8.3, "carbs": 56.4, "fat": 16.7 },
-            { "name": "Medu Vada", "cal": 234, "protein": 18.5, "carbs": 46.2, "fat": 3.1 },
-            { "name": "Appam", "cal": 239, "protein": 12.7, "carbs": 47.2, "fat": 2.3 },
-            { "name": "Puttu", "cal": 40, "protein": 23.7, "carbs": 8.9, "fat": 23.3 },
-            { "name": "Sheera", "cal": 135, "protein": 6.2, "carbs": 19.5, "fat": 6.4 },
-            { "name": "Halwa", "cal": 55, "protein": 12.9, "carbs": 38.7, "fat": 6.9 },
-            { "name": "Besan Chilla", "cal": 123, "protein": 2.7, "carbs": 22.2, "fat": 16.4 },
-            { "name": "Moong Dal Chilla", "cal": 147, "protein": 12.9, "carbs": 27.1, "fat": 5.6 },
-            { "name": "Oats Porridge", "cal": 44, "protein": 10.9, "carbs": 44.4, "fat": 22.6 },
-            { "name": "Vegetable Sandwich", "cal": 51, "protein": 19.2, "carbs": 48.0, "fat": 5.7 },
-            { "name": "Cheese Sandwich", "cal": 273, "protein": 11.3, "carbs": 22.4, "fat": 4.5 },
-            { "name": "Bread Omelette", "cal": 184, "protein": 20.2, "carbs": 36.6, "fat": 5.8 },
-            { "name": "French Toast", "cal": 60, "protein": 18.5, "carbs": 32.7, "fat": 19.4 },
-            { "name": "Cornflakes with Milk", "cal": 217, "protein": 21.2, "carbs": 31.5, "fat": 6.6 },
-            { "name": "Muesli with Milk", "cal": 159, "protein": 17.2, "carbs": 26.9, "fat": 4.1 },
-            { "name": "Smoothie Bowl", "cal": 118, "protein": 9.9, "carbs": 22.6, "fat": 18.4 },
-            { "name": "Vegetable Omelette", "cal": 172, "protein": 5.8, "carbs": 26.7, "fat": 7.1 },
-            { "name": "Egg Bhurji", "cal": 72, "protein": 33.4, "carbs": 7.4, "fat": 3.0 },
-            { "name": "Scrambled Eggs", "cal": 61, "protein": 14.2, "carbs": 55.0, "fat": 19.3 },
-            { "name": "Boiled Eggs", "cal": 117, "protein": 23.2, "carbs": 32.8, "fat": 16.8 },
-            { "name": "Masala Omelette", "cal": 342, "protein": 34.9, "carbs": 57.9, "fat": 3.2 },
-            { "name": "Vegetable Upma", "cal": 113, "protein": 24.4, "carbs": 28.2, "fat": 3.4 },
-            { "name": "Tomato Uttapam", "cal": 295, "protein": 11.2, "carbs": 18.4, "fat": 14.1 },
-            { "name": "Onion Uttapam", "cal": 338, "protein": 7.8, "carbs": 39.8, "fat": 22.3 },
-            { "name": "Plain Paratha", "cal": 252, "protein": 17.0, "carbs": 21.4, "fat": 11.3 },
-            { "name": "Butter Toast", "cal": 343, "protein": 1.7, "carbs": 32.5, "fat": 8.8 },
-            { "name": "Jam Toast", "cal": 201, "protein": 6.8, "carbs": 48.7, "fat": 14.8 },
-            { "name": "Banana Pancake", "cal": 243, "protein": 12.6, "carbs": 12.6, "fat": 7.9 },
-            { "name": "Plain Pancake", "cal": 85, "protein": 4.6, "carbs": 20.5, "fat": 1.2 },
-            { "name": "Masala Toast", "cal": 265, "protein": 28.0, "carbs": 24.9, "fat": 23.2 },
-            { "name": "Cheese Toast", "cal": 323, "protein": 15.4, "carbs": 38.1, "fat": 23.0 },
-            { "name": "Cooked Rice", "cal": 279, "protein": 9.8, "carbs": 7.6, "fat": 23.9 },
-            { "name": "Jeera Rice", "cal": 292, "protein": 7.3, "carbs": 34.2, "fat": 13.4 },
-            { "name": "Vegetable Pulao", "cal": 293, "protein": 8.8, "carbs": 32.8, "fat": 10.5 },
-            { "name": "Veg Biryani", "cal": 194, "protein": 30.7, "carbs": 56.1, "fat": 11.5 },
-            { "name": "Chicken Biryani", "cal": 163, "protein": 25.4, "carbs": 41.1, "fat": 13.6 },
-            { "name": "Mutton Biryani", "cal": 132, "protein": 7.7, "carbs": 7.8, "fat": 17.0 },
-            { "name": "Plain Roti", "cal": 250, "protein": 21.4, "carbs": 23.9, "fat": 8.4 },
-            { "name": "Chapati", "cal": 140, "protein": 17.3, "carbs": 25.0, "fat": 7.9 },
-            { "name": "Butter Roti", "cal": 108, "protein": 25.9, "carbs": 26.1, "fat": 12.4 },
-            { "name": "Naan", "cal": 184, "protein": 35.0, "carbs": 21.4, "fat": 12.0 },
-            { "name": "Butter Naan", "cal": 170, "protein": 17.6, "carbs": 5.9, "fat": 6.5 },
-            { "name": "Plain Dal", "cal": 237, "protein": 27.1, "carbs": 6.5, "fat": 24.3 },
-            { "name": "Dal Tadka", "cal": 334, "protein": 6.2, "carbs": 19.7, "fat": 20.1 },
-            { "name": "Dal Makhani", "cal": 274, "protein": 25.2, "carbs": 18.7, "fat": 5.0 },
-            { "name": "Rajma Curry", "cal": 176, "protein": 19.5, "carbs": 50.3, "fat": 19.6 },
-            { "name": "Chole Curry", "cal": 153, "protein": 18.5, "carbs": 15.7, "fat": 6.1 },
-            { "name": "Kadhi", "cal": 118, "protein": 9.8, "carbs": 30.5, "fat": 23.3 },
-            { "name": "Vegetable Curry", "cal": 170, "protein": 3.8, "carbs": 47.9, "fat": 12.4 },
-            { "name": "Paneer Butter Masala", "cal": 169, "protein": 24.7, "carbs": 50.9, "fat": 22.7 },
-            { "name": "Shahi Paneer", "cal": 214, "protein": 7.8, "carbs": 9.1, "fat": 10.7 },
-            { "name": "Palak Paneer", "cal": 328, "protein": 30.2, "carbs": 18.4, "fat": 14.1 },
-            { "name": "Matar Paneer", "cal": 57, "protein": 11.9, "carbs": 59.0, "fat": 11.8 },
-            { "name": "Aloo Gobi", "cal": 323, "protein": 6.4, "carbs": 35.9, "fat": 8.7 },
-            { "name": "Mix Veg", "cal": 302, "protein": 29.9, "carbs": 23.3, "fat": 12.1 },
-            { "name": "Bhindi Masala", "cal": 284, "protein": 13.6, "carbs": 51.3, "fat": 21.0 },
-            { "name": "Baingan Bharta", "cal": 139, "protein": 22.6, "carbs": 30.5, "fat": 4.8 },
-            { "name": "Vegetable Korma", "cal": 146, "protein": 23.0, "carbs": 7.2, "fat": 22.7 },
-            { "name": "Sambar", "cal": 93, "protein": 31.7, "carbs": 46.3, "fat": 3.7 },
-            { "name": "Rasam", "cal": 113, "protein": 30.2, "carbs": 32.5, "fat": 18.9 },
-            { "name": "Curd Rice", "cal": 63, "protein": 11.9, "carbs": 32.4, "fat": 16.5 },
-            { "name": "Lemon Rice", "cal": 187, "protein": 28.9, "carbs": 25.3, "fat": 20.5 },
-            { "name": "Tamarind Rice", "cal": 250, "protein": 13.4, "carbs": 25.5, "fat": 21.8 },
-            { "name": "Coconut Rice", "cal": 104, "protein": 1.7, "carbs": 46.3, "fat": 11.3 },
-            { "name": "Khichdi", "cal": 277, "protein": 1.8, "carbs": 31.3, "fat": 3.1 },
-            { "name": "Vegetable Khichdi", "cal": 158, "protein": 18.4, "carbs": 33.6, "fat": 22.2 },
-            { "name": "Plain Khichdi", "cal": 112, "protein": 16.4, "carbs": 6.4, "fat": 11.7 },
-            { "name": "Stuffed Capsicum", "cal": 309, "protein": 4.6, "carbs": 43.6, "fat": 11.6 },
-            { "name": "Stuffed Tomato", "cal": 219, "protein": 20.7, "carbs": 54.4, "fat": 20.6 },
-            { "name": "Vegetable Stew", "cal": 42, "protein": 22.6, "carbs": 49.9, "fat": 2.6 },
-            { "name": "Vegetable Kofta", "cal": 217, "protein": 8.8, "carbs": 48.3, "fat": 4.5 },
-            { "name": "Paneer Kofta", "cal": 201, "protein": 16.3, "carbs": 10.9, "fat": 19.8 },
-            { "name": "Veg Fried Rice", "cal": 249, "protein": 19.3, "carbs": 56.2, "fat": 19.6 },
-            { "name": "Egg Fried Rice", "cal": 334, "protein": 34.0, "carbs": 17.2, "fat": 17.2 },
-            { "name": "Chicken Fried Rice", "cal": 130, "protein": 8.9, "carbs": 7.4, "fat": 2.0 },
-            { "name": "Veg Hakka Noodles", "cal": 228, "protein": 8.8, "carbs": 13.5, "fat": 12.8 },
-            { "name": "Chicken Noodles", "cal": 310, "protein": 30.1, "carbs": 21.6, "fat": 22.5 },
-            { "name": "Veg Manchurian", "cal": 111, "protein": 2.6, "carbs": 15.3, "fat": 22.4 },
-            { "name": "Gobi Manchurian", "cal": 185, "protein": 16.4, "carbs": 8.3, "fat": 13.7 },
-            { "name": "Veg Pulao", "cal": 116, "protein": 1.8, "carbs": 10.8, "fat": 15.0 },
-            { "name": "Mushroom Masala", "cal": 244, "protein": 21.0, "carbs": 55.0, "fat": 8.0 },
-            { "name": "Mushroom Curry", "cal": 135, "protein": 31.6, "carbs": 5.0, "fat": 24.3 },
-            { "name": "Paneer Bhurji", "cal": 134, "protein": 5.8, "carbs": 9.9, "fat": 24.6 },
-            { "name": "Egg Curry", "cal": 208, "protein": 6.0, "carbs": 20.9, "fat": 7.6 },
-            { "name": "Chicken Curry", "cal": 318, "protein": 15.1, "carbs": 53.1, "fat": 16.2 },
-            { "name": "Butter Chicken", "cal": 82, "protein": 20.8, "carbs": 18.5, "fat": 22.7 },
-            { "name": "Chicken Tikka Masala", "cal": 152, "protein": 17.0, "carbs": 26.9, "fat": 17.2 },
-            { "name": "Fish Curry", "cal": 284, "protein": 5.8, "carbs": 20.5, "fat": 12.6 },
-            { "name": "Fish Fry", "cal": 63, "protein": 32.7, "carbs": 41.1, "fat": 7.3 },
-            { "name": "Samosa", "cal": 321, "protein": 20.7, "carbs": 6.1, "fat": 14.8 },
-            { "name": "Veg Cutlet", "cal": 150, "protein": 15.7, "carbs": 23.8, "fat": 11.5 },
-            { "name": "Paneer Cutlet", "cal": 245, "protein": 30.1, "carbs": 12.5, "fat": 14.3 },
-            { "name": "Chicken Cutlet", "cal": 118, "protein": 18.5, "carbs": 37.8, "fat": 4.3 },
-            { "name": "Pakora", "cal": 157, "protein": 32.3, "carbs": 36.4, "fat": 4.0 },
-            { "name": "Onion Pakora", "cal": 340, "protein": 17.0, "carbs": 59.8, "fat": 8.0 },
-            { "name": "Bread Pakora", "cal": 100, "protein": 8.6, "carbs": 44.7, "fat": 11.8 },
-            { "name": "Spring Roll", "cal": 309, "protein": 8.8, "carbs": 59.0, "fat": 9.6 },
-            { "name": "Veg Momos", "cal": 213, "protein": 8.1, "carbs": 53.1, "fat": 18.5 },
-            { "name": "Chicken Momos", "cal": 224, "protein": 14.1, "carbs": 40.7, "fat": 21.4 },
-            { "name": "Paneer Momos", "cal": 199, "protein": 19.7, "carbs": 19.2, "fat": 16.5 },
-            { "name": "Veg Burger", "cal": 88, "protein": 14.7, "carbs": 15.7, "fat": 0.9 },
-            { "name": "Chicken Burger", "cal": 139, "protein": 20.0, "carbs": 10.3, "fat": 14.9 },
-            { "name": "Veg Pizza", "cal": 134, "protein": 8.5, "carbs": 53.6, "fat": 6.3 },
-            { "name": "Cheese Pizza", "cal": 289, "protein": 16.9, "carbs": 41.1, "fat": 9.0 },
-            { "name": "Paneer Pizza", "cal": 242, "protein": 20.4, "carbs": 30.5, "fat": 18.2 },
-            { "name": "French Fries", "cal": 133, "protein": 4.5, "carbs": 39.9, "fat": 5.1 },
-            { "name": "Sweet Corn Chaat", "cal": 277, "protein": 17.4, "carbs": 18.5, "fat": 19.4 },
-            { "name": "Bhel Puri", "cal": 234, "protein": 11.7, "carbs": 6.1, "fat": 8.2 },
-            { "name": "Sev Puri", "cal": 108, "protein": 24.4, "carbs": 53.6, "fat": 11.2 },
-            { "name": "Pani Puri", "cal": 314, "protein": 27.9, "carbs": 17.6, "fat": 3.8 },
-            { "name": "Dahi Puri", "cal": 74, "protein": 23.2, "carbs": 24.3, "fat": 8.9 },
-            { "name": "Aloo Chaat", "cal": 199, "protein": 3.0, "carbs": 23.6, "fat": 23.6 },
-            { "name": "Fruit Chaat", "cal": 226, "protein": 16.1, "carbs": 58.4, "fat": 7.3 },
-            { "name": "Peanut Chaat", "cal": 171, "protein": 6.1, "carbs": 40.3, "fat": 8.9 },
-            { "name": "Roasted Chana", "cal": 237, "protein": 13.8, "carbs": 14.6, "fat": 14.4 },
-            { "name": "Popcorn", "cal": 224, "protein": 20.0, "carbs": 59.8, "fat": 18.5 },
-            { "name": "Nachos with Salsa", "cal": 316, "protein": 20.1, "carbs": 12.5, "fat": 17.2 },
-            { "name": "Nachos with Cheese", "cal": 319, "protein": 7.3, "carbs": 51.1, "fat": 4.1 },
-            { "name": "Milk", "cal": 280, "protein": 22.3, "carbs": 17.2, "fat": 5.5 },
-            { "name": "Toned Milk", "cal": 169, "protein": 33.9, "carbs": 51.3, "fat": 20.6 },
-            { "name": "Skim Milk", "cal": 244, "protein": 16.6, "carbs": 27.3, "fat": 5.7 },
-            { "name": "Curd", "cal": 129, "protein": 3.0, "carbs": 11.8, "fat": 18.6 },
-            { "name": "Greek Yogurt", "cal": 100, "protein": 31.6, "carbs": 13.5, "fat": 16.7 },
-            { "name": "Buttermilk", "cal": 200, "protein": 22.4, "carbs": 22.3, "fat": 19.9 },
-            { "name": "Lassi", "cal": 40, "protein": 27.4, "carbs": 8.3, "fat": 7.7 },
-            { "name": "Sweet Lassi", "cal": 304, "protein": 2.3, "carbs": 54.6, "fat": 16.0 },
-            { "name": "Paneer", "cal": 170, "protein": 25.4, "carbs": 20.5, "fat": 8.4 },
-            { "name": "Cheese", "cal": 60, "protein": 17.4, "carbs": 34.3, "fat": 5.0 },
-            { "name": "Butter", "cal": 151, "protein": 6.3, "carbs": 37.0, "fat": 12.1 },
-            { "name": "Ghee", "cal": 125, "protein": 11.3, "carbs": 25.8, "fat": 10.9 },
-            { "name": "Ice Cream Vanilla", "cal": 217, "protein": 32.4, "carbs": 37.0, "fat": 12.7 },
-            { "name": "Ice Cream Chocolate", "cal": 138, "protein": 29.8, "carbs": 6.4, "fat": 25.0 },
-            { "name": "Kulfi", "cal": 141, "protein": 25.8, "carbs": 44.2, "fat": 9.0 },
-            { "name": "Milkshake Vanilla", "cal": 281, "protein": 0.9, "carbs": 45.4, "fat": 14.4 },
-            { "name": "Milkshake Chocolate", "cal": 269, "protein": 26.5, "carbs": 54.2, "fat": 5.4 },
-            { "name": "Fruit Yogurt", "cal": 249, "protein": 17.2, "carbs": 17.2, "fat": 1.5 },
-            { "name": "Flavored Yogurt", "cal": 315, "protein": 19.6, "carbs": 40.8, "fat": 12.6 },
-            { "name": "Cheese Slice", "cal": 93, "protein": 23.9, "carbs": 18.7, "fat": 5.6 }
-        ];
-
-        // ==============================================
-        // COMPLETE EXERCISE DATA - ALL 200+ ITEMS RESTORED
-        // ==============================================
-        const exerciseData = [
-            { "code": "01003", "mets": 14.0, "majorHeading": "bicycling", "specificActivity": "bicycling, mountain, uphill, vigorous" },
-            { "code": "01004", "mets": 16.0, "majorHeading": "bicycling", "specificActivity": "bicycling, mountain, competitive, racing" },
-            { "code": "01008", "mets": 8.5, "majorHeading": "bicycling", "specificActivity": "bicycling, BMX" },
-            { "code": "01009", "mets": 8.5, "majorHeading": "bicycling", "specificActivity": "bicycling, mountain, general" },
-            { "code": "01010", "mets": 4.0, "majorHeading": "bicycling", "specificActivity": "bicycling, <10 mph, leisure, to work or for pleasure (Taylor Code 115)" },
-            { "code": "01011", "mets": 6.8, "majorHeading": "bicycling", "specificActivity": "bicycling, to/from work, self selected pace" },
-            { "code": "01013", "mets": 5.8, "majorHeading": "bicycling", "specificActivity": "bicycling, on dirt or farm road, moderate pace" },
-            { "code": "01015", "mets": 7.5, "majorHeading": "bicycling", "specificActivity": "bicycling, general" },
-            { "code": "01018", "mets": 3.5, "majorHeading": "bicycling", "specificActivity": "bicycling, leisure, 5.5 mph" },
-            { "code": "01019", "mets": 5.8, "majorHeading": "bicycling", "specificActivity": "bicycling, leisure, 9.4 mph" },
-            { "code": "01020", "mets": 6.8, "majorHeading": "bicycling", "specificActivity": "bicycling, 10-11.9 mph, leisure, slow, light effort" },
-            { "code": "01030", "mets": 8.0, "majorHeading": "bicycling", "specificActivity": "bicycling, 12-13.9 mph, leisure, moderate effort" },
-            { "code": "01040", "mets": 10.0, "majorHeading": "bicycling", "specificActivity": "bicycling, 14-15.9 mph, racing or leisure, fast, vigorous effort" },
-            { "code": "01050", "mets": 12.0, "majorHeading": "bicycling", "specificActivity": "bicycling, 16-19 mph, racing/not drafting or > 19 mph drafting, very fast, racing general" },
-            { "code": "01060", "mets": 15.8, "majorHeading": "bicycling", "specificActivity": "bicycling, > 20 mph, racing, not drafting" },
-            { "code": "01065", "mets": 8.5, "majorHeading": "bicycling", "specificActivity": "bicycling, 12 mph, seated, hands on brake hoods or bar drops, 80 rpm" },
-            { "code": "01066", "mets": 9.0, "majorHeading": "bicycling", "specificActivity": "bicycling, 12 mph, standing, hands on brake hoods, 60 rpm" },
-            { "code": "01070", "mets": 5.0, "majorHeading": "bicycling", "specificActivity": "unicycling" },
-            { "code": "02001", "mets": 2.3, "majorHeading": "conditioning exercise", "specificActivity": "activity promoting video game (e.g., Wii Fit), light effort (e.g., balance, yoga)" },
-            { "code": "02003", "mets": 3.8, "majorHeading": "conditioning exercise", "specificActivity": "activity promoting video game (e.g., Wii Fit), moderate effort (e.g., aerobic, resistance)" },
-            { "code": "02005", "mets": 7.2, "majorHeading": "conditioning exercise", "specificActivity": "activity promoting video/arcade game (e.g., Exergaming, Dance Dance Revolution), vigorous effort" },
-            { "code": "02008", "mets": 5.0, "majorHeading": "conditioning exercise", "specificActivity": "army type obstacle course exercise, boot camp training program" },
-            { "code": "02010", "mets": 7.0, "majorHeading": "conditioning exercise", "specificActivity": "bicycling, stationary, general" },
-            { "code": "02011", "mets": 3.5, "majorHeading": "conditioning exercise", "specificActivity": "bicycling, stationary, 30-50 watts, very light to light effort" },
-            { "code": "02012", "mets": 6.8, "majorHeading": "conditioning exercise", "specificActivity": "bicycling, stationary, 90-100 watts, moderate to vigorous effort" },
-            { "code": "02013", "mets": 8.8, "majorHeading": "conditioning exercise", "specificActivity": "bicycling, stationary, 101-160 watts, vigorous effort" },
-            { "code": "02014", "mets": 11.0, "majorHeading": "conditioning exercise", "specificActivity": "bicycling, stationary, 161-200 watts, vigorous effort" },
-            { "code": "02015", "mets": 14.0, "majorHeading": "conditioning exercise", "specificActivity": "bicycling, stationary, 201-270 watts, very vigorous effort" },
-            { "code": "02017", "mets": 4.8, "majorHeading": "conditioning exercise", "specificActivity": "bicycling, stationary, 51-89 watts, light-to-moderate effort" },
-            { "code": "02019", "mets": 8.5, "majorHeading": "conditioning exercise", "specificActivity": "bicycling, stationary, RPM/Spin bike class" },
-            { "code": "02020", "mets": 8.0, "majorHeading": "conditioning exercise", "specificActivity": "calisthenics (e.g., push ups, sit ups, pull-ups, jumping jacks), vigorous effort" },
-            { "code": "02022", "mets": 3.8, "majorHeading": "conditioning exercise", "specificActivity": "calisthenics (e.g., push ups, sit ups, pull-ups, lunges), moderate effort" },
-            { "code": "02024", "mets": 2.8, "majorHeading": "conditioning exercise", "specificActivity": "calisthenics (e.g., situps, abdominal crunches), light effort" },
-            { "code": "02030", "mets": 3.5, "majorHeading": "conditioning exercise", "specificActivity": "calisthenics, light or moderate effort, general (e.g., back exercises), going up & down from floor (Taylor Code 150)" },
-            { "code": "02035", "mets": 4.3, "majorHeading": "conditioning exercise", "specificActivity": "circuit training, moderate effort" },
-            { "code": "02040", "mets": 8.0, "majorHeading": "conditioning exercise", "specificActivity": "circuit training, including kettlebells, some aerobic movement with minimal rest, general, vigorous intensity" },
-            { "code": "02045", "mets": 3.5, "majorHeading": "conditioning exercise", "specificActivity": "CurvesTM exercise routines in women" },
-            { "code": "02048", "mets": 5.0, "majorHeading": "conditioning exercise", "specificActivity": "Elliptical trainer, moderate effort" },
-            { "code": "02050", "mets": 6.0, "majorHeading": "conditioning exercise", "specificActivity": "resistance training (weight lifting, free weight, nautilus or universal), power lifting or body building, vigorous effort (Taylor Code 210)" },
-            { "code": "02052", "mets": 5.0, "majorHeading": "conditioning exercise", "specificActivity": "resistance (weight) training, squats , slow or explosive effort" },
-            { "code": "02054", "mets": 3.5, "majorHeading": "conditioning exercise", "specificActivity": "resistance (weight) training, multiple exercises, 8-15 repetitions at varied resistance" },
-            { "code": "02060", "mets": 5.5, "majorHeading": "conditioning exercise", "specificActivity": "health club exercise, general (Taylor Code 160)" },
-            { "code": "02061", "mets": 5.0, "majorHeading": "conditioning exercise", "specificActivity": "health club exercise classes, general, gym/weight training combined in one visit" },
-            { "code": "02062", "mets": 7.8, "majorHeading": "conditioning exercise", "specificActivity": "health club exercise, conditioning classes" },
-            { "code": "02064", "mets": 3.8, "majorHeading": "conditioning exercise", "specificActivity": "home exercise, general" },
-            { "code": "02065", "mets": 9.0, "majorHeading": "conditioning exercise", "specificActivity": "stair-treadmill ergometer, general" },
-            { "code": "02068", "mets": 12.3, "majorHeading": "conditioning exercise", "specificActivity": "rope skipping, general" },
-            { "code": "02070", "mets": 6.0, "majorHeading": "conditioning exercise", "specificActivity": "rowing, stationary ergometer, general, vigorous effort" },
-            { "code": "02071", "mets": 4.8, "majorHeading": "conditioning exercise", "specificActivity": "rowing, stationary, general, moderate effort" },
-            { "code": "02072", "mets": 7.0, "majorHeading": "conditioning exercise", "specificActivity": "rowing, stationary, 100 watts, moderate effort" },
-            { "code": "02073", "mets": 8.5, "majorHeading": "conditioning exercise", "specificActivity": "rowing, stationary, 150 watts, vigorous effort" },
-            { "code": "02074", "mets": 12.0, "majorHeading": "conditioning exercise", "specificActivity": "rowing, stationary, 200 watts, very vigorous effort" },
-            { "code": "02080", "mets": 6.8, "majorHeading": "conditioning exercise", "specificActivity": "ski machine, general" },
-            { "code": "02085", "mets": 11.0, "majorHeading": "conditioning exercise", "specificActivity": "slide board exercise, general" },
-            { "code": "02090", "mets": 6.0, "majorHeading": "conditioning exercise", "specificActivity": "slimnastics, jazzercise" },
-            { "code": "02101", "mets": 2.3, "majorHeading": "conditioning exercise", "specificActivity": "stretching, mild" },
-            { "code": "02105", "mets": 3.0, "majorHeading": "conditioning exercise", "specificActivity": "pilates, general" },
-            { "code": "02110", "mets": 6.8, "majorHeading": "conditioning exercise", "specificActivity": "teaching exercise class (e.g., aerobic, water)" },
-            { "code": "02112", "mets": 2.8, "majorHeading": "conditioning exercise", "specificActivity": "therapeutic exercise ball, Fitball exercise" },
-            { "code": "02115", "mets": 2.8, "majorHeading": "conditioning exercise", "specificActivity": "upper body exercise, arm ergometer" },
-            { "code": "02117", "mets": 4.3, "majorHeading": "conditioning exercise", "specificActivity": "upper body exercise, stationary bicycle - Airdyne (arms only) 40 rpm, moderate" },
-            { "code": "02120", "mets": 5.3, "majorHeading": "conditioning exercise", "specificActivity": "water aerobics, water calisthenics, water exercise" },
-            { "code": "02135", "mets": 1.3, "majorHeading": "conditioning exercise", "specificActivity": "whirlpool, sitting" },
-            { "code": "02140", "mets": 2.3, "majorHeading": "conditioning exercise", "specificActivity": "video exercise workouts, TV conditioning programs (e.g., yoga, stretching), light effort" },
-            { "code": "02143", "mets": 4.0, "majorHeading": "conditioning exercise", "specificActivity": "video exercise workouts, TV conditioning programs (e.g., cardio-resistance), moderate effort" },
-            { "code": "02146", "mets": 6.0, "majorHeading": "conditioning exercise", "specificActivity": "video exercise workouts, TV conditioning programs (e.g., cardio-resistance), vigorous effort" },
-            { "code": "02150", "mets": 2.5, "majorHeading": "conditioning exercise", "specificActivity": "yoga, Hatha" },
-            { "code": "02160", "mets": 4.0, "majorHeading": "conditioning exercise", "specificActivity": "yoga, Power" },
-            { "code": "02170", "mets": 2.0, "majorHeading": "conditioning exercise", "specificActivity": "yoga, Nadisodhana" },
-            { "code": "02180", "mets": 3.3, "majorHeading": "conditioning exercise", "specificActivity": "yoga, Surya Namaskar" },
-            { "code": "03010", "mets": 5.0, "majorHeading": "dancing", "specificActivity": "ballet, modern, or jazz, general, rehearsal or class" },
-            { "code": "03012", "mets": 6.8, "majorHeading": "dancing", "specificActivity": "ballet, modern, or jazz, performance, vigorous effort" },
-            { "code": "03014", "mets": 4.8, "majorHeading": "dancing", "specificActivity": "tap" },
-            { "code": "03015", "mets": 7.3, "majorHeading": "dancing", "specificActivity": "aerobic, general" },
-            { "code": "03016", "mets": 7.5, "majorHeading": "dancing", "specificActivity": "aerobic, step, with 6 - 8 inch step" },
-            { "code": "03017", "mets": 9.5, "majorHeading": "dancing", "specificActivity": "aerobic, step, with 10 - 12 inch step" },
-            { "code": "03018", "mets": 5.5, "majorHeading": "dancing", "specificActivity": "aerobic, step, with 4-inch step" },
-            { "code": "03019", "mets": 8.5, "majorHeading": "dancing", "specificActivity": "bench step class, general" },
-            { "code": "03020", "mets": 5.0, "majorHeading": "dancing", "specificActivity": "aerobic, low impact" },
-            { "code": "03021", "mets": 7.3, "majorHeading": "dancing", "specificActivity": "aerobic, high impact" },
-            { "code": "03022", "mets": 10.0, "majorHeading": "dancing", "specificActivity": "aerobic dance wearing 10-15 lb weights" },
-            { "code": "03025", "mets": 4.5, "majorHeading": "dancing", "specificActivity": "ethnic or cultural dancing (e.g., Greek, Middle Eastern, hula, salsa, merengue, bamba y plena, flamenco, belly, and swing)" },
-            { "code": "03030", "mets": 5.5, "majorHeading": "dancing", "specificActivity": "ballroom, fast (Taylor Code 125)" },
-            { "code": "03031", "mets": 7.8, "majorHeading": "dancing", "specificActivity": "general dancing (e.g., disco, folk, Irish step dancing, line dancing, polka, contra, country)" },
-            { "code": "04001", "mets": 3.5, "majorHeading": "fishing and hunting", "specificActivity": "fishing, general" },
-            { "code": "04005", "mets": 4.5, "majorHeading": "fishing and hunting", "specificActivity": "fishing, crab fishing" },
-            { "code": "04007", "mets": 4.0, "majorHeading": "fishing and hunting", "specificActivity": "fishing, catching fish with hands" },
-            { "code": "12010", "mets": 6.0, "majorHeading": "running", "specificActivity": "jog/walk combination (jogging component of less than 10 minutes) (Taylor Code 180)" },
-            { "code": "12020", "mets": 7.0, "majorHeading": "running", "specificActivity": "jogging, general" },
-            { "code": "12025", "mets": 8.0, "majorHeading": "running", "specificActivity": "jogging, in place" },
-            { "code": "12029", "mets": 6.0, "majorHeading": "running", "specificActivity": "Running, 4 mph (13 min/mile)" },
-            { "code": "12030", "mets": 8.3, "majorHeading": "running", "specificActivity": "running, 5 mph (12 min/mile)" },
-            { "code": "12040", "mets": 9.0, "majorHeading": "running", "specificActivity": "running, 5.2 mph (11.5 min/mile)" },
-            { "code": "12050", "mets": 9.8, "majorHeading": "running", "specificActivity": "running, 6 mph (10 min/mile)" },
-            { "code": "12060", "mets": 10.5, "majorHeading": "running", "specificActivity": "running, 6.7 mph (9 min/mile)" },
-            { "code": "12070", "mets": 11.0, "majorHeading": "running", "specificActivity": "running, 7 mph (8.5 min/mile)" },
-            { "code": "12080", "mets": 11.5, "majorHeading": "running", "specificActivity": "running, 7.5 mph (8 min/mile)" },
-            { "code": "12090", "mets": 11.8, "majorHeading": "running", "specificActivity": "running, 8 mph (7.5 min/mile)" },
-            { "code": "12100", "mets": 12.3, "majorHeading": "running", "specificActivity": "running, 8.6 mph (7 min/mile)" },
-            { "code": "12110", "mets": 12.8, "majorHeading": "running", "specificActivity": "running, 9 mph (6.5 min/mile)" },
-            { "code": "12120", "mets": 14.5, "majorHeading": "running", "specificActivity": "running, 10 mph (6 min/mile)" },
-            { "code": "12130", "mets": 16.0, "majorHeading": "running", "specificActivity": "running, 11 mph (5.5 min/mile)" },
-            { "code": "12132", "mets": 19.0, "majorHeading": "running", "specificActivity": "running, 12 mph (5 min/mile)" },
-            { "code": "12134", "mets": 19.8, "majorHeading": "running", "specificActivity": "running, 13 mph (4.6 min/mile)" },
-            { "code": "12135", "mets": 23.0, "majorHeading": "running", "specificActivity": "running, 14 mph (4.3 min/mile)" },
-            { "code": "12140", "mets": 9.0, "majorHeading": "running", "specificActivity": "running, cross country" },
-            { "code": "12150", "mets": 8.0, "majorHeading": "running", "specificActivity": "running, (Taylor code 200)" },
-            { "code": "12170", "mets": 15.0, "majorHeading": "running", "specificActivity": "running, stairs, up" },
-            { "code": "12180", "mets": 10.0, "majorHeading": "running", "specificActivity": "running, on a track, team practice" },
-            { "code": "15010", "mets": 4.3, "majorHeading": "sports", "specificActivity": "archery, non-hunting" },
-            { "code": "15020", "mets": 7.0, "majorHeading": "sports", "specificActivity": "badminton, competitive (Taylor Code 450)" },
-            { "code": "15030", "mets": 5.5, "majorHeading": "sports", "specificActivity": "badminton, social singles and doubles, general" },
-            { "code": "15040", "mets": 8.0, "majorHeading": "sports", "specificActivity": "basketball, game (Taylor Code 490)" },
-            { "code": "15050", "mets": 6.0, "majorHeading": "sports", "specificActivity": "basketball, non-game, general (Taylor Code 480)" },
-            { "code": "15055", "mets": 6.5, "majorHeading": "sports", "specificActivity": "basketball, general" },
-            { "code": "15060", "mets": 7.0, "majorHeading": "sports", "specificActivity": "basketball, officiating (Taylor Code 500)" },
-            { "code": "15070", "mets": 4.5, "majorHeading": "sports", "specificActivity": "basketball, shooting baskets" },
-            { "code": "15090", "mets": 3.0, "majorHeading": "sports", "specificActivity": "bowling (Taylor Code 390)" },
-            { "code": "15100", "mets": 12.8, "majorHeading": "sports", "specificActivity": "boxing, in ring, general" },
-            { "code": "15110", "mets": 5.5, "majorHeading": "sports", "specificActivity": "boxing, punching bag" },
-            { "code": "15120", "mets": 7.8, "majorHeading": "sports", "specificActivity": "boxing, sparring" },
-            { "code": "15200", "mets": 6.0, "majorHeading": "sports", "specificActivity": "fencing" },
-            { "code": "15210", "mets": 8.0, "majorHeading": "sports", "specificActivity": "football, competitive" },
-            { "code": "15230", "mets": 8.0, "majorHeading": "sports", "specificActivity": "football, touch, flag, general (Taylor Code 510)" },
-            { "code": "15255", "mets": 4.8, "majorHeading": "sports", "specificActivity": "golf, general" },
-            { "code": "15265", "mets": 4.3, "majorHeading": "sports", "specificActivity": "golf, walking, carrying clubs" },
-            { "code": "15270", "mets": 3.0, "majorHeading": "sports", "specificActivity": "golf, miniature, driving range" },
-            { "code": "15285", "mets": 5.3, "majorHeading": "sports", "specificActivity": "golf, walking, pulling clubs" },
-            { "code": "15290", "mets": 3.5, "majorHeading": "sports", "specificActivity": "golf, using power cart (Taylor Code 070)" },
-            { "code": "15300", "mets": 3.8, "majorHeading": "sports", "specificActivity": "gymnastics, general" },
-            { "code": "15320", "mets": 12.0, "majorHeading": "sports", "specificActivity": "handball, general (Taylor Code 520)" },
-            { "code": "15330", "mets": 8.0, "majorHeading": "sports", "specificActivity": "handball, team" },
-            { "code": "15350", "mets": 7.8, "majorHeading": "sports", "specificActivity": "hockey, field" },
-            { "code": "15360", "mets": 8.0, "majorHeading": "sports", "specificActivity": "hockey, ice, general" },
-            { "code": "15362", "mets": 10.0, "majorHeading": "sports", "specificActivity": "hockey, ice, competitive" },
-            { "code": "15370", "mets": 5.5, "majorHeading": "sports", "specificActivity": "horseback riding, general" },
-            { "code": "15390", "mets": 5.8, "majorHeading": "sports", "specificActivity": "horseback riding, trotting" },
-            { "code": "15395", "mets": 7.3, "majorHeading": "sports", "specificActivity": "horseback riding, canter or gallop" },
-            { "code": "15400", "mets": 3.8, "majorHeading": "sports", "specificActivity": "horseback riding,walking" },
-            { "code": "15425", "mets": 5.3, "majorHeading": "sports", "specificActivity": "martial arts, different types, slower pace, novice performers, practice" },
-            { "code": "15430", "mets": 10.3, "majorHeading": "sports", "specificActivity": "martial arts, different types, moderate pace (e.g., judo, jujitsu, karate, kick boxing, tae kwan do, tai-bo, Muay Thai boxing)" },
-            { "code": "15460", "mets": 8.0, "majorHeading": "sports", "specificActivity": "lacrosse" },
-            { "code": "15490", "mets": 10.0, "majorHeading": "sports", "specificActivity": "paddleball, competitive" },
-            { "code": "15500", "mets": 6.0, "majorHeading": "sports", "specificActivity": "paddleball, casual, general (Taylor Code 460)" },
-            { "code": "15510", "mets": 8.0, "majorHeading": "sports", "specificActivity": "polo, on horseback" },
-            { "code": "15520", "mets": 10.0, "majorHeading": "sports", "specificActivity": "racquetball, competitive" },
-            { "code": "15530", "mets": 7.0, "majorHeading": "sports", "specificActivity": "racquetball, general (Taylor Code 470)" },
-            { "code": "15533", "mets": 8.0, "majorHeading": "sports", "specificActivity": "rock or mountain climbing (Taylor Code 470)" },
-            { "code": "15540", "mets": 5.0, "majorHeading": "sports", "specificActivity": "rock climbing, rappelling" },
-            { "code": "15550", "mets": 12.3, "majorHeading": "sports", "specificActivity": "rope jumping, fast pace, 120-160 skips/min" },
-            { "code": "15551", "mets": 11.8, "majorHeading": "sports", "specificActivity": "rope jumping, moderate pace, 100-120 skips/min, general, 2 foot skip, plain bounce" },
-            { "code": "15552", "mets": 8.8, "majorHeading": "sports", "specificActivity": "rope jumping, slow pace, < 100 skips/min, 2 foot skip, rhythm bounce" },
-            { "code": "15560", "mets": 8.3, "majorHeading": "sports", "specificActivity": "rugby, union, team, competitive" },
-            { "code": "15580", "mets": 5.0, "majorHeading": "sports", "specificActivity": "skateboarding, general, moderate effort" },
-            { "code": "15582", "mets": 6.0, "majorHeading": "sports", "specificActivity": "skateboarding, competitive, vigorous effort" },
-            { "code": "15590", "mets": 7.0, "majorHeading": "sports", "specificActivity": "skating, roller (Taylor Code 360)" },
-            { "code": "15591", "mets": 7.5, "majorHeading": "sports", "specificActivity": "rollerblading, in-line skating, 14.4 km/h (9.0 mph), recreational pace" },
-            { "code": "15592", "mets": 9.8, "majorHeading": "sports", "specificActivity": "rollerblading, in-line skating, 17.7 km/h (11.0 mph), moderate pace, exercise training" },
-            { "code": "15593", "mets": 12.3, "majorHeading": "sports", "specificActivity": "rollerblading, in-line skating, 21.0 to 21.7 km/h (13.0 to 13.6 mph), fast pace, exercise training" },
-            { "code": "15594", "mets": 14.0, "majorHeading": "sports", "specificActivity": "rollerblading, in-line skating, 24.0 km/h (15.0 mph), maximal effort" },
-            { "code": "15600", "mets": 3.5, "majorHeading": "sports", "specificActivity": "skydiving, base jumping, bungee jumping" },
-            { "code": "15605", "mets": 10.0, "majorHeading": "sports", "specificActivity": "soccer, competitive" },
-            { "code": "15610", "mets": 7.0, "majorHeading": "sports", "specificActivity": "soccer, casual, general (Taylor Code 540)" },
-            { "code": "15620", "mets": 5.0, "majorHeading": "sports", "specificActivity": "softball or baseball, fast or slow pitch, general (Taylor Code 440)" },
-            { "code": "15650", "mets": 12.0, "majorHeading": "sports", "specificActivity": "squash (Taylor Code 530)" },
-            { "code": "15660", "mets": 4.0, "majorHeading": "sports", "specificActivity": "table tennis, ping pong (Taylor Code 410)" },
-            { "code": "15670", "mets": 3.0, "majorHeading": "sports", "specificActivity": "tai chi, qi gong, general" },
-            { "code": "15675", "mets": 7.3, "majorHeading": "sports", "specificActivity": "tennis, general" },
-            { "code": "15680", "mets": 6.0, "majorHeading": "sports", "specificActivity": "tennis, doubles (Taylor Code 430)" },
-            { "code": "15690", "mets": 8.0, "majorHeading": "sports", "specificActivity": "tennis, singles (Taylor Code 420)" },
-            { "code": "15700", "mets": 3.5, "majorHeading": "sports", "specificActivity": "trampoline, recreational" },
-            { "code": "15710", "mets": 4.0, "majorHeading": "sports", "specificActivity": "volleyball (Taylor Code 400)" },
-            { "code": "15711", "mets": 6.0, "majorHeading": "sports", "specificActivity": "volleyball, competitive, in gymnasium" },
-            { "code": "15720", "mets": 3.0, "majorHeading": "sports", "specificActivity": "volleyball, non-competitive, 6 - 9 member team, general" },
-            { "code": "15725", "mets": 8.0, "majorHeading": "sports", "specificActivity": "volleyball, beach, in sand" },
-            { "code": "15730", "mets": 6.0, "majorHeading": "sports", "specificActivity": "wrestling (one match = 5 minutes)" },
-            { "code": "17010", "mets": 7.0, "majorHeading": "walking", "specificActivity": "backpacking (Taylor Code 050)" },
-            { "code": "17020", "mets": 5.0, "majorHeading": "walking", "specificActivity": "carrying 15 pound load (e.g. suitcase), level ground or downstairs" },
-            { "code": "17080", "mets": 6.0, "majorHeading": "walking", "specificActivity": "hiking, cross country (Taylor Code 040)" },
-            { "code": "17100", "mets": 4.0, "majorHeading": "walking", "specificActivity": "pushing or pulling stroller with child or walking with children, 2.5 to 3.1 mph" },
-            { "code": "17110", "mets": 6.5, "majorHeading": "walking", "specificActivity": "race walking" },
-            { "code": "17130", "mets": 8.0, "majorHeading": "walking", "specificActivity": "stair climbing, using or climbing up ladder (Taylor Code 030)" },
-            { "code": "17151", "mets": 2.0, "majorHeading": "walking", "specificActivity": "walking, less than 2.0 mph, level, strolling, very slow" },
-            { "code": "17152", "mets": 2.8, "majorHeading": "walking", "specificActivity": "walking, 2.0 mph, level, slow pace, firm surface" },
-            { "code": "17160", "mets": 3.5, "majorHeading": "walking", "specificActivity": "walking for pleasure (Taylor Code 010)" },
-            { "code": "17170", "mets": 3.0, "majorHeading": "walking", "specificActivity": "walking, 2.5 mph, level, firm surface" },
-            { "code": "17190", "mets": 3.5, "majorHeading": "walking", "specificActivity": "walking, 2.8 to 3.2 mph, level, moderate pace, firm surface" },
-            { "code": "17200", "mets": 4.3, "majorHeading": "walking", "specificActivity": "walking, 3.5 mph, level, brisk, firm surface, walking for exercise" },
-            { "code": "17210", "mets": 5.3, "majorHeading": "walking", "specificActivity": "walking, 2.9 to 3.5 mph, uphill, 1 to 5% grade" },
-            { "code": "17220", "mets": 5.0, "majorHeading": "walking", "specificActivity": "walking, 4.0 mph, level, firm surface, very brisk pace" },
-            { "code": "17230", "mets": 7.0, "majorHeading": "walking", "specificActivity": "walking, 4.5 mph, level, firm surface, very, very brisk" },
-            { "code": "17231", "mets": 8.3, "majorHeading": "walking", "specificActivity": "walking, 5.0 mph, level, firm surface" },
-            { "code": "17235", "mets": 9.8, "majorHeading": "walking", "specificActivity": "walking, 5.0 mph, uphill, 3% grade" },
-            { "code": "18230", "mets": 9.8, "majorHeading": "water activities", "specificActivity": "swimming laps, freestyle, fast, vigorous effort" },
-            { "code": "18240", "mets": 5.8, "majorHeading": "water activities", "specificActivity": "swimming laps, freestyle, front crawl, slow, light or moderate effort" },
-            { "code": "18250", "mets": 9.5, "majorHeading": "water activities", "specificActivity": "swimming, backstroke, general, training or competition" },
-            { "code": "18260", "mets": 10.3, "majorHeading": "water activities", "specificActivity": "swimming, breaststroke, general, training or competition" },
-            { "code": "18270", "mets": 13.8, "majorHeading": "water activities", "specificActivity": "swimming, butterfly, general" },
-            { "code": "18280", "mets": 10.0, "majorHeading": "water activities", "specificActivity": "swimming, crawl, fast speed, ~75 yards/minute, vigorous effort" },
-            { "code": "18290", "mets": 8.3, "majorHeading": "water activities", "specificActivity": "swimming, crawl, medium speed, ~50 yards/minute, vigorous effort" },
-            { "code": "18300", "mets": 6.0, "majorHeading": "water activities", "specificActivity": "swimming, lake, ocean, river (Taylor Codes 280, 295)" },
-            { "code": "18310", "mets": 6.0, "majorHeading": "water activities", "specificActivity": "swimming, leisurely, not lap swimming, general" },
-            { "code": "18320", "mets": 7.0, "majorHeading": "water activities", "specificActivity": "swimming, sidestroke, general" },
-            { "code": "18330", "mets": 8.0, "majorHeading": "water activities", "specificActivity": "swimming, synchronized" },
-            { "code": "18340", "mets": 9.8, "majorHeading": "water activities", "specificActivity": "swimming, treading water, fast, vigorous effort" },
-            { "code": "18350", "mets": 3.5, "majorHeading": "water activities", "specificActivity": "swimming, treading water, moderate effort, general" },
-            { "code": "18355", "mets": 5.5, "majorHeading": "water activities", "specificActivity": "water aerobics, water calisthenics" },
-            { "code": "18360", "mets": 10.0, "majorHeading": "water activities", "specificActivity": "water polo" },
-            { "code": "19018", "mets": 14.0, "majorHeading": "winter activities", "specificActivity": "skating, ice dancing" },
-            { "code": "19020", "mets": 5.5, "majorHeading": "winter activities", "specificActivity": "skating, ice, 9 mph or less" },
-            { "code": "19030", "mets": 7.0, "majorHeading": "winter activities", "specificActivity": "skating, ice, general (Taylor Code 360)" },
-            { "code": "19040", "mets": 9.0, "majorHeading": "winter activities", "specificActivity": "skating, ice, rapidly, more than 9 mph, not competitive" },
-            { "code": "19050", "mets": 13.3, "majorHeading": "winter activities", "specificActivity": "skating, speed, competitive" },
-            { "code": "19075", "mets": 7.0, "majorHeading": "winter activities", "specificActivity": "skiing, general" },
-            { "code": "19080", "mets": 6.8, "majorHeading": "winter activities", "specificActivity": "skiing, cross country, 2.5 mph, slow or light effort, ski walking" },
-            { "code": "19090", "mets": 9.0, "majorHeading": "winter activities", "specificActivity": "skiing, cross country, 4.0-4.9 mph, moderate speed and effort, general" },
-            { "code": "19100", "mets": 12.5, "majorHeading": "winter activities", "specificActivity": "skiing, cross country, 5.0-7.9 mph, brisk speed, vigorous effort" },
-            { "code": "19110", "mets": 15.0, "majorHeading": "winter activities", "specificActivity": "skiing, cross country, >8.0 mph, elite skier, racing" },
-            { "code": "19150", "mets": 4.3, "majorHeading": "winter activities", "specificActivity": "skiing, downhill, alpine or snowboarding, light effort, active time only" },
-            { "code": "19160", "mets": 5.3, "majorHeading": "winter activities", "specificActivity": "skiing, downhill, alpine or snowboarding, moderate effort, general, active time only" },
-            { "code": "19170", "mets": 8.0, "majorHeading": "winter activities", "specificActivity": "skiing, downhill, vigorous effort, racing" },
-            { "code": "19180", "mets": 7.0, "majorHeading": "winter activities", "specificActivity": "sledding, tobogganing, bobsledding, luge (Taylor Code 370)" },
-            { "code": "19190", "mets": 5.3, "majorHeading": "winter activities", "specificActivity": "snow shoeing, moderate effort" },
-            { "code": "19192", "mets": 10.0, "majorHeading": "winter activities", "specificActivity": "snow shoeing, vigorous effort" }
-        ];
-
         // Theme Management
         const themeSwitch = document.getElementById('themeSwitch');
         const html = document.documentElement;
@@ -1566,553 +784,47 @@
             }
         });
 
-        // Calorie Calculation Variables
-        let targetCalories = 0;
-        let dailyDeficit = 0;
-        let exerciseRequired = 0;
-
-        // Calculate BMR (Basal Metabolic Rate)
-        function calculateBMR(weight, height, age, gender) {
-            if (gender === 'male') {
-                return 10 * weight + 6.25 * height - 5 * age + 5;
-            } else {
-                return 10 * weight + 6.25 * height - 5 * age - 161;
-            }
-        }
-
-        // Calculate TDEE (Total Daily Energy Expenditure)
-        function calculateTDEE(bmr, activityLevel) {
-            return bmr * activityLevel;
-        }
-
-        // Calculate Daily Calorie Deficit/Surplus
-        function calculateDailyDeficit(currentWeight, targetWeight, duration) {
-            const totalWeightChange = targetWeight - currentWeight;
-            const totalCaloriesChange = totalWeightChange * 7700; // 1kg fat = 7700 calories
-            return totalCaloriesChange / (duration * 7); // Daily change
-        }
-
-        // Calculate Target Calories
-        function calculateTargetCalories(tdee, deficit) {
-            return Math.max(tdee + deficit, 1200); // Minimum 1200 calories for safety
-        }
-
-        // Calculate Exercise Required
-        function calculateExerciseRequired(deficit, activityLevel) {
-            if (deficit < 0) { // Weight loss
-                return Math.abs(deficit) / activityLevel;
-            }
-            return 0;
-        }
-
-        // Calculate Weekly Weight Loss/Gain
-        function calculateWeeklyChange(deficit) {
-            return (deficit * 7) / 7700;
-        }
-
-        // Main Calorie Calculation Function
-        function calculateCalories() {
-            // Get user inputs
-            const height = parseFloat(document.getElementById('height').value);
-            const weight = parseFloat(document.getElementById('weight').value);
-            const age = parseInt(document.getElementById('age').value);
-            const gender = document.getElementById('gender').value;
-            const activityLevel = parseFloat(document.getElementById('activity').value);
-            const weightGoal = document.getElementById('weightGoal').value;
-            const targetWeight = parseFloat(document.getElementById('targetWeight').value);
-            const duration = parseInt(document.getElementById('duration').value);
-
-            // Validate inputs
-            if (!height || !weight || !age || !targetWeight || !duration) {
-                alert('Please fill in all fields with valid numbers');
-                return;
-            }
-
-            // Perform calculations
-            const bmr = calculateBMR(weight, height, age, gender);
-            const tdee = calculateTDEE(bmr, activityLevel);
-            
-            // Calculate deficit based on goal
-            let deficit = 0;
-            if (weightGoal === 'lose') {
-                deficit = -500; // Default 500 calorie deficit for weight loss
-                const calculatedDeficit = calculateDailyDeficit(weight, targetWeight, duration);
-                if (Math.abs(calculatedDeficit) > 0) {
-                    deficit = calculatedDeficit;
-                }
-            } else if (weightGoal === 'gain') {
-                deficit = 300; // Default 300 calorie surplus for weight gain
-                const calculatedDeficit = calculateDailyDeficit(weight, targetWeight, duration);
-                if (calculatedDeficit > 0) {
-                    deficit = calculatedDeficit;
-                }
-            }
-            // If maintain weight, deficit = 0
-
-            targetCalories = calculateTargetCalories(tdee, deficit);
-            exerciseRequired = calculateExerciseRequired(deficit, activityLevel);
-            const weeklyChange = calculateWeeklyChange(deficit);
-
-            // Display results
-            document.getElementById('bmrResult').textContent = Math.round(bmr);
-            document.getElementById('tdeeResult').textContent = Math.round(tdee);
-            document.getElementById('deficitResult').textContent = Math.round(deficit);
-            document.getElementById('targetCaloriesResult').textContent = Math.round(targetCalories);
-            document.getElementById('weeklyLossResult').textContent = weeklyChange.toFixed(2);
-            document.getElementById('exerciseCaloriesResult').textContent = Math.round(exerciseRequired);
-
-            // Show results section
-            document.getElementById('calculatorResults').style.display = 'grid';
-
-            // Update progress section
-            updateProgressSection();
-        }
-
-        // Update progress vs target section
-        function updateProgressSection() {
-            if (targetCalories > 0) {
-                document.getElementById('progressSection').style.display = 'block';
-                document.getElementById('targetCalDisplay').textContent = Math.round(targetCalories);
-                
-                // Get actual intake from summary
-                const actualCalories = parseInt(document.getElementById('calIn').textContent) || 0;
-                document.getElementById('actualCalDisplay').textContent = actualCalories;
-                
-                const difference = actualCalories - targetCalories;
-                document.getElementById('differenceDisplay').textContent = Math.abs(difference);
-                
-                // Update status indicators
-                const intakeStatus = document.getElementById('intakeStatus');
-                const differenceStatus = document.getElementById('differenceStatus');
-                
-                if (actualCalories === 0) {
-                    intakeStatus.className = 'summary-status status-neutral';
-                    intakeStatus.innerHTML = '<i class="fas fa-info-circle"></i> No Data';
-                    differenceStatus.className = 'summary-status status-neutral';
-                    differenceStatus.innerHTML = '<i class="fas fa-info-circle"></i> No Data';
-                } else if (Math.abs(difference) <= 100) {
-                    intakeStatus.className = 'summary-status status-good';
-                    intakeStatus.innerHTML = '<i class="fas fa-check-circle"></i> On Target';
-                    differenceStatus.className = 'summary-status status-good';
-                    differenceStatus.innerHTML = '<i class="fas fa-check-circle"></i> Good';
-                } else if (difference > 0) {
-                    intakeStatus.className = 'summary-status status-warning';
-                    intakeStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Over Target';
-                    differenceStatus.className = 'summary-status status-warning';
-                    differenceStatus.innerHTML = `<i class="fas fa-arrow-up"></i> ${Math.abs(difference)} over`;
-                } else {
-                    intakeStatus.className = 'summary-status status-deficit';
-                    intakeStatus.innerHTML = '<i class="fas fa-arrow-down"></i> Under Target';
-                    differenceStatus.className = 'summary-status status-deficit';
-                    differenceStatus.innerHTML = `<i class="fas fa-arrow-down"></i> ${Math.abs(difference)} under`;
-                }
-            }
-        }
-
-        // Initialize food dropdown
-        function initializeFoodDropdown() {
-            const foodSelect = document.getElementById('foodSelect');
-            foodSelect.innerHTML = '<option value="">Select Food</option>';
-            
-            // Sort food items alphabetically
-            foodData.sort((a, b) => a.name.localeCompare(b.name));
-            
-            // Add food options
-            foodData.forEach(food => {
-                const option = document.createElement('option');
-                option.value = food.cal;
-                option.textContent = food.name;
-                foodSelect.appendChild(option);
+        // Close menu on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
             });
-        }
-
-        // Initialize exercise categories and exercises
-        function initializeExerciseDropdowns() {
-            const exCategory = document.getElementById('exCategory');
-            const exSelect = document.getElementById('exSelect');
-            
-            // Get unique categories
-            const categories = [...new Set(exerciseData.map(ex => ex.majorHeading))];
-            categories.sort();
-            
-            // Add category options
-            exCategory.innerHTML = '<option value="">Select Category</option>';
-            categories.forEach(category => {
-                const option = document.createElement('option');
-                option.value = category;
-                option.textContent = category;
-                exCategory.appendChild(option);
-            });
-            
-            // Update exercises when category changes
-            exCategory.addEventListener('change', function() {
-                const selectedCategory = this.value;
-                exSelect.innerHTML = '<option value="">Select Exercise</option>';
-                document.getElementById('exMET').value = '';
-                
-                if (selectedCategory) {
-                    const filteredExercises = exerciseData.filter(ex => ex.majorHeading === selectedCategory);
-                    filteredExercises.sort((a, b) => a.specificActivity.localeCompare(b.specificActivity));
-                    
-                    filteredExercises.forEach(ex => {
-                        const option = document.createElement('option');
-                        option.value = ex.mets;
-                        option.textContent = ex.specificActivity;
-                        exSelect.appendChild(option);
-                    });
-                }
-            });
-            
-            // Update MET value when exercise is selected
-            exSelect.addEventListener('change', function() {
-                document.getElementById('exMET').value = this.value;
-            });
-        }
-
-        // Calculate calories burned from exercise
-        function calculateCaloriesBurned(mets, duration, weight) {
-            // Formula: Calories = METs × weight in kg × time in hours
-            const hours = duration / 60;
-            return Math.round(mets * weight * hours);
-        }
-
-        // Add Meal Function
-        function addMeal() {
-            const mealType = document.getElementById('mealType').value;
-            const foodItem = document.getElementById('foodSelect').options[document.getElementById('foodSelect').selectedIndex].text;
-            const baseCalories = parseInt(document.getElementById('foodCal').value) || 0;
-            const portionSize = parseInt(document.getElementById('portionSize').value) || 100;
-            const time = document.getElementById('mealTime').value;
-
-            if (!foodItem || foodItem === "Select Food" || !time || baseCalories === 0) {
-                alert("Please select a food item with valid calories and time");
-                return;
-            }
-
-            // Calculate calories based on portion size (assuming 100g as base)
-            const calories = Math.round((baseCalories * portionSize) / 100);
-
-            const mealTableBody = document.getElementById('mealTableBody');
-            const newRow = mealTableBody.insertRow();
-
-            newRow.innerHTML = `
-                <td>${mealType}</td>
-                <td>${foodItem}</td>
-                <td>${calories}</td>
-                <td>${portionSize}g</td>
-                <td>${time}</td>
-                <td>
-                    <div class="action-buttons">
-                        <div class="btn-icon" title="Edit" onclick="editMealRow(this)">
-                            <i class="fas fa-edit"></i>
-                        </div>
-                        <div class="btn-icon danger" title="Delete" onclick="deleteRow(this)">
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
-                </td>
-            `;
-
-            // Update summary
-            updateSummary();
-            
-            // Reset form
-            document.getElementById('foodSelect').selectedIndex = 0;
-            document.getElementById('foodCal').value = '';
-            document.getElementById('portionSize').value = 100;
-        }
-
-        // Add Exercise Function
-        function addExercise() {
-            const exCategory = document.getElementById('exCategory').value;
-            const exItem = document.getElementById('exSelect').options[document.getElementById('exSelect').selectedIndex].text;
-            const mets = parseFloat(document.getElementById('exMET').value) || 0;
-            const duration = parseInt(document.getElementById('exDuration').value) || 0;
-            const weight = parseInt(document.getElementById('exWeight').value) || 70;
-
-            if (!exItem || exItem === "Select Exercise" || mets === 0 || duration === 0) {
-                alert("Please select an exercise with valid MET value and duration");
-                return;
-            }
-
-            const caloriesBurned = calculateCaloriesBurned(mets, duration, weight);
-
-            const exerciseTableBody = document.getElementById('exerciseTableBody');
-            const newRow = exerciseTableBody.insertRow();
-
-            newRow.innerHTML = `
-                <td>${exItem}</td>
-                <td>${exCategory}</td>
-                <td>${mets}</td>
-                <td>${duration} min</td>
-                <td>${caloriesBurned}</td>
-                <td>
-                    <div class="action-buttons">
-                        <div class="btn-icon" title="Edit" onclick="editExerciseRow(this)">
-                            <i class="fas fa-edit"></i>
-                        </div>
-                        <div class="btn-icon danger" title="Delete" onclick="deleteRow(this)">
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
-                </td>
-            `;
-
-            // Update summary
-            updateSummary();
-            
-            // Reset form (keep weight and category)
-            document.getElementById('exSelect').selectedIndex = 0;
-            document.getElementById('exMET').value = '';
-            document.getElementById('exDuration').value = 30;
-        }
-
-        // Delete Row Function
-        function deleteRow(button) {
-            const row = button.closest('tr');
-            row.remove();
-            updateSummary();
-        }
-
-        // Edit Meal Row Function
-        function editMealRow(button) {
-            const row = button.closest('tr');
-            const cells = row.cells;
-            
-            // Populate form with row data
-            document.getElementById('mealType').value = cells[0].textContent;
-            
-            // Find and select the food item
-            const foodName = cells[1].textContent;
-            const foodSelect = document.getElementById('foodSelect');
-            for (let i = 0; i < foodSelect.options.length; i++) {
-                if (foodSelect.options[i].text === foodName) {
-                    foodSelect.selectedIndex = i;
-                    // Trigger change to update calories
-                    const event = new Event('change');
-                    foodSelect.dispatchEvent(event);
-                    break;
-                }
-            }
-            
-            document.getElementById('portionSize').value = parseInt(cells[3].textContent);
-            document.getElementById('mealTime').value = cells[4].textContent;
-            
-            // Delete the row
-            row.remove();
-            
-            // Update summary
-            updateSummary();
-        }
-
-        // Edit Exercise Row Function
-        function editExerciseRow(button) {
-            const row = button.closest('tr');
-            const cells = row.cells;
-            
-            // Extract MET from the row
-            const mets = parseFloat(cells[2].textContent);
-            
-            // Find and select the exercise category and item
-            const exCategory = cells[1].textContent;
-            const exItem = cells[0].textContent;
-            
-            // Set category
-            const categorySelect = document.getElementById('exCategory');
-            for (let i = 0; i < categorySelect.options.length; i++) {
-                if (categorySelect.options[i].value === exCategory) {
-                    categorySelect.selectedIndex = i;
-                    // Trigger change to populate exercises
-                    const changeEvent = new Event('change');
-                    categorySelect.dispatchEvent(changeEvent);
-                    
-                    // Wait a moment for exercises to populate, then select the exercise
-                    setTimeout(() => {
-                        const exSelect = document.getElementById('exSelect');
-                        for (let j = 0; j < exSelect.options.length; j++) {
-                            if (exSelect.options[j].text === exItem) {
-                                exSelect.selectedIndex = j;
-                                // Trigger change to update MET
-                                const exChangeEvent = new Event('change');
-                                exSelect.dispatchEvent(exChangeEvent);
-                                break;
-                            }
-                        }
-                    }, 100);
-                    break;
-                }
-            }
-            
-            // Extract duration from "30 min" format
-            const duration = parseInt(cells[3].textContent);
-            document.getElementById('exDuration').value = duration;
-            
-            // Delete the row
-            row.remove();
-            
-            // Update summary
-            updateSummary();
-        }
-
-        // Update Summary Function
-        function updateSummary() {
-            let totalCaloriesIn = 0;
-            let totalCaloriesOut = 0;
-
-            // Calculate total calories from meals
-            const mealRows = document.querySelectorAll('#mealTableBody tr');
-            mealRows.forEach(row => {
-                const calories = parseInt(row.cells[2].textContent) || 0;
-                totalCaloriesIn += calories;
-            });
-
-            // Calculate total calories burned from exercises
-            const exerciseRows = document.querySelectorAll('#exerciseTableBody tr');
-            exerciseRows.forEach(row => {
-                const calories = parseInt(row.cells[4].textContent) || 0;
-                totalCaloriesOut += calories;
-            });
-
-            // Calculate net calories
-            const netCalories = totalCaloriesIn - totalCaloriesOut;
-
-            // Update display
-            document.getElementById('calIn').textContent = totalCaloriesIn;
-            document.getElementById('calOut').textContent = totalCaloriesOut;
-            document.getElementById('netCal').textContent = netCalories;
-
-            // Update status for each card
-            const statusElements = document.querySelectorAll('.summary-status');
-            
-            // Calories In status
-            if (totalCaloriesIn === 0) {
-                statusElements[0].className = 'summary-status status-neutral';
-                statusElements[0].innerHTML = '<i class="fas fa-info-circle"></i> No Data';
-            } else if (totalCaloriesIn < 1500) {
-                statusElements[0].className = 'summary-status status-warning';
-                statusElements[0].innerHTML = '<i class="fas fa-exclamation-circle"></i> Low Intake';
-            } else if (totalCaloriesIn < 2500) {
-                statusElements[0].className = 'summary-status status-good';
-                statusElements[0].innerHTML = '<i class="fas fa-check-circle"></i> Balanced';
-            } else {
-                statusElements[0].className = 'summary-status status-warning';
-                statusElements[0].innerHTML = '<i class="fas fa-exclamation-circle"></i> High Intake';
-            }
-            
-            // Calories Out status
-            if (totalCaloriesOut === 0) {
-                statusElements[1].className = 'summary-status status-neutral';
-                statusElements[1].innerHTML = '<i class="fas fa-info-circle"></i> No Data';
-            } else if (totalCaloriesOut < 300) {
-                statusElements[1].className = 'summary-status status-warning';
-                statusElements[1].innerHTML = '<i class="fas fa-exclamation-circle"></i> Low Activity';
-            } else if (totalCaloriesOut < 600) {
-                statusElements[1].className = 'summary-status status-neutral';
-                statusElements[1].innerHTML = '<i class="fas fa-info-circle"></i> Moderate';
-            } else {
-                statusElements[1].className = 'summary-status status-good';
-                statusElements[1].innerHTML = '<i class="fas fa-bolt"></i> Active';
-            }
-            
-            // Net Calories status
-            if (netCalories === 0 && totalCaloriesIn === 0) {
-                statusElements[2].className = 'summary-status status-neutral';
-                statusElements[2].innerHTML = '<i class="fas fa-info-circle"></i> No Data';
-            } else if (netCalories < -500) {
-                statusElements[2].className = 'summary-status status-deficit';
-                statusElements[2].innerHTML = '<i class="fas fa-exclamation-circle"></i> Large Deficit';
-            } else if (netCalories < 0) {
-                statusElements[2].className = 'summary-status status-good';
-                statusElements[2].innerHTML = '<i class="fas fa-check-circle"></i> Deficit';
-            } else if (netCalories < 500) {
-                statusElements[2].className = 'summary-status status-neutral';
-                statusElements[2].innerHTML = '<i class="fas fa-info-circle"></i> Balanced';
-            } else {
-                statusElements[2].className = 'summary-status status-warning';
-                statusElements[2].innerHTML = '<i class="fas fa-exclamation-circle"></i> Surplus';
-            }
-
-            // Update progress section if target calories are set
-            if (targetCalories > 0) {
-                updateProgressSection();
-            }
-        }
-
-        // Save Plan Function
-        function savePlan() {
-            const meals = [];
-            const exercises = [];
-            
-            // Collect meal data
-            document.querySelectorAll('#mealTableBody tr').forEach(row => {
-                meals.push({
-                    type: row.cells[0].textContent,
-                    food: row.cells[1].textContent,
-                    calories: row.cells[2].textContent,
-                    portion: row.cells[3].textContent,
-                    time: row.cells[4].textContent
-                });
-            });
-            
-            // Collect exercise data
-            document.querySelectorAll('#exerciseTableBody tr').forEach(row => {
-                exercises.push({
-                    exercise: row.cells[0].textContent,
-                    category: row.cells[1].textContent,
-                    met: row.cells[2].textContent,
-                    duration: row.cells[3].textContent,
-                    calories: row.cells[4].textContent
-                });
-            });
-            
-            // Collect calculator data
-            const calculatorData = {
-                height: document.getElementById('height').value,
-                weight: document.getElementById('weight').value,
-                age: document.getElementById('age').value,
-                gender: document.getElementById('gender').value,
-                activity: document.getElementById('activity').value,
-                weightGoal: document.getElementById('weightGoal').value,
-                targetWeight: document.getElementById('targetWeight').value,
-                duration: document.getElementById('duration').value,
-                bmr: document.getElementById('bmrResult').textContent,
-                tdee: document.getElementById('tdeeResult').textContent,
-                deficit: document.getElementById('deficitResult').textContent,
-                targetCalories: document.getElementById('targetCaloriesResult').textContent
-            };
-            
-            const plan = {
-                date: new Date().toISOString().split('T')[0],
-                totalCaloriesIn: document.getElementById('calIn').textContent,
-                totalCaloriesOut: document.getElementById('calOut').textContent,
-                netCalories: document.getElementById('netCal').textContent,
-                calculator: calculatorData,
-                meals: meals,
-                exercises: exercises
-            };
-            
-            // Save to localStorage
-            const savedPlans = JSON.parse(localStorage.getItem('fitsphere-plans') || '[]');
-            savedPlans.push(plan);
-            localStorage.setItem('fitsphere-plans', JSON.stringify(savedPlans));
-            
-            alert('Plan saved successfully! You can view your saved plans in the Planner section.');
-        }
-
-        // Auto-fill calories when food is selected
-        document.getElementById('foodSelect').addEventListener('change', function() {
-            document.getElementById('foodCal').value = this.value;
         });
 
-        // Initialize when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('Custom Planner with Calorie Calculator loaded');
-            initializeFoodDropdown();
-            initializeExerciseDropdowns();
-            updateSummary();
+        // Feature card click animation
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't trigger if clicking on the button
+                if (!e.target.closest('.feature-btn')) {
+                    const link = this.querySelector('.feature-link');
+                    if (link) {
+                        // Add click effect
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            window.location.href = link.href;
+                        }, 150);
+                    }
+                }
+            });
+        });
+
+        // Feature button hover effect
+        document.querySelectorAll('.feature-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                const card = this.closest('.feature-card');
+                if (card) {
+                    card.style.transform = 'translateY(-5px) scale(1.02)';
+                }
+            });
             
-            // Set default values for calculator
-            document.getElementById('weight').value = document.getElementById('exWeight').value;
+            btn.addEventListener('mouseleave', function() {
+                const card = this.closest('.feature-card');
+                if (card) {
+                    card.style.transform = 'translateY(-5px)';
+                }
+            });
         });
     </script>
 </body>
