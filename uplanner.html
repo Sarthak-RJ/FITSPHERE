@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Planner | FitSphere</title>
+    <title>Custom Planner | NutriTrack</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -669,7 +669,7 @@
                     <div class="logo-icon">
                         <i class="fas fa-heartbeat"></i>
                     </div>
-                    FitSphere
+                    NutriTrack
                 </a>
 
                 <div class="nav-links" id="navLinks">
@@ -1049,7 +1049,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h3>FitSphere</h3>
+                    <h3>NutriTrack</h3>
                     <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">Create fully customized nutrition and fitness plans.</p>
                 </div>
                 
@@ -1083,7 +1083,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2026 FitSphere; Created by: Soham Jadhav (GL), Sarthak Jadhav (AGL), Swaroop Jagtap, Pratik Jagtap, Taksh Jadhav</p>
+                <p>&copy; 2026 NutriTrack; Created by: Soham Jadhav (GL), Sarthak Jadhav (AGL), Swaroop Jagtap, Pratik Jagtap, Taksh Jadhav</p>
             </div>
         </div>
     </footer>
@@ -1533,7 +1533,7 @@
         const html = document.documentElement;
 
         // Load saved theme or detect OS preference
-        const savedTheme = localStorage.getItem('fitsphere-theme') || 
+        const savedTheme = localStorage.getItem('nutritrack-theme') || 
             (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         
         html.setAttribute('data-theme', savedTheme);
@@ -1544,7 +1544,7 @@
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             
             html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('fitsphere-theme', newTheme);
+            localStorage.setItem('nutritrack-theme', newTheme);
         });
 
         // Mobile Menu
@@ -2092,9 +2092,9 @@
             };
             
             // Save to localStorage
-            const savedPlans = JSON.parse(localStorage.getItem('fitsphere-plans') || '[]');
+            const savedPlans = JSON.parse(localStorage.getItem('nutritrack-plans') || '[]');
             savedPlans.push(plan);
-            localStorage.setItem('fitsphere-plans', JSON.stringify(savedPlans));
+            localStorage.setItem('nutritrack-plans', JSON.stringify(savedPlans));
             
             alert('Plan saved successfully! You can view your saved plans in the Planner section.');
         }
