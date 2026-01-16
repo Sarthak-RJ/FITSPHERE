@@ -1,293 +1,831 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FitSphere | Home</title>
-
-<style>
-/* ===== GLOBAL RESET ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
-}
-
-body {
-    background: #f4f6f8;
-    color: #1f2937;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-}
-
-a {
-    text-decoration: none;
-}
-
-ul {
-    list-style: none;
-}
-
-/* ===== HEADER ===== */
-header {
-    background: #111827;
-    padding: 0 20px;
-    height: 70px; /* Fixed height for consistency */
-    display: flex;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-nav {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.5px;
-}
-
-/* ===== NAV LINKS (DESKTOP) ===== */
-.nav-links {
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links a {
-    color: #e5e7eb;
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #3b82f6; /* Blue highlight */
-}
-
-/* ===== HAMBURGER ICON ===== */
-.menu-btn {
-    display: none; /* Hidden on desktop */
-    font-size: 28px;
-    color: #fff;
-    cursor: pointer;
-    user-select: none;
-    z-index: 1001;
-}
-
-/* ===== HERO SECTION ===== */
-.hero {
-    padding: 100px 20px;
-    text-align: center;
-    background: linear-gradient(to bottom, #fff, #f4f6f8);
-}
-
-.hero h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-    color: #111827;
-    line-height: 1.2;
-}
-
-.hero p {
-    font-size: 20px;
-    color: #4b5563;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* ===== INFO CARDS SECTION ===== */
-.info {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    display: grid;
-    /* Responsive Grid Logic: Cards are at least 300px wide */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.card {
-    background: #fff;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 
-                0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #e5e7eb;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-}
-
-.card h3 {
-    margin-bottom: 12px;
-    color: #111827;
-    font-size: 20px;
-}
-
-.card p {
-    color: #6b7280;
-    line-height: 1.6;
-}
-
-/* ===== FOOTER ===== */
-footer {
-    margin-top: auto; /* Pushes footer to bottom */
-    background: #111827;
-    padding: 40px 20px;
-    text-align: center;
-}
-
-footer nav {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-footer nav a {
-    color: #9ca3af;
-    font-size: 14px;
-    transition: color 0.3s;
-}
-
-footer nav a:hover {
-    color: #fff;
-}
-
-/* ===== MOBILE RESPONSIVENESS ===== */
-@media (max-width: 768px) {
-    .menu-btn {
-        display: block; /* Show hamburger */
-    }
-
-    .nav-links {
-        position: fixed;
-        top: 70px; /* Below header height */
-        left: 0;
-        width: 100%;
-        background: #1f2937;
-        flex-direction: column;
-        align-items: center;
-        padding: 40px 0;
-        gap: 25px;
-        /* Animation properties */
-        transform: translateY(-150%); /* Start hidden above */
-        transition: transform 0.4s ease-in-out;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-    }
-
-    /* The class added by JS to show menu */
-    .nav-links.active {
-        transform: translateY(0);
-    }
-
-    .hero h1 {
-        font-size: 32px;
-    }
-
-    .hero p {
-        font-size: 16px;
-    }
-    
-    .info {
-        grid-template-columns: 1fr; /* Stack cards on mobile */
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <nav>
-        <div class="logo">FitSphere</div>
-        
-        <div class="menu-btn" id="menuBtn">☰</div>
-
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="planner.html">Planner</a></li>
-            <li><a href="food.html">Food Items</a></li>
-            <li><a href="exercise.html">Exercises</a></li>
-        </ul>
-    </nav>
-</header>
-
-<section class="hero">
-    <h1>Transform Your Body Smartly</h1>
-    <p>A smarter way to plan diet and exercise with science-backed logic and personalized metrics.</p>
-</section>
-
-<section class="info">
-    <div class="card">
-        <h3>Personalized Planning</h3>
-        <p>Diet and exercise plans tailored using body metrics and realistic fitness rules.</p>
-    </div>
-
-    <div class="card">
-        <h3>Science-Based</h3>
-        <p>No fake promises — only proven nutritional and workout principles backed by research.</p>
-    </div>
-
-    <div class="card">
-        <h3>Educational</h3>
-        <p>Understand how muscle gain and fat loss actually work so you can maintain results.</p>
-    </div>
-</section>
-
-<footer>
-    <nav>
-        <a href="disclaimer.html">Disclaimer</a>
-        <a href="term.html">Terms </a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="contact.html">Contact Us</a>
-    </nav>
-    <p style="margin-top:20px; color:#6b7280; font-size: 12px;">&copy; 2026 FitSphere. All rights reserved.</p>
-</footer>
-
-<script>
-    const navLinks = document.getElementById("navLinks");
-    const menuBtn = document.getElementById("menuBtn");
-    const links = document.querySelectorAll(".nav-links a");
-
-    menuBtn.addEventListener("click", () => {
-        // Toggle the 'active' class to slide menu in/out
-        navLinks.classList.toggle("active");
-        
-        // Switch Icon between Hamburger (☰) and Close (✖)
-        if(navLinks.classList.contains("active")){
-            menuBtn.innerHTML = "&#10006;"; // X symbol
-        } else {
-            menuBtn.innerHTML = "&#9776;"; // Hamburger symbol
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitSphere | Smart Fitness & Nutrition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --bg-input: #f1f5f9;
+            
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            
+            --transition: all 0.3s ease;
         }
-    });
 
-    /* Close menu when a link is clicked */
-    links.forEach(link => {
-        link.addEventListener("click", () => {
-            navLinks.classList.remove("active");
-            menuBtn.innerHTML = "&#9776;"; // Reset to Hamburger
+        [data-theme="dark"] {
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --secondary: #34d399;
+            --secondary-dark: #10b981;
+            --accent: #fbbf24;
+            --danger: #f87171;
+            --purple: #a78bfa;
+            
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --bg-header: #1e293b;
+            --bg-input: #334155;
+            
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --border: #475569;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.25);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.35);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: var(--bg-header);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--bg-input);
+            border-radius: 13px;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .theme-switch::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            transform: translate(2px, 2px);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .theme-switch::before {
+            transform: translate(24px, 2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.1;
+            border-radius: 50%;
+            top: -300px;
+            right: -300px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ===== FEATURES ===== */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .feature-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 25px;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .icon-1 { background: linear-gradient(135deg, var(--primary), #6366f1); }
+        .icon-2 { background: linear-gradient(135deg, var(--secondary), #10b981); }
+        .icon-3 { background: linear-gradient(135deg, var(--accent), #f59e0b); }
+        .icon-4 { background: linear-gradient(135deg, var(--purple), #8b5cf6); }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .feature-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--bg-input);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 14px;
+            transition: var(--transition);
+            color: var(--text-primary);
+            position: relative;
+            z-index: 3;
+        }
+
+        .feature-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+            border-radius: var(--radius-lg);
+            margin: 40px 0;
+        }
+
+        .cta-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-card);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border);
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--bg-header);
+                flex-direction: column;
+                padding: 20px;
+                gap: 0;
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 15px;
+                border-radius: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .feature-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    FitSphere
+                </a>
+
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html" class="nav-link active">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a href="planner.html" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i> Planner
+                    </a>
+                    <a href="uplanner.html" class="nav-link">
+                        <i class="fas fa-user-cog"></i> UPlanner
+                    </a>
+                    <a href="food.html" class="nav-link">
+                        <i class="fas fa-utensils"></i> Food Items
+                    </a>
+                    <a href="exercise.html" class="nav-link">
+                        <i class="fas fa-dumbbell"></i> Exercises
+                    </a>
+                </div>
+
+                <div class="header-actions">
+                    <div class="theme-switch" id="themeSwitch"></div>
+                    <div class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Smart Nutrition & Fitness Planning</h1>
+                <p>Personalized 14-day diet plans, exercise routines, and progress tracking powered by intelligent algorithms and nutritional science.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">300+</span>
+                        <span class="stat-label">Food Items</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Exercises</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">14-Day</span>
+                        <span class="stat-label">Plans</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Personalized</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Everything You Need for Success</h2>
+            <p class="section-subtitle">From personalized meal plans to exercise tracking, we've got you covered</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <a href="planner.html" class="feature-link"></a>
+                    <div class="feature-content">
+                        <div class="feature-icon icon-1">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <h3>Diversified Diet Plans</h3>
+                        <p>14-day plans with South Indian, North Indian, Continental, and regular cuisine variety. Never get bored with your meals.</p>
+                        <a href="planner.html" class="feature-btn">
+                            Explore Plans <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <a href="exercise.html" class="feature-link"></a>
+                    <div class="feature-content">
+                        <div class="feature-icon icon-2">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <h3>Exercise Library</h3>
+                        <p>50+ exercises with step-by-step guidance, calorie burn estimation, and goal-based filtering for optimal results.</p>
+                        <a href="exercise.html" class="feature-btn">
+                            View Exercises <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <a href="progress.html" class="feature-link"></a>
+                    <div class="feature-content">
+                        <div class="feature-icon icon-3">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Progress Tracking</h3>
+                        <p>Monitor your weight, measurements, and fitness progress with visual graphs and milestone celebrations.</p>
+                        <a href="progress.html" class="feature-btn">
+                            Track Progress <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <a href="uplanner.html" class="feature-link"></a>
+                    <div class="feature-content">
+                        <div class="feature-icon icon-4">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3>Custom Planning</h3>
+                        <p>Create your own personalized meal and exercise plans with our easy-to-use custom planner interface.</p>
+                        <a href="uplanner.html" class="feature-btn">
+                            Create Plan <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <div class="container">
+        <section class="cta-section">
+            <h2>Ready to Transform Your Health?</h2>
+            <p>Join thousands of users who have achieved their fitness goals with FitSphere's intelligent planning system.</p>
+            <a href="planner.html" class="btn btn-primary">
+                <i class="fas fa-rocket"></i> Start Your Journey
+            </a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>FitSphere</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Your intelligent fitness companion for sustainable health transformation.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Platform</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="planner.html">Planner</a></li>
+                        <li><a href="uplanner.html">UPlanner</a></li>
+                        <li><a href="food.html">Food Database</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="term.html">Terms & Conditions</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="help.html">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 FitSphere;Created by: Soham Jadhav (GL), Sarthak Jadhav (AGL), Swaroop Jagtap, Pratik Jagtap, Taksh Jadhav</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Management
+        const themeSwitch = document.getElementById('themeSwitch');
+        const html = document.documentElement;
+
+        // Load saved theme or detect OS preference
+        const savedTheme = localStorage.getItem('fitsphere-theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        html.setAttribute('data-theme', savedTheme);
+
+        // Toggle theme
+        themeSwitch.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('fitsphere-theme', newTheme);
         });
-    });
-</script>
 
+        // Mobile Menu
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Feature card click animation
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't trigger if clicking on the button
+                if (!e.target.closest('.feature-btn')) {
+                    const link = this.querySelector('.feature-link');
+                    if (link) {
+                        // Add click effect
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            window.location.href = link.href;
+                        }, 150);
+                    }
+                }
+            });
+        });
+
+        // Feature button hover effect
+        document.querySelectorAll('.feature-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                const card = this.closest('.feature-card');
+                if (card) {
+                    card.style.transform = 'translateY(-5px) scale(1.02)';
+                }
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                const card = this.closest('.feature-card');
+                if (card) {
+                    card.style.transform = 'translateY(-5px)';
+                }
+            });
+        });
+    </script>
 </body>
-
 </html>
-
-
