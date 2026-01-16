@@ -2,6 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Database | FitSphere</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -80,6 +81,7 @@
             line-height: 1.6;
             min-height: 100vh;
             transition: var(--transition);
+            padding-bottom: 50px;
         }
 
         .container {
@@ -334,6 +336,9 @@
             overflow-x: auto;
             max-height: 600px;
             overflow-y: auto;
+            overflow-x: auto;
+           -webkit-overflow-scrolling: touch; /* smooth scrolling for iOS/Android */
+             width: 100%;
         }
 
         table {
@@ -682,7 +687,7 @@
                 </div>
 
                 <div class="header-actions">
-                    
+                 <div class="theme-switch" id="themeSwitch"></div>   
                     <div class="menu-toggle" id="menuToggle">
                         <i class="fas fa-bars"></i>
                     </div>
