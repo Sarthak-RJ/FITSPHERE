@@ -1,235 +1,1998 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FITSPHERE| Exercises</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Library | FitSphere</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --bg-input: #f1f5f9;
+            
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            
+            --transition: all 0.3s ease;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
-body{background:#f4f6f8;color:#1f2937}
+        [data-theme="dark"] {
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --secondary: #34d399;
+            --secondary-dark: #10b981;
+            --accent: #fbbf24;
+            --danger: #f87171;
+            --purple: #a78bfa;
+            
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --bg-header: #1e293b;
+            --bg-input: #334155;
+            
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --border: #475569;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.25);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.35);
+        }
 
-/* ===== HEADER ===== */
-header{
-  background:#0f172a;
-  color:#fff;
-  padding:15px 20px;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.logo{font-size:22px;font-weight:700}
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* NAV LINKS */
-.links{
-  display:flex;
-}
-.links a{
-  color:#fff;
-  text-decoration:none;
-  margin-left:18px;
-  font-size:15px;
-}
-.links a.active{
-  color:#22c55e;
-  font-weight:600;
-}
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
 
-/* HAMBURGER */
-.menu-btn{
-  display:none;
-  font-size:26px;
-  cursor:pointer;
-}
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-/* ===== MAIN ===== */
-main{max-width:1200px;margin:auto;padding:40px 20px}
-h1{text-align:center;margin-bottom:8px}
-.subtitle{text-align:center;color:#6b7280;margin-bottom:20px}
+        /* ===== HEADER ===== */
+        header {
+            background: var(--bg-header);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
 
-/* FILTER */
-.filter-box{text-align:center;margin-bottom:30px}
-.filter-box select{
-  padding:10px 14px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
 
-/* GRID */
-.exercise-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:20px;
-}
-.exercise-card{
-  background:#fff;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
-.tag{
-  display:inline-block;
-  padding:4px 10px;
-  background:#e0f2fe;
-  color:#075985;
-  border-radius:12px;
-  font-size:12px;
-  margin-bottom:8px;
-}
-.exercise-card h3{margin-bottom:8px}
-.exercise-card ol{padding-left:18px;font-size:14px}
-.exercise-card li{margin-bottom:6px}
-.stats{margin-top:10px;font-size:14px;color:#374151}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary);
+        }
 
-/* ===== FOOTER ===== */
-footer{
-  background:#0f172a;
-  padding:15px;
-}
-footer nav{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-footer a{
-  color:#e5e7eb;
-  text-decoration:none;
-  margin:6px 12px;
-  font-size:14px;
-}
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
 
-/* ===== MOBILE ===== */
-@media(max-width:768px){
-  .menu-btn{display:block}
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
 
-  .links{
-    position:absolute;
-    top:65px;
-    left:0;
-    width:100%;
-    background:#0f172a;
-    flex-direction:column;
-    display:none;
-  }
+        .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+        }
 
-  .links.active{display:flex}
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
 
-  .links a{
-    margin:15px 0;
-    text-align:center;
-  }
-}
-</style>
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--bg-input);
+            border-radius: 13px;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .theme-switch::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            transform: translate(2px, 2px);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .theme-switch::before {
+            transform: translate(24px, 2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== FILTER SECTION ===== */
+        .filter-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* ===== EXERCISE GRID ===== */
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .exercise-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .exercise-header {
+            padding: 25px 25px 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .exercise-type {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .type-cardio { background: rgba(59, 130, 246, 0.1); color: var(--primary); }
+        .type-strength { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .type-hiit { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
+        .type-flexibility { background: rgba(16, 185, 129, 0.1); color: var(--secondary); }
+        .type-functional { background: rgba(139, 92, 246, 0.1); color: var(--purple); }
+        .type-crossfit { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+        .type-calisthenics { background: rgba(20, 184, 166, 0.1); color: #14b8a6; }
+
+        .exercise-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .exercise-stats {
+            display: flex;
+            gap: 15px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .exercise-body {
+            padding: 20px 25px;
+        }
+
+        .exercise-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .exercise-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .mets-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .steps-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .steps-list {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .steps-list li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .exercise-footer {
+            padding: 20px 25px;
+            background: var(--bg-input);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calorie-burn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .calorie-burn i {
+            color: var(--danger);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--secondary);
+            color: white;
+            border: 1px solid var(--secondary);
+        }
+
+        .btn-success:hover {
+            background: var(--secondary-dark);
+        }
+
+        /* ===== EXERCISE STATS ===== */
+        .stats-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 20px;
+            color: white;
+        }
+
+        .icon-count { background: linear-gradient(135deg, var(--primary), var(--purple)); }
+        .icon-burn { background: linear-gradient(135deg, var(--danger), #dc2626); }
+        .icon-time { background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); }
+        .icon-goals { background: linear-gradient(135deg, var(--accent), #d97706); }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-card);
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-secondary);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--bg-header);
+                flex-direction: column;
+                padding: 20px;
+                gap: 0;
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 15px;
+                border-radius: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            .exercise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-container {
+                flex-direction: column;
+            }
+            
+            .exercise-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .exercise-stats {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    FitSphere
+                </a>
 
-<!-- ===== HEADER ===== -->
-<header>
-<nav>
-  <div class="logo">FITSPHERE</div>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a href="planner.html" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i> Planner
+                    </a>
+                    <a href="uplanner.html" class="nav-link">
+                        <i class="fas fa-user-cog"></i> UPlanner
+                    </a>
+                    <a href="food.html" class="nav-link">
+                        <i class="fas fa-utensils"></i> Food Items
+                    </a>
+                    <a href="exercise.html" class="nav-link active">
+                        <i class="fas fa-dumbbell"></i> Exercises
+                    </a>
+                </div>
 
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+                <div class="header-actions">
+                    
+                    <div class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <div class="links" id="navLinks">
-    <a href="index.html">Home</a>
-    <a href="planner.html">Planner</a>
-    <a href="food.html">Food Items</a>
-    <a href="exercise.html" class="active">Exercises</a>
-  </div>
-</nav>
-</header>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Exercise Library</h1>
+                <p class="page-subtitle">30+ essential fitness exercises with proper form guidance, calorie burn estimation & goal-based filtering</p>
+            </div>
 
-<!-- ===== MAIN ===== -->
-<main>
-<h1>Exercise Library</h1>
-<p class="subtitle">
-50 exercises with step-by-step guidance, calorie burn estimation & goal-based filtering
-</p>
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label for="categoryFilter">Filter by Category</label>
+                        <select id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            <option value="cardio">Cardio</option>
+                            <option value="strength">Strength Training</option>
+                            <option value="hiit">HIIT</option>
+                            <option value="functional">Functional Training</option>
+                            <option value="calisthenics">Calisthenics</option>
+                            <option value="flexibility">Flexibility</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="intensityFilter">Filter by Intensity</label>
+                        <select id="intensityFilter">
+                            <option value="all">All Intensities</option>
+                            <option value="low">Low Intensity</option>
+                            <option value="moderate">Moderate Intensity</option>
+                            <option value="high">High Intensity</option>
+                            <option value="extreme">Extreme Intensity</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="searchInput">Search Exercise</label>
+                        <input type="text" id="searchInput" placeholder="Type exercise name..." class="filter-group select">
+                    </div>
+                </div>
+            </div>
 
-<div class="filter-box">
-<select onchange="filterExercises(this.value)">
-  <option value="all">All Goals</option>
-  <option value="fat">Fat Loss</option>
-  <option value="muscle">Muscle Gain</option>
-  <option value="flex">Flexibility</option>
-</select>
-</div>
+            <!-- Exercise Grid -->
+            <div class="exercise-grid" id="exerciseGrid">
+                <!-- Exercise cards will be generated by JavaScript -->
+            </div>
 
-<div class="exercise-grid" id="exerciseGrid"></div>
-</main>
+            <!-- Exercise Stats -->
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon icon-count">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <span class="stat-number" id="totalExercises">0</span>
+                        <span class="stat-label">Essential Exercises</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon icon-burn">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <span class="stat-number" id="avgCalories">0</span>
+                        <span class="stat-label">Avg Calories/30min</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon icon-time">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <span class="stat-number" id="totalCategories">0</span>
+                        <span class="stat-label">Training Categories</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon icon-goals">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <span class="stat-number" id="highIntensity">0</span>
+                        <span class="stat-label">High Intensity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-<nav>
-  <a href="disclaimer.html">Disclaimer</a>
-  <a href="term.html">Terms</a>
-  <a href="privacy.html">Privacy Policy</a>
-  <a href="contact.html">Contact Us</a>
-</nav>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>FitSphere</h3>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">Comprehensive exercise library for effective fitness planning.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="planner.html">Planner</a></li>
+                        <li><a href="food.html">Food Database</a></li>
+                        <li><a href="exercise.html">Exercises</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="term.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 FitSphere; Created by: Soham Jadhav (GL), Sarthak Jadhav (AGL), Swaroop Jagtap, Pratik Jagtap, Taksh Jadhav</p>
+            </div>
+        </div>
+    </footer>
 
-<script>
-function toggleMenu(){
-  document.getElementById("navLinks").classList.toggle("active");
-}
+    <script>
+        // Essential Fitness Exercises Database
+        const exerciseData = [
+            // Cardio Exercises
+            {
+                id: 1,
+                name: "Sprinting",
+                category: "cardio",
+                type: "type-cardio",
+                mets: 15.0,
+                calories: 420,
+                duration: "15-20 min",
+                intensity: "Extreme",
+                muscles: ["Quadriceps", "Hamstrings", "Calves", "Glutes", "Core"],
+                description: "High-intensity sprinting for maximum calorie burn and explosive power development.",
+                steps: [
+                    "Warm up with 10 minutes of light jogging and dynamic stretches",
+                    "Find a flat, safe surface (track or open field recommended)",
+                    "Assume athletic stance: feet shoulder-width, knees slightly bent",
+                    "Explode forward with maximum power, driving knees high",
+                    "Maintain forward lean (45 degrees) for optimal acceleration",
+                    "Pump arms aggressively to generate momentum",
+                    "Sprint for 20-30 seconds at 90-95% maximum effort",
+                    "Rest 60-90 seconds walking or light jogging",
+                    "Repeat 8-12 times",
+                    "Cool down with 10 minutes of walking and static stretching"
+                ],
+                benefits: ["Maximum calorie burn", "Explosive power", "Anaerobic capacity", "Fast-twitch muscle fibers"],
+                equipment: "None"
+            },
+            {
+                id: 2,
+                name: "Jogging",
+                category: "cardio",
+                type: "type-cardio",
+                mets: 7.0,
+                calories: 280,
+                duration: "30-45 min",
+                intensity: "Moderate",
+                muscles: ["Quadriceps", "Hamstrings", "Calves", "Glutes", "Core"],
+                description: "Sustained moderate-paced running for cardiovascular endurance and fat burning.",
+                steps: [
+                    "Start with 5-10 minutes of brisk walking to warm up",
+                    "Begin jogging at a conversational pace (able to speak in short sentences)",
+                    "Maintain upright posture with slight forward lean",
+                    "Land mid-foot and roll through to toes",
+                    "Keep arms at 90-degree angle, swinging naturally",
+                    "Breathe rhythmically: inhale for 3 steps, exhale for 2 steps",
+                    "Maintain steady pace for 20-40 minutes",
+                    "Finish with 5-10 minutes of walking to cool down",
+                    "Stretch quadriceps, hamstrings, calves, and hip flexors"
+                ],
+                benefits: ["Cardiovascular health", "Fat burning", "Endurance building", "Stress reduction"],
+                equipment: "Running shoes"
+            },
+            {
+                id: 3,
+                name: "Fast Cycling",
+                category: "cardio",
+                type: "type-cardio",
+                mets: 12.0,
+                calories: 360,
+                duration: "30-45 min",
+                intensity: "High",
+                muscles: ["Quadriceps", "Hamstrings", "Glutes", "Calves", "Core"],
+                description: "High-speed cycling for cardiovascular conditioning and leg strength development.",
+                steps: [
+                    "Adjust bike seat to proper height (knee slightly bent at bottom of pedal stroke)",
+                    "Warm up for 10 minutes at easy pace (60-70 RPM)",
+                    "Increase cadence to 80-100 RPM maintaining resistance",
+                    "Maintain proper form: back straight, elbows slightly bent",
+                    "Push through entire pedal stroke (down, back, up, forward)",
+                    "Keep upper body stable, power generated from legs",
+                    "Interval: 2 minutes hard effort, 1 minute recovery",
+                    "Repeat intervals for 20-30 minutes",
+                    "Cool down for 10 minutes at easy pace",
+                    "Stretch quadriceps, hamstrings, and hip flexors"
+                ],
+                benefits: ["Leg strength", "Cardiovascular fitness", "Low impact", "Calorie burn"],
+                equipment: "Stationary bike or road bike"
+            },
+            
+            // Strength Training Exercises
+            {
+                id: 4,
+                name: "Barbell Squats",
+                category: "strength",
+                type: "type-strength",
+                mets: 8.0,
+                calories: 240,
+                duration: "45-60 min",
+                intensity: "High",
+                muscles: ["Quadriceps", "Hamstrings", "Glutes", "Lower Back", "Core"],
+                description: "The king of all exercises for building lower body strength and muscle mass.",
+                steps: [
+                    "Set barbell on rack at shoulder height",
+                    "Step under bar, position on upper back/traps",
+                    "Grip bar slightly wider than shoulders",
+                    "Unrack bar, take 2-3 steps back",
+                    "Feet shoulder-width, toes slightly pointed out",
+                    "Take deep breath, brace core",
+                    "Initiate movement by pushing hips back",
+                    "Lower until thighs parallel to floor (or below)",
+                    "Keep chest up, back straight, knees tracking toes",
+                    "Drive through heels to stand up",
+                    "Exhale at top, repeat for 3-5 sets of 5-8 reps"
+                ],
+                benefits: ["Total body strength", "Muscle growth", "Hormone production", "Functional strength"],
+                equipment: "Barbell, squat rack"
+            },
+            {
+                id: 5,
+                name: "Deadlifts",
+                category: "strength",
+                type: "type-strength",
+                mets: 8.5,
+                calories: 255,
+                duration: "45-60 min",
+                intensity: "High",
+                muscles: ["Hamstrings", "Glutes", "Lower Back", "Traps", "Forearms"],
+                description: "Full-body compound lift for building raw strength and posterior chain development.",
+                steps: [
+                    "Stand with feet hip-width, bar over mid-foot",
+                    "Grip bar just outside knees (mixed or overhand)",
+                    "Lower hips until shins touch bar",
+                    "Chest up, back straight, shoulders slightly in front of bar",
+                    "Take deep breath, brace entire core",
+                    "Drive through heels, stand up with bar",
+                    "Keep bar close to body throughout movement",
+                    "Stand tall at top, squeeze glutes",
+                    "Lower bar by pushing hips back first",
+                    "Control descent, reset position for next rep",
+                    "Perform 3-5 sets of 3-6 reps"
+                ],
+                benefits: ["Full-body strength", "Posterior chain", "Grip strength", "Posture improvement"],
+                equipment: "Barbell, weight plates"
+            },
+            {
+                id: 6,
+                name: "Bench Press",
+                category: "strength",
+                type: "type-strength",
+                mets: 6.5,
+                calories: 195,
+                duration: "45-60 min",
+                intensity: "High",
+                muscles: ["Chest", "Shoulders", "Triceps"],
+                description: "Classic upper body compound exercise for chest, shoulder, and tricep development.",
+                steps: [
+                    "Lie on bench with eyes under bar",
+                    "Grip bar slightly wider than shoulder width",
+                    "Arch back slightly, feet planted firmly",
+                    "Unrack bar, position over chest",
+                    "Lower bar to mid-chest with control",
+                    "Keep elbows at 45-degree angle from body",
+                    "Touch bar lightly to chest (no bounce)",
+                    "Drive bar up explosively",
+                    "Lock out elbows at top",
+                    "Breathe in on descent, exhale on press",
+                    "Perform 3-5 sets of 6-10 reps"
+                ],
+                benefits: ["Upper body strength", "Chest development", "Pushing power", "Shoulder stability"],
+                equipment: "Bench, barbell"
+            },
+            
+            // HIIT Exercises
+            {
+                id: 7,
+                name: "Suicide Sprints",
+                category: "hiit",
+                type: "type-hiit",
+                mets: 14.0,
+                calories: 210,
+                duration: "20-30 min",
+                intensity: "Extreme",
+                muscles: ["Quadriceps", "Hamstrings", "Calves", "Core", "Shoulders"],
+                description: "High-intensity agility drill that combines sprinting with directional changes.",
+                steps: [
+                    "Set up 4 cones at 5m, 10m, 15m, and 20m distances",
+                    "Start at first cone in athletic stance",
+                    "Sprint to 5m cone, touch ground, sprint back",
+                    "Immediately sprint to 10m cone, touch ground, sprint back",
+                    "Continue to 15m and 20m cones",
+                    "Maintain low center of gravity during turns",
+                    "Use proper cutting technique: plant outside foot",
+                    "Keep head up, eyes forward throughout",
+                    "Rest 60-90 seconds between sets",
+                    "Complete 6-10 sets",
+                    "Focus on explosive acceleration and deceleration"
+                ],
+                benefits: ["Agility", "Speed", "Conditioning", "Mental toughness"],
+                equipment: "Cones, flat surface"
+            },
+            {
+                id: 8,
+                name: "Burpees",
+                category: "hiit",
+                type: "type-hiit",
+                mets: 10.0,
+                calories: 300,
+                duration: "15-20 min",
+                intensity: "High",
+                muscles: ["Chest", "Shoulders", "Triceps", "Quadriceps", "Core"],
+                description: "Full-body calisthenic exercise combining squat, push-up, and jump for maximum intensity.",
+                steps: [
+                    "Start standing with feet shoulder-width",
+                    "Drop into squat position, hands on floor",
+                    "Kick feet back into push-up position",
+                    "Perform push-up (optional: strict or knee)",
+                    "Jump feet back to squat position",
+                    "Explode upward with maximum vertical jump",
+                    "Land softly, immediately begin next rep",
+                    "Maintain tempo: explosive on way up, controlled on way down",
+                    "Focus on minimizing ground contact time",
+                    "Complete AMRAP (As Many Rounds As Possible) in 20 seconds, rest 10 seconds",
+                    "Repeat 8-12 cycles"
+                ],
+                benefits: ["Total body workout", "Cardiovascular endurance", "Explosive power", "Minimal equipment"],
+                equipment: "None"
+            },
+            
+            // Functional Training
+            {
+                id: 9,
+                name: "Lunges",
+                category: "functional",
+                type: "type-functional",
+                mets: 5.0,
+                calories: 150,
+                duration: "20-30 min",
+                intensity: "Moderate",
+                muscles: ["Quadriceps", "Glutes", "Hamstrings", "Calves", "Core"],
+                description: "Unilateral leg exercise for balance, coordination, and addressing muscle imbalances.",
+                steps: [
+                    "Stand tall with feet together, hands on hips or holding weights",
+                    "Take large step forward with right leg",
+                    "Lower hips until both knees at 90-degree angles",
+                    "Front knee over ankle, back knee hovering above floor",
+                    "Keep torso upright, don't lean forward",
+                    "Push through front heel to return to start",
+                    "Repeat on same leg or alternate legs",
+                    "Maintain controlled tempo throughout",
+                    "Focus on stability and balance",
+                    "Perform 3-4 sets of 10-15 reps per leg",
+                    "Add weights for increased difficulty"
+                ],
+                benefits: ["Balance", "Unilateral strength", "Functional movement", "Injury prevention"],
+                equipment: "Dumbbells (optional)"
+            },
+            {
+                id: 10,
+                name: "Duck Walks",
+                category: "functional",
+                type: "type-functional",
+                mets: 6.0,
+                calories: 180,
+                duration: "15-20 min",
+                intensity: "Moderate-High",
+                muscles: ["Quadriceps", "Glutes", "Hip Flexors", "Calves", "Core"],
+                description: "Low squat walking movement for hip mobility, quad strength, and functional lower body endurance.",
+                steps: [
+                    "Assume deep squat position: feet wider than shoulders",
+                    "Keep chest up, back straight, weight in heels",
+                    "Take small steps forward while maintaining squat",
+                    "Keep knees tracking over toes",
+                    "Maintain constant tension in quads and glutes",
+                    "Walk forward 10-15 meters",
+                    "Rest 30 seconds, walk backward to start",
+                    "Focus on depth consistency and posture",
+                    "Avoid rounding lower back",
+                    "Complete 4-6 rounds of 30-45 seconds",
+                    "Increase distance or add weight vest for progression"
+                ],
+                benefits: ["Hip mobility", "Quad endurance", "Functional strength", "Ankle flexibility"],
+                equipment: "None"
+            },
+            
+            // Calisthenics
+            {
+                id: 11,
+                name: "Push-ups",
+                category: "calisthenics",
+                type: "type-calisthenics",
+                mets: 4.0,
+                calories: 120,
+                duration: "15-25 min",
+                intensity: "Moderate",
+                muscles: ["Chest", "Shoulders", "Triceps", "Core"],
+                description: "Fundamental bodyweight exercise for upper body strength and core stability.",
+                steps: [
+                    "Start in high plank position: hands under shoulders",
+                    "Form straight line from head to heels",
+                    "Engage core, glutes, and legs",
+                    "Lower body until chest nearly touches floor",
+                    "Keep elbows at 45-degree angle from body",
+                    "Don't let hips sag or pike up",
+                    "Push through hands to return to start",
+                    "Maintain full body tension throughout",
+                    "Breathe in on descent, exhale on ascent",
+                    "Perform 3-5 sets to failure or specific rep count",
+                    "Progress to variations: decline, diamond, or one-arm"
+                ],
+                benefits: ["Upper body strength", "Core stability", "No equipment needed", "Scalable difficulty"],
+                equipment: "None"
+            },
+            {
+                id: 12,
+                name: "Pull-ups",
+                category: "calisthenics",
+                type: "type-calisthenics",
+                mets: 5.5,
+                calories: 165,
+                duration: "20-30 min",
+                intensity: "High",
+                muscles: ["Back", "Biceps", "Forearms", "Shoulders"],
+                description: "Essential upper body pulling exercise for back development and grip strength.",
+                steps: [
+                    "Grab bar with overhand grip slightly wider than shoulders",
+                    "Hang with arms fully extended",
+                    "Engage lats by depressing shoulders (shoulders away from ears)",
+                    "Pull body up until chin clears bar",
+                    "Focus on driving elbows down and back",
+                    "Keep core tight, avoid kipping or swinging",
+                    "Lower with control to full extension",
+                    "Maintain scapular control throughout",
+                    "Perform 3-5 sets of maximum reps",
+                    "Use assistance bands if needed",
+                    "Progress to weighted pull-ups for advanced"
+                ],
+                benefits: ["Back development", "Grip strength", "Posture improvement", "Functional pulling strength"],
+                equipment: "Pull-up bar"
+            },
+            
+            // Flexibility & Mobility
+            {
+                id: 13,
+                name: "Surya Namaskar (Sun Salutations)",
+                category: "flexibility",
+                type: "type-flexibility",
+                mets: 4.0,
+                calories: 120,
+                duration: "15-20 min",
+                intensity: "Low-Moderate",
+                muscles: ["Full body stretch", "Spine", "Shoulders", "Hamstrings"],
+                description: "Classical yoga sequence that combines movement with breath for full body flexibility and mindfulness.",
+                steps: [
+                    "Start in Mountain Pose: stand tall, feet together",
+                    "Inhale, raise arms overhead (Prayer Pose)",
+                    "Exhale, fold forward (Forward Fold)",
+                    "Inhale, lift chest halfway (Half Lift)",
+                    "Exhale, step back to Plank Pose",
+                    "Lower to Four-Limbed Staff Pose (Chaturanga)",
+                    "Inhale, lift chest to Upward-Facing Dog",
+                    "Exhale, lift hips to Downward-Facing Dog",
+                    "Hold for 5 breaths in Downward Dog",
+                    "Step or jump feet to hands",
+                    "Inhale to Half Lift, exhale to Forward Fold",
+                    "Inhale rise up, exhale return to Mountain Pose",
+                    "Repeat sequence 5-12 rounds"
+                ],
+                benefits: ["Full body flexibility", "Spinal health", "Mind-body connection", "Stress relief"],
+                equipment: "Yoga mat"
+            },
+            {
+                id: 14,
+                name: "Plank",
+                category: "flexibility",
+                type: "type-flexibility",
+                mets: 3.5,
+                calories: 105,
+                duration: "10-15 min",
+                intensity: "Low-Moderate",
+                muscles: ["Core", "Shoulders", "Glutes", "Back"],
+                description: "Isometric core exercise for building endurance and stability in the entire core musculature.",
+                steps: [
+                    "Start on forearms and toes (forearm plank)",
+                    "Elbows directly under shoulders",
+                    "Form straight line from head to heels",
+                    "Engage core by pulling belly button toward spine",
+                    "Squeeze glutes and quadriceps",
+                    "Keep neck neutral, eyes on floor",
+                    "Breathe deeply and steadily",
+                    "Hold position for 30-60 seconds",
+                    "Maintain perfect form over duration",
+                    "Rest 30 seconds between sets",
+                    "Complete 3-5 sets",
+                    "Progress by increasing time or adding movements"
+                ],
+                benefits: ["Core stability", "Posture improvement", "Injury prevention", "Full core engagement"],
+                equipment: "Yoga mat (optional)"
+            },
+            
+            // Additional Essential Exercises
+            {
+                id: 15,
+                name: "Shuttle Runs",
+                category: "hiit",
+                type: "type-hiit",
+                mets: 12.0,
+                calories: 180,
+                duration: "20-25 min",
+                intensity: "High",
+                muscles: ["Quadriceps", "Hamstrings", "Calves", "Core"],
+                description: "Speed and agility drill involving repeated sprints between two points with quick direction changes.",
+                steps: [
+                    "Set two cones 20-25 meters apart",
+                    "Start at first cone in athletic stance",
+                    "Sprint to opposite cone, touch ground",
+                    "Immediately sprint back to start",
+                    "That's 1 rep (to cone and back)",
+                    "Complete 6 reps with 30 seconds rest",
+                    "Focus on explosive acceleration",
+                    "Use proper deceleration technique",
+                    "Maintain low center of gravity during turns",
+                    "Keep head up, eyes forward",
+                    "Complete 4-6 sets with 60 seconds rest between sets"
+                ],
+                benefits: ["Speed endurance", "Agility", "Cardiovascular fitness", "Sports performance"],
+                equipment: "Cones"
+            },
+            {
+                id: 16,
+                name: "Swimming (Freestyle)",
+                category: "cardio",
+                type: "type-cardio",
+                mets: 9.8,
+                calories: 294,
+                duration: "30-45 min",
+                intensity: "High",
+                muscles: ["Back", "Shoulders", "Chest", "Core", "Legs"],
+                description: "Full-body, low-impact cardiovascular exercise that engages multiple muscle groups simultaneously.",
+                steps: [
+                    "Warm up with 5 minutes of easy swimming",
+                    "Start with proper body position: horizontal, streamlined",
+                    "Catch phase: enter water fingertips first, arm extended",
+                    "Pull phase: pull water back with high elbow",
+                    "Push phase: push water toward feet",
+                    "Recovery: lift arm out of water, elbow high",
+                    "Bilateral breathing: breathe every 3 strokes",
+                    "Kick from hips, not knees (2-beat or 6-beat kick)",
+                    "Maintain steady rhythm and pace",
+                    "Swim continuously for 20-30 minutes",
+                    "Cool down with 5 minutes of easy swimming",
+                    "Stretch shoulders, back, and chest"
+                ],
+                benefits: ["Low impact", "Full body workout", "Cardiovascular health", "Joint-friendly"],
+                equipment: "Swimsuit, goggles, pool"
+            },
+            {
+                id: 17,
+                name: "Mountain Climbers",
+                category: "hiit",
+                type: "type-hiit",
+                mets: 8.0,
+                calories: 240,
+                duration: "15-20 min",
+                intensity: "High",
+                muscles: ["Core", "Shoulders", "Chest", "Hip Flexors", "Quadriceps"],
+                description: "Dynamic core exercise combining plank stability with running motion for cardiovascular and core benefits.",
+                steps: [
+                    "Start in high plank position: hands under shoulders",
+                    "Engage core, form straight line body",
+                    "Drive right knee toward chest",
+                    "Quickly switch, driving left knee toward chest",
+                    "Maintain steady, rhythmic pace",
+                    "Keep hips low, don't let them rise",
+                    "Breathe consistently throughout",
+                    "Focus on core engagement over speed",
+                    "Perform for 30 seconds on, 15 seconds off",
+                    "Complete 8-12 rounds",
+                    "Increase speed for more intensity"
+                ],
+                benefits: ["Core strength", "Cardiovascular", "Hip mobility", "Shoulder stability"],
+                equipment: "None"
+            },
+            {
+                id: 18,
+                name: "Box Jumps",
+                category: "functional",
+                type: "type-functional",
+                mets: 10.5,
+                calories: 315,
+                duration: "20-30 min",
+                intensity: "High",
+                muscles: ["Quadriceps", "Glutes", "Calves", "Core"],
+                description: "Plyometric exercise for developing explosive power, coordination, and lower body strength.",
+                steps: [
+                    "Set up sturdy box at appropriate height (knee height to start)",
+                    "Stand facing box, feet shoulder-width",
+                    "Swing arms back, then forward as you jump",
+                    "Explode upward, driving knees toward chest",
+                    "Land softly on box with both feet simultaneously",
+                    "Absorb impact by bending knees",
+                    "Stand up fully on box",
+                    "Step down carefully (don't jump down)",
+                    "Reset position for next jump",
+                    "Perform 3-5 sets of 5-8 reps",
+                    "Focus on quality over quantity",
+                    "Increase box height as you progress"
+                ],
+                benefits: ["Explosive power", "Vertical jump", "Coordination", "Fast-twitch fibers"],
+                equipment: "Plyo box"
+            },
+            {
+                id: 19,
+                name: "Russian Twists",
+                category: "calisthenics",
+                type: "type-calisthenics",
+                mets: 4.5,
+                calories: 135,
+                duration: "10-15 min",
+                intensity: "Moderate",
+                muscles: ["Obliques", "Rectus Abdominis", "Transverse Abdominis"],
+                description: "Rotational core exercise for developing oblique strength and rotational power.",
+                steps: [
+                    "Sit on floor, knees bent, feet flat",
+                    "Lean back until you feel core engage",
+                    "Lift feet off ground for advanced version",
+                    "Hold weight (medicine ball, plate, or no weight)",
+                    "Rotate torso to right, touching weight to floor",
+                    "Rotate to left, touching weight to floor",
+                    "Keep back straight, don't round shoulders",
+                    "Move with control, not momentum",
+                    "Breathe consistently throughout",
+                    "Perform 3-4 sets of 15-20 reps per side",
+                    "Increase weight or slow tempo for progression"
+                ],
+                benefits: ["Oblique strength", "Rotational power", "Core stability", "Spinal health"],
+                equipment: "Medicine ball or weight plate (optional)"
+            },
+            {
+                id: 20,
+                name: "Kettlebell Swings",
+                category: "functional",
+                type: "type-functional",
+                mets: 11.0,
+                calories: 330,
+                duration: "20-25 min",
+                intensity: "High",
+                muscles: ["Hamstrings", "Glutes", "Lower Back", "Core", "Shoulders"],
+                description: "Dynamic hip hinge movement that develops explosive power and posterior chain strength.",
+                steps: [
+                    "Stand with feet slightly wider than shoulders",
+                    "Hold kettlebell with both hands, arms extended",
+                    "Hinge at hips, push glutes back",
+                    "Swing kettlebell between legs (not a squat)",
+                    "Explosively drive hips forward",
+                    "Let momentum swing kettlebell to chest height",
+                    "Control descent, hinge hips back",
+                    "Keep arms relaxed, power from hips",
+                    "Maintain neutral spine throughout",
+                    "Breathe out on upswing, in on downswing",
+                    "Perform 3-5 sets of 15-25 reps",
+                    "Focus on hip snap, not arm pull"
+                ],
+                benefits: ["Explosive power", "Posterior chain", "Grip strength", "Cardiovascular"],
+                equipment: "Kettlebell"
+            },
+            {
+                id: 21,
+                name: "Battle Ropes",
+                category: "hiit",
+                type: "type-hiit",
+                mets: 12.5,
+                calories: 375,
+                duration: "15-20 min",
+                intensity: "High",
+                muscles: ["Shoulders", "Arms", "Core", "Back", "Legs"],
+                description: "High-intensity conditioning tool that builds upper body endurance and cardiovascular fitness.",
+                steps: [
+                    "Anchor rope securely, hold one end in each hand",
+                    "Assume athletic stance: knees bent, core engaged",
+                    "Create alternating waves by moving arms up and down",
+                    "Generate power from core and shoulders",
+                    "Keep rope ends moving continuously",
+                    "Maintain steady rhythm and pace",
+                    "Breathe consistently, don't hold breath",
+                    "Perform for 30 seconds maximum effort",
+                    "Rest 30 seconds between sets",
+                    "Complete 8-12 rounds",
+                    "Vary patterns: double waves, slams, circles"
+                ],
+                benefits: ["Upper body endurance", "Cardiovascular", "Core strength", "Grip endurance"],
+                equipment: "Battle ropes"
+            },
+            {
+                id: 22,
+                name: "Farmer's Walk",
+                category: "functional",
+                type: "type-functional",
+                mets: 7.0,
+                calories: 210,
+                duration: "15-20 min",
+                intensity: "Moderate-High",
+                muscles: ["Forearms", "Traps", "Core", "Legs", "Grip"],
+                description: "Simple yet extremely effective functional exercise for grip strength, core stability, and overall conditioning.",
+                steps: [
+                    "Pick up heavy dumbbells, kettlebells, or farmer's walk handles",
+                    "Stand tall with weights at sides",
+                    "Take deep breath, brace core",
+                    "Walk forward with purpose and control",
+                    "Maintain upright posture throughout",
+                    "Keep shoulders down and back",
+                    "Take normal strides, don't shuffle",
+                    "Walk for 30-50 meters or 30-60 seconds",
+                    "Set weights down carefully",
+                    "Rest 60-90 seconds between sets",
+                    "Complete 4-6 sets",
+                    "Increase weight or distance for progression"
+                ],
+                benefits: ["Grip strength", "Core stability", "Postural strength", "Functional fitness"],
+                equipment: "Heavy dumbbells or farmer's walk handles"
+            },
+            {
+                id: 23,
+                name: "Handstand Push-ups",
+                category: "calisthenics",
+                type: "type-calisthenics",
+                mets: 9.0,
+                calories: 270,
+                duration: "20-30 min",
+                intensity: "High",
+                muscles: ["Shoulders", "Triceps", "Upper Chest", "Core"],
+                description: "Advanced calisthenics movement for developing overhead pressing strength and body control.",
+                steps: [
+                    "Start with wall-assisted handstand",
+                    "Place hands shoulder-width, fingers spread",
+                    "Kick up to handstand position against wall",
+                    "Maintain straight body line: engaged core and glutes",
+                    "Lower head toward floor with control",
+                    "Keep elbows tracking forward, not flaring",
+                    "Push back up to full arm extension",
+                    "Breathe in on descent, out on ascent",
+                    "Start with 3-5 reps, 3-4 sets",
+                    "Use spotter or safety mats",
+                    "Progress to freestanding as strength improves"
+                ],
+                benefits: ["Shoulder strength", "Body control", "Core stability", "Advanced skill"],
+                equipment: "Wall, safety mats (optional)"
+            },
+            {
+                id: 24,
+                name: "Sled Push/Pull",
+                category: "functional",
+                type: "type-functional",
+                mets: 13.0,
+                calories: 390,
+                duration: "20-25 min",
+                intensity: "High",
+                muscles: ["Quadriceps", "Glutes", "Calves", "Core", "Shoulders"],
+                description: "Extreme conditioning exercise that builds full-body strength, power, and mental toughness.",
+                steps: [
+                    "Load sled with appropriate weight",
+                    "For push: place hands on handles, lean forward",
+                    "Drive through legs, maintain forward lean",
+                    "Take short, powerful steps",
+                    "Push for 20-40 meters maximum effort",
+                    "For pull: attach rope, face away from sled",
+                    "Walk forward, pulling sled behind",
+                    "Maintain forward lean, drive through legs",
+                    "Pull for 20-40 meters maximum effort",
+                    "Rest 60-90 seconds between sets",
+                    "Alternate push and pull for 4-6 sets each",
+                    "Focus on explosive power and endurance"
+                ],
+                benefits: ["Full-body strength", "Conditioning", "Mental toughness", "Sports performance"],
+                equipment: "Sled, weight plates"
+            },
+            {
+                id: 25,
+                name: "Dips",
+                category: "calisthenics",
+                type: "type-calisthenics",
+                mets: 5.0,
+                calories: 150,
+                duration: "15-25 min",
+                intensity: "Moderate-High",
+                muscles: ["Triceps", "Chest", "Shoulders"],
+                description: "Upper body pushing exercise that primarily targets triceps while engaging chest and shoulders.",
+                steps: [
+                    "Use parallel bars or dip station",
+                    "Jump up to support position: arms locked",
+                    "Lean forward slightly to engage chest",
+                    "Lower body by bending elbows",
+                    "Descend until shoulders below elbows (or comfortable depth)",
+                    "Keep elbows close to body, don't flare",
+                    "Push back up to starting position",
+                    "Breathe in on descent, out on ascent",
+                    "Perform 3-5 sets of 8-15 reps",
+                    "Add weight for progression",
+                    "Use assistance bands if needed"
+                ],
+                benefits: ["Tricep development", "Upper body strength", "Joint health", "Functional pushing"],
+                equipment: "Parallel bars or dip station"
+            },
+            {
+                id: 26,
+                name: "Turkish Get-ups",
+                category: "functional",
+                type: "type-functional",
+                mets: 8.5,
+                calories: 255,
+                duration: "20-30 min",
+                intensity: "High",
+                muscles: ["Full body integration", "Shoulders", "Core", "Legs", "Stability"],
+                description: "Complex full-body movement that builds strength, stability, coordination, and mobility.",
+                steps: [
+                    "Start lying on back, kettlebell in right hand",
+                    "Press kettlebell overhead, lock arm",
+                    "Bend right knee, foot flat on floor",
+                    "Roll to left elbow, then left hand",
+                    "Lift hips off floor (bridge position)",
+                    "Slide left leg back, kneel on left knee",
+                    "Lift torso to kneeling position",
+                    "Stand up from kneeling position",
+                    "Reverse sequence to return to floor",
+                    "Keep eyes on kettlebell throughout",
+                    "Perform 3-5 reps per side",
+                    "Focus on control and stability"
+                ],
+                benefits: ["Full-body integration", "Shoulder stability", "Core strength", "Functional movement"],
+                equipment: "Kettlebell"
+            },
+            {
+                id: 27,
+                name: "Rowing (Machine)",
+                category: "cardio",
+                type: "type-cardio",
+                mets: 8.5,
+                calories: 255,
+                duration: "20-30 min",
+                intensity: "High",
+                muscles: ["Back", "Legs", "Arms", "Core"],
+                description: "Full-body cardiovascular exercise that provides both strength and endurance benefits with low impact.",
+                steps: [
+                    "Set resistance appropriate for workout",
+                    "Start with legs extended, arms forward",
+                    "Drive back with legs (first 60% of power)",
+                    "Lean back slightly, engage core",
+                    "Pull handle to chest (remaining 40% of power)",
+                    "Return in reverse order: arms, torso, legs",
+                    "Maintain smooth, continuous motion",
+                    "Keep back straight, don't round shoulders",
+                    "Breathe consistently: exhale on drive, inhale on recovery",
+                    "Row for intervals: 500m hard, 2 minutes easy",
+                    "Complete 5-8 intervals",
+                    "Focus on leg drive over arm pull"
+                ],
+                benefits: ["Full-body workout", "Low impact", "Cardiovascular", "Back strength"],
+                equipment: "Rowing machine"
+            },
+            {
+                id: 28,
+                name: "Jump Rope",
+                category: "cardio",
+                type: "type-cardio",
+                mets: 12.3,
+                calories: 369,
+                duration: "15-20 min",
+                intensity: "High",
+                muscles: ["Calves", "Shoulders", "Forearms", "Core"],
+                description: "Highly efficient cardiovascular exercise that improves coordination, footwork, and endurance.",
+                steps: [
+                    "Choose appropriate rope length: step on center, handles to armpits",
+                    "Hold handles lightly, elbows close to body",
+                    "Jump just high enough to clear rope (1-2 inches)",
+                    "Land softly on balls of feet",
+                    "Keep wrists doing most of the work",
+                    "Maintain steady rhythm and pace",
+                    "Start with basic two-foot jumps",
+                    "Progress to variations: single leg, double unders, criss-cross",
+                    "Jump for 30 seconds on, 15 seconds off",
+                    "Complete 10-15 rounds",
+                    "Focus on consistency over speed initially"
+                ],
+                benefits: ["Cardiovascular fitness", "Coordination", "Footwork", "Portable equipment"],
+                equipment: "Jump rope"
+            },
+            {
+                id: 29,
+                name: "Pistol Squats",
+                category: "calisthenics",
+                type: "type-calisthenics",
+                mets: 7.5,
+                calories: 225,
+                duration: "20-30 min",
+                intensity: "High",
+                muscles: ["Quadriceps", "Glutes", "Core", "Balance"],
+                description: "Advanced unilateral squat that develops single-leg strength, balance, and mobility.",
+                steps: [
+                    "Stand on one leg, other leg extended forward",
+                    "Extend arms forward for balance",
+                    "Lower into squat on standing leg",
+                    "Keep extended leg straight and off floor",
+                    "Descend as low as flexibility allows",
+                    "Keep standing knee tracking over toes",
+                    "Maintain upright torso as much as possible",
+                    "Drive through heel to stand back up",
+                    "Use assistance (holding onto something) if needed",
+                    "Perform 3-5 sets of 3-8 reps per leg",
+                    "Focus on control and stability"
+                ],
+                benefits: ["Unilateral strength", "Balance", "Mobility", "Functional strength"],
+                equipment: "None (assistance: chair or pole optional)"
+            },
+            {
+                id: 30,
+                name: "Wind Sprints",
+                category: "hiit",
+                type: "type-hiit",
+                mets: 14.5,
+                calories: 218,
+                duration: "20-25 min",
+                intensity: "Extreme",
+                muscles: ["Quadriceps", "Hamstrings", "Calves", "Core"],
+                description: "Maximum intensity sprint intervals for developing speed, power, and anaerobic capacity.",
+                steps: [
+                    "Find flat, open area (track or field)",
+                    "Warm up thoroughly: 10 minutes dynamic stretching",
+                    "Mark distance: 100 meters",
+                    "Sprint 100 meters at absolute maximum speed",
+                    "Walk back to start slowly (active recovery)",
+                    "That's 1 round (sprint 100m, walk back)",
+                    "Complete 8-12 rounds",
+                    "Focus on form: knee drive, arm swing, forward lean",
+                    "Maintain maximum effort each sprint",
+                    "Rest 2-3 minutes between sets if doing multiple sets",
+                    "Cool down with 10 minutes light jogging and stretching"
+                ],
+                benefits: ["Maximum speed", "Anaerobic capacity", "Mental toughness", "Explosive power"],
+                equipment: "None"
+            }
+        ];
 
-document.querySelectorAll("#navLinks a").forEach(link=>{
-  link.onclick=()=>document.getElementById("navLinks").classList.remove("active");
-});
+        // Category mapping for CSS classes
+        const categoryMap = {
+            'cardio': 'type-cardio',
+            'strength': 'type-strength',
+            'hiit': 'type-hiit',
+            'functional': 'type-functional',
+            'calisthenics': 'type-calisthenics',
+            'flexibility': 'type-flexibility'
+        };
 
-const exercises=[
-{n:"Push-Ups",g:"muscle fat",c:50,s:["Plank position","Body straight","Lower chest","Push up"]},
-{n:"Squats",g:"muscle",c:55,s:["Feet shoulder width","Bend knees","Lower hips","Push upward"]},
-{n:"Lunges",g:"muscle",c:50,s:["Step forward","Lower knee","Push back","Switch legs"]},
-{n:"Plank",g:"fat muscle",c:40,s:["Elbows down","Straight body","Tight core","Hold"]},
-{n:"Crunches",g:"muscle",c:45,s:["Lie flat","Bend knees","Lift torso","Lower slowly"]},
-{n:"Jumping Jacks",g:"fat",c:90,s:["Stand straight","Jump legs out","Arms overhead","Return"]},
-{n:"Burpees",g:"fat muscle",c:100,s:["Squat","Plank","Push-up","Jump up"]},
-{n:"Mountain Climbers",g:"fat",c:95,s:["Plank position","Drive knee","Alternate fast","Maintain pace"]},
-{n:"High Knees",g:"fat",c:85,s:["Lift knees","Pump arms","Fast pace","Stay upright"]},
-{n:"Wall Sit",g:"muscle",c:40,s:["Back to wall","Lower hips","Hold position","Breathe"]},
-{n:"Yoga",g:"flex",c:40,s:["Controlled breathing","Basic poses","Hold posture","Relax muscles"]},
-{n:"Stretching",g:"flex",c:30,s:["Warm up","Stretch slowly","Hold 20 sec","Release"]},
-];
+        // Get intensity level based on METS
+        function getIntensityLevel(mets) {
+            if (mets < 4) return 'Low';
+            if (mets < 7) return 'Moderate';
+            if (mets < 10) return 'High';
+            return 'Extreme';
+        }
 
-// Auto-generate variations to reach 50
-while(exercises.length<50){
-  let e=exercises[exercises.length%12];
-  exercises.push({...e,n:e.n+" Variation"});
-}
+        // Get intensity color
+        function getIntensityColor(mets) {
+            if (mets < 4) return '#10b981'; // Green
+            if (mets < 7) return '#f59e0b'; // Yellow
+            if (mets < 10) return '#ef4444'; // Red
+            return '#dc2626'; // Dark red
+        }
 
-const grid=document.getElementById("exerciseGrid");
+        // Get icon based on category
+        function getCategoryIcon(category) {
+            const icons = {
+                'cardio': 'fas fa-running',
+                'strength': 'fas fa-dumbbell',
+                'hiit': 'fas fa-bolt',
+                'functional': 'fas fa-user-check',
+                'calisthenics': 'fas fa-user',
+                'flexibility': 'fas fa-spa'
+            };
+            return icons[category] || 'fas fa-dumbbell';
+        }
 
-function render(list){
-  grid.innerHTML="";
-  list.forEach(e=>{
-    grid.innerHTML+=`
-    <div class="exercise-card">
-      <span class="tag">${e.g.replaceAll(" "," + ")}</span>
-      <h3>${e.n}</h3>
-      <ol>${e.s.map(x=>`<li>${x}</li>`).join("")}</ol>
-      <div class="stats">
-        <b>Calories Burn:</b> ~${e.c} kcal / 10 min (avg)
-      </div>
-    </div>`;
-  });
-}
+        // Get primary muscle groups formatted
+        function getMuscleGroups(muscles) {
+            if (muscles.length <= 3) return muscles.join(', ');
+            return muscles.slice(0, 3).join(', ') + ', +' + (muscles.length - 3) + ' more';
+        }
 
-function filterExercises(goal){
-  if(goal==="all") return render(exercises);
-  render(exercises.filter(e=>e.g.includes(goal)));
-}
+        // Render exercise cards
+        function renderExerciseCards(exercises) {
+            const grid = document.getElementById('exerciseGrid');
+            grid.innerHTML = '';
+            
+            exercises.forEach(exercise => {
+                const intensity = getIntensityLevel(exercise.mets);
+                const intensityColor = getIntensityColor(exercise.mets);
+                const categoryClass = categoryMap[exercise.category] || 'type-functional';
+                const categoryIcon = getCategoryIcon(exercise.category);
+                const muscles = getMuscleGroups(exercise.muscles);
+                
+                const card = document.createElement('div');
+                card.className = 'exercise-card';
+                card.dataset.category = exercise.category;
+                card.dataset.intensity = intensity.toLowerCase();
+                card.dataset.name = exercise.name.toLowerCase();
+                
+                card.innerHTML = `
+                    <div class="exercise-header">
+                        <span class="exercise-type ${categoryClass}">
+                            <i class="${categoryIcon}"></i> ${exercise.category.toUpperCase()}
+                        </span>
+                        <h3 class="exercise-title">${exercise.name}</h3>
+                        <div class="exercise-stats">
+                            <div class="stat">
+                                <i class="fas fa-clock"></i> ${exercise.duration}
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-bullseye"></i> ${intensity}
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-fire"></i> ${exercise.calories} kcal
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-running"></i> ${exercise.mets.toFixed(1)} METS
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-body">
+                        <p class="exercise-description">
+                            ${exercise.description}
+                        </p>
+                        
+                        <div class="exercise-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Primary Muscles</span>
+                                <span class="meta-value">${muscles}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Intensity Level</span>
+                                <span class="meta-value" style="color: ${intensityColor}">
+                                    <i class="fas fa-tachometer-alt"></i> ${intensity}
+                                </span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Equipment Needed</span>
+                                <span class="meta-value">${exercise.equipment}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Main Benefits</span>
+                                <span class="meta-value">${exercise.benefits.slice(0, 2).join(', ')}</span>
+                            </div>
+                        </div>
+                        
+                        <h4 class="steps-title"><i class="fas fa-list-ol"></i> Step-by-Step Instructions:</h4>
+                        <ol class="steps-list">
+                            ${exercise.steps.map(step => `<li>${step}</li>`).join('')}
+                        </ol>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(59, 130, 246, 0.05); border-radius: var(--radius-md); border-left: 4px solid var(--primary);">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                                <i class="fas fa-check-circle" style="color: var(--secondary);"></i>
+                                <strong style="color: var(--text-primary);">Key Benefits:</strong>
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                ${exercise.benefits.map(benefit => `
+                                    <span style="background: rgba(16, 185, 129, 0.1); color: var(--secondary); padding: 4px 10px; border-radius: 15px; font-size: 13px; font-weight: 500;">
+                                        ${benefit}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-footer">
+                        <div class="calorie-burn">
+                            <i class="fas fa-fire"></i>
+                            <span>~${exercise.calories} kcal burn (${exercise.duration.split('-')[0]} min)</span>
+                        </div>
+                        <button class="btn btn-outline add-to-plan" 
+                                data-exercise='${JSON.stringify(exercise).replace(/'/g, "\\'")}'>
+                            <i class="fas fa-plus"></i> Add to Plan
+                        </button>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+            
+            updateStats(exercises);
+        }
 
-render(exercises);
-</script>
+        // Update statistics
+        function updateStats(exercises) {
+            document.getElementById('totalExercises').textContent = exercises.length;
+            
+            const avgCalories = exercises.reduce((sum, ex) => sum + ex.calories, 0) / exercises.length;
+            document.getElementById('avgCalories').textContent = Math.round(avgCalories);
+            
+            const categories = new Set(exercises.map(ex => ex.category));
+            document.getElementById('totalCategories').textContent = categories.size;
+            
+            const highIntensity = exercises.filter(ex => ex.mets >= 9).length;
+            document.getElementById('highIntensity').textContent = highIntensity;
+        }
 
+        // Filter exercises
+        function filterExercises() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const intensityFilter = document.getElementById('intensityFilter').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = exerciseData;
+            
+            // Filter by category
+            if (categoryFilter !== 'all') {
+                filtered = filtered.filter(ex => ex.category === categoryFilter);
+            }
+            
+            // Filter by intensity
+            if (intensityFilter !== 'all') {
+                filtered = filtered.filter(ex => {
+                    const intensity = getIntensityLevel(ex.mets).toLowerCase();
+                    return intensity === intensityFilter;
+                });
+            }
+            
+            // Filter by search
+            if (searchInput) {
+                filtered = filtered.filter(ex => 
+                    ex.name.toLowerCase().includes(searchInput) ||
+                    ex.description.toLowerCase().includes(searchInput) ||
+                    ex.muscles.some(muscle => muscle.toLowerCase().includes(searchInput)) ||
+                    ex.benefits.some(benefit => benefit.toLowerCase().includes(searchInput))
+                );
+            }
+            
+            renderExerciseCards(filtered);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial render
+            renderExerciseCards(exerciseData);
+            
+            // Setup filters
+            document.getElementById('categoryFilter').addEventListener('change', filterExercises);
+            document.getElementById('intensityFilter').addEventListener('change', filterExercises);
+            document.getElementById('searchInput').addEventListener('input', filterExercises);
+            
+            // Add to plan functionality
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.add-to-plan')) {
+                    const button = e.target.closest('.add-to-plan');
+                    const exercise = JSON.parse(button.dataset.exercise);
+                    
+                    // Update button
+                    button.innerHTML = '<i class="fas fa-check"></i> Added to Plan';
+                    button.className = 'btn btn-success';
+                    button.disabled = true;
+                    
+                    // Save to localStorage
+                    let workoutPlan = JSON.parse(localStorage.getItem('workoutPlan') || '[]');
+                    workoutPlan.push({
+                        id: exercise.id,
+                        name: exercise.name,
+                        category: exercise.category,
+                        duration: exercise.duration,
+                        calories: exercise.calories,
+                        addedAt: new Date().toISOString()
+                    });
+                    localStorage.setItem('workoutPlan', JSON.stringify(workoutPlan));
+                    
+                    // Show notification
+                    showNotification(`${exercise.name} added to your workout plan!`, 'success');
+                    
+                    // Update stats badge
+                    updatePlanBadge();
+                }
+            });
+            
+            // Initialize plan badge
+            updatePlanBadge();
+        });
+
+        // Theme Management
+        const themeSwitch = document.getElementById('themeSwitch');
+        const html = document.documentElement;
+
+        // Load saved theme or detect OS preference
+        const savedTheme = localStorage.getItem('fitsphere-theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        html.setAttribute('data-theme', savedTheme);
+
+        // Toggle theme
+        themeSwitch.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('fitsphere-theme', newTheme);
+        });
+
+        // Mobile Menu
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? 'var(--secondary)' : 'var(--danger)';
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${bgColor};
+                color: white;
+                padding: 15px 25px;
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-lg);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                max-width: 400px;
+            `;
+            
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+            
+            // Add animation styles if not already present
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Update plan badge
+        function updatePlanBadge() {
+            const workoutPlan = JSON.parse(localStorage.getItem('workoutPlan') || '[]');
+            const planCount = workoutPlan.length;
+            
+            // Find or create badge
+            let badge = document.querySelector('.plan-badge');
+            const exerciseLink = document.querySelector('a[href="exercise.html"]');
+            
+            if (!badge && planCount > 0 && exerciseLink) {
+                badge = document.createElement('span');
+                badge.className = 'plan-badge';
+                badge.style.cssText = `
+                    position: absolute;
+                    top: -8px;
+                    right: -8px;
+                    background: var(--danger);
+                    color: white;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    font-size: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                `;
+                exerciseLink.style.position = 'relative';
+                exerciseLink.appendChild(badge);
+            }
+            
+            if (badge) {
+                badge.textContent = planCount;
+                badge.style.display = planCount > 0 ? 'flex' : 'none';
+            }
+        }
+
+        // Quick search hotkey
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+        });
+    </script>
 </body>
 </html>
-
-
