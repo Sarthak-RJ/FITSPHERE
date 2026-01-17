@@ -800,6 +800,48 @@
             color: var(--text-muted);
             font-size: 13px;
         }
+@media (max-width: 1024px) {
+  .container { padding: 0 16px; }
+  .plan-cards { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .form-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .page-title { font-size: 28px; }
+}
+
+@media (max-width: 768px) {
+  .menu-toggle { display: block; }
+  .nav-links {
+    position: fixed; top: 70px; left: 0; width: 100%;
+    background: var(--bg-header); flex-direction: column;
+    padding: 20px; gap: 0; box-shadow: var(--shadow-lg);
+    transform: translateY(-100%); opacity: 0; visibility: hidden;
+    transition: var(--transition);
+  }
+  .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; }
+  .nav-link { width: 100%; padding: 15px; border-radius: 0; border-bottom: 1px solid var(--border); }
+  .planner-form { padding: 30px 20px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .day-navigation { flex-direction: column; gap: 20px; text-align: center; }
+  .plan-cards { grid-template-columns: 1fr; }
+  .card-header { flex-direction: column; gap: 12px; text-align: center; }
+  .directory-header { flex-direction: column; gap: 20px; text-align: center; }
+  .print-actions, .nav-buttons, .header-content { flex-direction: column; gap: 12px; }
+  .balance-stats { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  .page-title { font-size: 24px; }
+  .main-content { padding: 20px 0; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 12px; }
+  .planner-form { padding: 20px 16px; }
+  .plan-card { padding: 20px; }
+  .btn { padding: 12px 24px; font-size: 15px; }
+  .day-title { font-size: 18px; }
+  .form-group input, .form-group select { padding: 12px 14px; font-size: 15px; }
+  .meal-item, .exercise-item { flex-direction: column; gap: 8px; text-align: center; }
+  .meal-calories, .exercise-burn { margin-right: 0; }
+  .cuisine-badges { justify-content: center; }
+  .stat-number { font-size: 24px; }
+}
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
@@ -3033,3 +3075,4 @@
     </script>   
 </body>
 </html>
+
